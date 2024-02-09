@@ -81,5 +81,5 @@ function DotContainer({ children }: IDotContainerProps) {
 }
 
 function Dot({ x, y }: IDotProps) {
-  return <circle r='6' cx={x} cy={y} fill='black' />;
+  return <circle r='6' cx={x} cy={y} className='fill-primary' />;
 }
