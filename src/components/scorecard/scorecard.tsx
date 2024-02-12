@@ -8,6 +8,7 @@ import {
 import ScorecardTable from './scorecard-table';
 import useGameStateStore from '@/stores/gameState';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 interface IProps {
   children: React.ReactNode;
@@ -24,7 +25,7 @@ export default function Scorecard({ children }: IProps) {
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+      transition={{ duration: 0.4, delay: 0.15 }}
     >
       <Accordion className='' type='single' value={accordionValue} collapsible>
         <AccordionItem value='scorecard'>
