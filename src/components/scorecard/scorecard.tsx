@@ -22,9 +22,9 @@ export default function Scorecard({ children }: IProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }} // Initial position below
-      animate={{ opacity: 1, y: 0 }} // Final position
-      transition={{ duration: 0.5, delay: 0.2 }} // Animation duration and delay
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
     >
       <Accordion className='' type='single' value={accordionValue} collapsible>
         <AccordionItem value='scorecard'>
