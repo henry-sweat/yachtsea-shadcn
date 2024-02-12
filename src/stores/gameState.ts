@@ -58,7 +58,6 @@ const useGameStateStore = create<IGameState>((set) => ({
 
           if (userHasSelectedPoints) {
             updateRoundCounter();
-            setUserHasSelectedPoints(false);
           }
 
           setDiceAreRolling(true);
@@ -87,6 +86,10 @@ const useGameStateStore = create<IGameState>((set) => ({
                   ? resetScorecardWithNewDice(newDice, scorecard)
                   : updateScorecardForLatestRoll(newDice, scorecard);
 
+              if (userHasSelectedPoints) {
+                setUserHasSelectedPoints(false);
+              } // prevent clicking points during roll animation
+
               if (userHasSelectedPoints && roundCounter === 13) {
                 setTotals(generateInitialTotalsState());
                 setScorecard(newScorecard);
@@ -110,7 +113,7 @@ const useGameStateStore = create<IGameState>((set) => ({
         return {};
       }),
     updateGameStateForPointsClicked: (indexOfClickedRow) =>
-      set(({ roundCounter, dice, scorecard, actions, setters }) => {
+      set(({ dice, scorecard, actions, setters }) => {
         const { updateTotals } = actions;
         const { setDice, setScorecard, setUserHasSelectedPoints } = setters;
 
