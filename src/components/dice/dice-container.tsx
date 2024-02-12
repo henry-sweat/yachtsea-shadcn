@@ -1,71 +1,46 @@
+'use client';
+
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { shakeAnimation } from '@/lib/motion';
+import useGameStateStore, { useGameActions } from '@/stores/gameState';
 import Die from './die';
+import { IDie } from '@/types';
 
-const diceIndexes = [1, 2, 3, 4, 5];
+const diceStateIndices = [0, 1, 2, 3, 4];
 
-const shift = 6;
-// Animation variants for shaking
-const shakeAnimation: Variants = {
-  shake1: {
-    x: [0, -shift, shift, shift, 0, -shift, shift, -shift, 0, 0],
-    y: [0, 0, 0, -shift, shift, -shift, 0, shift, 0, -shift],
-    transition: {
-      repeat: Infinity, // Indicate the animation should repeat indefinitely
-      duration: 0.5, // Duration of one cycle of the animation
-      repeatType: 'loop', // Ensures the animation loops
-    },
-  },
-  shake2: {
-    x: [0, 0, -shift, shift, 0, 0, -shift, 0, 0, 0],
-    y: [0, shift, 0, 0, -shift, shift, 0, shift, -shift, 0],
-    transition: {
-      repeat: Infinity, // Indicate the animation should repeat indefinitely
-      duration: 0.5, // Duration of one cycle of the animation
-      repeatType: 'loop', // Ensures the animation loops
-    },
-  },
-  shake3: {
-    x: [0, shift, 0, shift, -shift, 0, -shift, shift, 0, -shift],
-    y: [0, -shift, shift, 0, 0, -shift, shift, 0, shift, 0],
-    transition: {
-      repeat: Infinity,
-      duration: 0.5,
-      repeatType: 'loop',
-    },
-  },
-  shake4: {
-    x: [0, shift, 0, 0, -shift, shift, 0, shift, -shift, 0],
-    y: [0, 0, -shift, shift, 0, 0, -shift, 0, 0, 0],
-    transition: {
-      repeat: Infinity,
-      duration: 0.5,
-      repeatType: 'loop',
-    },
-  },
-  shake5: {
-    x: [0, -shift, 0, -shift, shift, shift, 0, shift, 0, 0],
-    y: [0, 0, shift, -shift, 0, -shift, shift, 0, shift, -shift],
-    transition: {
-      repeat: Infinity,
-      duration: 0.5,
-      repeatType: 'loop',
-    },
-  },
-};
+export default function DiceContainer() {
+  const dice = useGameStateStore((state) => state.dice);
+  const rollCounter = useGameStateStore((state) => state.rollCounter);
+  const diceAreRolling = useGameStateStore((state) => state.diceAreRolling);
+  const { updateDiceStateForDieClicked } = useGameActions();
 
-interface IProps {
-  diceValue: number[];
-  isRolling: boolean;
-}
+  function handleDieClicked(e) {
+    if (rollCounter === 3 || rollCounter === 0) {
+      return;
+    }
+    const clickedElement = e.target as Element;
+    const die = clickedElement?.closest('.die-container');
+    const indexOfClickedDie = Number(die?.id.slice(4)) - 1;
+    updateDiceStateForDieClicked(indexOfClickedDie);
+  }
 
-export default function DiceContainer({ diceValue, isRolling }: IProps) {
   return (
-    <ToggleGroup className='space-x-2' type='multiple' variant='outline'>
-      {diceIndexes.map((idx) => (
+    <ToggleGroup
+      className='space-x-2'
+      type='multiple'
+      value={returnIndexesOfSelectedDice(dice)}
+      variant='outline'
+    >
+      {diceStateIndices.map((diceStateIndex) => (
         <motion.div
-          key={`key-${idx}`}
-          animate={isRolling ? `shake${diceIndexes[idx - 1]}` : ''}
+          key={`key-${diceStateIndex}`}
+          initial={rollCounter > 0 ? false : { opacity: 0, scale: 0.5 }}
+          animate={
+            diceAreRolling && !dice[diceStateIndex].isSelected
+              ? `shake${diceStateIndex + 1}`
+              : 'default'
+          }
           variants={shakeAnimation}
           whileHover={{
             scale: 1.08,
@@ -89,14 +64,22 @@ export default function DiceContainer({ diceValue, isRolling }: IProps) {
           }}
         >
           <ToggleGroupItem
-            className='w-16 h-16 px-0 bg-primary-foreground'
-            value={idx.toString()}
-            aria-label={`Toggle ${idx}`}
+            id={dice[diceStateIndex].id}
+            className='die-container w-16 h-16 px-0 bg-primary-foreground'
+            value={diceStateIndex.toString()}
+            aria-label={`Toggle ${diceStateIndex}`}
+            onClick={handleDieClicked}
           >
-            <Die value={diceValue[idx - 1]} />
+            <Die diceStateIndex={diceStateIndex} />
           </ToggleGroupItem>
         </motion.div>
       ))}
     </ToggleGroup>
   );
+}
+
+function returnIndexesOfSelectedDice(diceState: IDie[]): string[] {
+  return diceState
+    .map((die, idx) => (die.isSelected ? idx.toString() : ''))
+    .filter((die) => die.length > 0);
 }

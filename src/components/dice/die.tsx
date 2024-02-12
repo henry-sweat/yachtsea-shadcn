@@ -1,5 +1,7 @@
+import useGameStateStore from '@/stores/gameState';
+
 interface IDieProps {
-  value: number;
+  diceStateIndex: number;
 }
 
 interface IDotContainerProps {
@@ -62,7 +64,11 @@ const dotCoordinates: IDotCoordinates = new Map([
   ],
 ]);
 
-export default function Die({ value }: IDieProps) {
+export default function Die({ diceStateIndex }: IDieProps) {
+  const dice = useGameStateStore((state) => state.dice);
+
+  const value = dice[diceStateIndex].value;
+
   return (
     <DotContainer>
       {(dotCoordinates.get(value) || []).map((dot) => (
