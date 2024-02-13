@@ -8,7 +8,6 @@ import {
 import ScorecardTable from './scorecard-table';
 import useGameStateStore from '@/stores/gameState';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 
 interface IProps {
   children: React.ReactNode;
@@ -38,7 +37,7 @@ export default function Scorecard({ children }: IProps) {
                 <RoundCounter />
               </div>
               <ScorecardTable />
-              <GrandTotalCaption />
+              <GrandTotal />
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -57,7 +56,7 @@ function RoundCounter() {
   return <h3>Round {roundCounter} /13</h3>;
 }
 
-function GrandTotalCaption() {
+function GrandTotal() {
   const totals = useGameStateStore((state) => state.totals);
   return (
     <p className='text-muted-foreground'>

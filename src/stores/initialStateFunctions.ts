@@ -5,6 +5,7 @@ import type {
   IScorecardYachtseaBonus,
   IDie,
   ITotals,
+  IYachtseaBonusOptions,
 } from '@/types';
 
 export function generateInitialScorecardState(): IScorecard {
@@ -49,5 +50,24 @@ function generateScorecardRowsState(
 function generateYachtseaBonusState(): IScorecardYachtseaBonus {
   return {
     numberOfBonuses: 0,
+    yachtseaBonusOptions: generateInitialYachtseaBonusOptionState(),
   };
+}
+
+export function generateInitialYachtseaBonusOptionState(): IYachtseaBonusOptions {
+  return [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ];
 }

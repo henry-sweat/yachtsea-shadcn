@@ -1,9 +1,22 @@
 import type { IDie, PotentialPointsFn } from '@/types';
 
-export function checkForMatchingNumbers(numberOfMatches: number): PotentialPointsFn {
-  return (diceValues): number => {
+export function checkForMatchingNumbers(
+  numberOfMatches: number
+): PotentialPointsFn {
+  return (diceValues, isYachtseaBonusOption): number => {
+    // override 3OAK and 4OAK potential points when not a yachtsea bonus option
+    if (
+      numberOfMatches !== 5 &&
+      checkForYachtseaFn(diceValues) &&
+      !isYachtseaBonusOption
+    ) {
+      return 0;
+    }
+
     const valueCounts = generateDiceValueCountObject(diceValues);
-    const maxCount: number = Math.max(...Object.values(valueCounts).map((value) => Number(value)));
+    const maxCount: number = Math.max(
+      ...Object.values(valueCounts).map((value) => Number(value))
+    );
 
     if (numberOfMatches === 3 && maxCount >= 3) {
       return sumOfDiceValues(diceValues);
@@ -18,7 +31,10 @@ export function checkForMatchingNumbers(numberOfMatches: number): PotentialPoint
 }
 
 export function checkForFullHouse(): PotentialPointsFn {
-  return (diceValues): number => {
+  return (diceValues, isYachtseaBonusOption): number => {
+    // joker override for yachtseaBonus
+    if (isYachtseaBonusOption) return 25;
+
     let has2OfAKind = false;
     let has3OfAKind = false;
 
@@ -42,7 +58,16 @@ export function checkForFullHouse(): PotentialPointsFn {
 }
 
 export function checkForStraight(lengthOfSequence: number): PotentialPointsFn {
-  return (diceValues): number => {
+  return (diceValues, isYachtseaBonusOption): number => {
+    // joker override for yachtseaBonus
+    if (isYachtseaBonusOption) {
+      if (lengthOfSequence === 4) {
+        return 30;
+      } else if (lengthOfSequence === 5) {
+        return 40;
+      }
+    }
+
     const values = sortAndRemoveDuplicates(diceValues);
 
     if (lengthOfSequence === 4) {
@@ -56,7 +81,7 @@ export function checkForStraight(lengthOfSequence: number): PotentialPointsFn {
         }
       }
       return 0;
-    } else if (lengthOfSequence === 5) {
+    } else {
       if (
         values[1] === values[0] + 1 &&
         values[2] === values[0] + 2 &&

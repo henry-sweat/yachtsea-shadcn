@@ -74,3 +74,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* css for yachtsea bonus pulse animation */
+@keyframes background-pulse {
+  0%,
+  100% {
+    background-color: #f8fafc;
+  }
+  50% {
+    background-color: #e5e7eb;
+  }
+}
+
+.bg-pulse {
+  animation: background-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

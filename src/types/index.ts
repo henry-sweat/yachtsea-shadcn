@@ -47,6 +47,7 @@ export interface IScorecardRow {
 
 export interface IScorecardYachtseaBonus {
   numberOfBonuses: number;
+  yachtseaBonusOptions: IYachtseaBonusOptions;
 }
 
 export interface IDie {
@@ -64,7 +65,12 @@ export interface ITotals {
   grandTotal: number;
 }
 
-export type PotentialPointsFn = (diceValues: IDie[]) => number;
+export type IYachtseaBonusOptions = boolean[];
+
+export type PotentialPointsFn = (
+  diceValues: IDie[],
+  isYachtseaBonusOption?: boolean
+) => number;
 
 // PROP TYPES
 

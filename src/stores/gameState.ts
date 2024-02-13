@@ -3,6 +3,7 @@ import {
   generateInitialDiceValuesState,
   generateInitialScorecardState,
   generateInitialTotalsState,
+  generateInitialYachtseaBonusOptionState,
 } from '@/stores/initialStateFunctions';
 import { checkForYachtseaFn } from '@/lib/potentialPointsFunctions';
 import {
@@ -12,6 +13,7 @@ import {
   IDie,
   ITotals,
   IUser,
+  IYachtseaBonusOptions,
 } from '@/types';
 
 const useGameStateStore = create<IGameState>((set) => ({
@@ -122,6 +124,10 @@ const useGameStateStore = create<IGameState>((set) => ({
         newScorecard.rows[indexOfClickedRow].earnedPoints =
           newScorecard.rows[indexOfClickedRow].potentialPoints;
 
+        // clear yachtsea bonus options
+        newScorecard.yachtseaBonus.yachtseaBonusOptions =
+          generateInitialYachtseaBonusOptionState();
+
         let newDice: IDie[] = selectAllDice(dice);
 
         setDice(newDice);
@@ -224,7 +230,10 @@ function resetScorecardWithNewDice(
         potentialPointsFunction: row.potentialPointsFunction,
       })
     ),
-    yachtseaBonus: { numberOfBonuses: 0 },
+    yachtseaBonus: {
+      numberOfBonuses: 0,
+      yachtseaBonusOptions: generateInitialYachtseaBonusOptionState(),
+    },
   };
 }
 
@@ -232,15 +241,23 @@ function updateScorecardForLatestRoll(
   newDice: IDie[],
   oldScorecard: IScorecard
 ): IScorecard {
+  const newYachtseaBonusOptions =
+    checkForYachtseaFn(newDice) && oldScorecard.rows[11].earnedPoints === 50
+      ? updateYachtseaBonusOptionsForYachtsea(newDice, oldScorecard)
+      : oldScorecard.yachtseaBonus.yachtseaBonusOptions;
+
   return {
-    rows: oldScorecard.rows.map((row): IScorecardRow => {
+    rows: oldScorecard.rows.map((row, idx): IScorecardRow => {
       if (row.earnedPoints >= 0) {
         return row;
       } else {
         return {
           id: row.id,
           earnedPoints: row.earnedPoints,
-          potentialPoints: row.potentialPointsFunction(newDice),
+          potentialPoints: row.potentialPointsFunction(
+            newDice,
+            newYachtseaBonusOptions[idx]
+          ),
           potentialPointsFunction: row.potentialPointsFunction,
         };
       }
@@ -253,6 +270,7 @@ function updateScorecardForLatestRoll(
             ? 1
             : 0
           : 0),
+      yachtseaBonusOptions: newYachtseaBonusOptions,
     },
   };
 }
@@ -296,6 +314,44 @@ function calculateLowerSectionTotalsWithScorecard(scorecard: IScorecard) {
   return [yachtseaBonus, lowerSectionTotal];
 }
 
+function updateYachtseaBonusOptionsForYachtsea(
+  newDice: IDie[],
+  oldScorecard: IScorecard
+): IYachtseaBonusOptions {
+  const yachtseaNumber = newDice[0].value;
+  const scorecardRowIndex = yachtseaNumber - 1;
+  const newYachtseaBonusOptions = [
+    ...oldScorecard.yachtseaBonus.yachtseaBonusOptions,
+  ];
+
+  if (!oldScorecard.rows[scorecardRowIndex].earnedPoints) {
+    newYachtseaBonusOptions[scorecardRowIndex] = true;
+  } else {
+    let lowerSectionIsOpen = false;
+    const lowerSectionIndexes = [6, 7, 8, 9, 10, 11, 12];
+    lowerSectionIndexes.forEach((scorecardRowIndex) => {
+      if (!oldScorecard.rows[scorecardRowIndex].earnedPoints) {
+        newYachtseaBonusOptions[scorecardRowIndex] = true;
+        if (!lowerSectionIsOpen) {
+          lowerSectionIsOpen = true;
+        }
+      }
+    });
+
+    if (!lowerSectionIsOpen) {
+      const upperSectionIndexes = [0, 1, 2, 3, 4, 5];
+      upperSectionIndexes.forEach((scorecardRowIndex) => {
+        if (!oldScorecard.rows[scorecardRowIndex].earnedPoints) {
+          newYachtseaBonusOptions[scorecardRowIndex] = true;
+        }
+      });
+    }
+  }
+
+  return newYachtseaBonusOptions;
+}
+
 function rollSixSidedDie(): number {
-  return Math.ceil(Math.random() * 6);
+  // return Math.ceil(Math.random() * 6);
+  return 6;
 }

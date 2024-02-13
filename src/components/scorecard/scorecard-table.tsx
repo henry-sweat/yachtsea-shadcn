@@ -47,7 +47,11 @@ export default function ScorecardTable() {
           <ScoreRow category={'Full Haus'} scorecardStateIndex={8} />
           <ScoreRow category={'Sm. Str.'} scorecardStateIndex={9} />
           <ScoreRow category={'Lg. Str.'} scorecardStateIndex={10} />
-          <ScoreRow category={'Yachtsea'} scorecardStateIndex={11} />
+          <ScoreRow
+            category={'Yachtsea'}
+            scorecardStateIndex={11}
+            isYachtsea={true}
+          />
           <ScoreRow category={'Chance'} scorecardStateIndex={12} />
           <TotalRow
             category={'Lower Total'}
