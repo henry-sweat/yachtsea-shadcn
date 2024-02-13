@@ -40,9 +40,9 @@ export function checkForFullHouse(): PotentialPointsFn {
 
     const valueCounts = generateDiceValueCountObject(diceValues);
     Object.keys(valueCounts).forEach((key) => {
-      if (valueCounts[key] === 2) {
+      if (valueCounts[Number(key)] === 2) {
         has2OfAKind = true;
-      } else if (valueCounts[key] === 3) {
+      } else if (valueCounts[Number(key)] === 3) {
         has3OfAKind = true;
       } else {
         return;
@@ -111,8 +111,12 @@ export function sumOfDiceValues(diceValues: IDie[]): number {
   return diceValues.reduce((sum, die) => sum + die.value, 0);
 }
 
-function generateDiceValueCountObject(diceValues: IDie[]): Object {
-  return diceValues.reduce((acc, die) => {
+interface IDiceValueCount {
+  [key: number]: number;
+}
+
+function generateDiceValueCountObject(diceValues: IDie[]): IDiceValueCount {
+  return diceValues.reduce((acc: IDiceValueCount, die) => {
     acc[die.value] = (acc[die.value] || 0) + 1;
     return acc;
   }, {});
