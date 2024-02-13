@@ -15,7 +15,9 @@ export default function DiceContainer() {
   const diceAreRolling = useGameStateStore((state) => state.diceAreRolling);
   const { updateDiceStateForDieClicked } = useGameActions();
 
-  function handleDieClicked(e) {
+  function handleDieClicked(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
     if (rollCounter === 3 || rollCounter === 0) {
       return;
     }
