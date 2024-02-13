@@ -1,5 +1,7 @@
+import { ITotals } from '@/types';
 import { TableRow, TableCell } from '../ui/table';
 import useGameStateStore, { useGameActions } from '@/stores/gameState';
+import { MouseEventHandler } from 'react';
 
 interface IScoreRowProps {
   category: string;
@@ -19,7 +21,9 @@ export function ScoreRow({
   );
   const { updateGameStateForPointsClicked } = useGameActions();
 
-  function handlePointsClicked(e) {
+  function handlePointsClicked(
+    e: React.MouseEvent<HTMLTableRowElement, MouseEvent>
+  ) {
     if (rollCounter === 0 || userHasSelectedPoints) {
       return;
     }
@@ -29,7 +33,9 @@ export function ScoreRow({
     updateGameStateForPointsClicked(indexOfClickedRow);
   }
 
-  return scorecard.rows[scorecardStateIndex].earnedPoints >= 0 ? (
+  const earnedPoints = scorecard.rows[scorecardStateIndex]?.earnedPoints ?? -1;
+
+  return earnedPoints >= 0 ? (
     isYachtsea ? (
       <TableRow
         id={`score-row-${11}`}
@@ -38,8 +44,7 @@ export function ScoreRow({
       >
         <TableCell className='font-medium'>{'Yachtsea'}</TableCell>
         <TableCell className='text-right font-bold'>
-          {scorecard.rows[11].earnedPoints +
-            scorecard.yachtseaBonus.numberOfBonuses * 100}
+          {earnedPoints + scorecard.yachtseaBonus.numberOfBonuses * 100}
         </TableCell>
       </TableRow>
     ) : (
@@ -75,7 +80,7 @@ export function ScoreRow({
 
 interface ITotalRowProps {
   category: string;
-  totalsStateProperty: string;
+  totalsStateProperty: keyof ITotals;
 }
 
 export function TotalRow({ category, totalsStateProperty }: ITotalRowProps) {
@@ -92,7 +97,7 @@ export function TotalRow({ category, totalsStateProperty }: ITotalRowProps) {
 }
 
 interface ITotalCellProps {
-  totalsStateProperty: string;
+  totalsStateProperty: keyof ITotals;
 }
 
 function TotalCell({ totalsStateProperty }: ITotalCellProps) {

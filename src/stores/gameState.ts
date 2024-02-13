@@ -248,7 +248,8 @@ function updateScorecardForLatestRoll(
 
   return {
     rows: oldScorecard.rows.map((row, idx): IScorecardRow => {
-      if (row.earnedPoints >= 0) {
+      const earnedPoints = row?.earnedPoints ?? -1;
+      if (earnedPoints >= 0) {
         return row;
       } else {
         return {
@@ -293,8 +294,9 @@ function calculateTotalsWithScorecard(scorecard: IScorecard): ITotals {
 function calculateUpperSectionTotalsWithScorecard(scorecard: IScorecard) {
   const upperSectionIndexes = [0, 1, 2, 3, 4, 5];
   const upperSectionSubtotal = upperSectionIndexes.reduce((acc, idx) => {
-    if (scorecard.rows[idx].earnedPoints >= 0) {
-      return acc + scorecard.rows[idx].earnedPoints;
+    const earnedPoints = scorecard?.rows[idx].earnedPoints ?? -1;
+    if (earnedPoints >= 0) {
+      return acc + earnedPoints;
     } else return acc;
   }, 0);
   const upperSectionBonus = upperSectionSubtotal >= 63 ? 35 : 0;
@@ -305,8 +307,9 @@ function calculateUpperSectionTotalsWithScorecard(scorecard: IScorecard) {
 function calculateLowerSectionTotalsWithScorecard(scorecard: IScorecard) {
   const lowerSectionIndexes = [6, 7, 8, 9, 10, 11, 12];
   const lowerSectionSubtotal = lowerSectionIndexes.reduce((acc, idx) => {
-    if (scorecard.rows[idx].earnedPoints >= 0) {
-      return acc + scorecard.rows[idx].earnedPoints;
+    const earnedPoints = scorecard?.rows[idx].earnedPoints ?? -1;
+    if (earnedPoints >= 0) {
+      return acc + earnedPoints;
     } else return acc;
   }, 0);
   const yachtseaBonus = scorecard.yachtseaBonus.numberOfBonuses * 100;
@@ -352,6 +355,5 @@ function updateYachtseaBonusOptionsForYachtsea(
 }
 
 function rollSixSidedDie(): number {
-  // return Math.ceil(Math.random() * 6);
-  return 6;
+  return Math.ceil(Math.random() * 6);
 }
