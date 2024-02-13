@@ -4,7 +4,7 @@ export function checkForMatchingNumbers(
   numberOfMatches: number
 ): PotentialPointsFn {
   return (diceValues, isYachtseaBonusOption): number => {
-    // override 3OAK and 4OAK potential points when not a yachtsea bonus option
+    // override 3ofaKind and 4ofaKind potential points when row is not a yachtsea bonus option
     if (
       numberOfMatches !== 5 &&
       checkForYachtseaFn(diceValues) &&
