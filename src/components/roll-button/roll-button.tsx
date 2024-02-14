@@ -2,6 +2,7 @@
 
 import { useGameActions } from '@/stores/gameState';
 import { Button } from '../ui/button';
+import { motion } from 'framer-motion';
 
 export default function RollButton() {
   const { updateGameStateForRollButtonClicked } = useGameActions();
@@ -11,13 +12,20 @@ export default function RollButton() {
   };
 
   return (
-    <Button
-      className='w-auto text-md'
-      onClick={rollDice}
-      size={'lg'}
-      variant='default'
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.15 }}
+      className=''
     >
-      Roll
-    </Button>
+      <Button
+        className='w-full text-md'
+        onClick={rollDice}
+        size={'lg'}
+        variant='default'
+      >
+        Roll
+      </Button>
+    </motion.div>
   );
 }
