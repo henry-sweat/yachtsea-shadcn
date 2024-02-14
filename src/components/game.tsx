@@ -4,12 +4,11 @@ import RollButton from './roll-button/roll-button';
 
 export default function Game() {
   return (
-    <div className='flex flex-col max-w-lg h-[565px]'>
+    <div className='space-y-4 space-y-reverse flex flex-col flex-col-reverse max-w-lg h-[565px]'>
+      <RollButton />
       <DiceContainer />
 
-      <Scorecard>
-        <RollButton />
-      </Scorecard>
+      <Scorecard />
     </div>
   );
 }
