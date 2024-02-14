@@ -11,7 +11,7 @@ export default function RollButton() {
   };
 
   return (
-    <Button className='w-auto flex-1 my-2' onClick={rollDice} variant='default'>
+    <Button className='w-auto' onClick={rollDice} variant='default'>
       Roll
     </Button>
   );

@@ -13,7 +13,7 @@ interface IProps {
   children: React.ReactNode;
 }
 
-export default function Scorecard({ children }: IProps) {
+export default function Scorecard() {
   const scorecardAccordionIsOpen = useGameStateStore(
     (state) => state.scorecardAccordionIsOpen
   );
@@ -28,7 +28,7 @@ export default function Scorecard({ children }: IProps) {
     >
       <Accordion className='' type='single' value={accordionValue} collapsible>
         <AccordionItem value='scorecard'>
-          <div className='flex items-center py-2'>{children}</div>
+          <div className='flex items-center py-2'></div>
 
           <AccordionContent>
             <div className='flex flex-col items-center justify-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
