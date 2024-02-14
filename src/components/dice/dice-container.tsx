@@ -37,7 +37,7 @@ export default function DiceContainer() {
       {diceStateIndices.map((diceStateIndex) => (
         <motion.div
           key={`key-${diceStateIndex}`}
-          initial={rollCounter > 0 ? false : { opacity: 0, scale: 0.5 }}
+          initial={rollCounter > 0 ? false : { opacity: 0, y: 50 }}
           animate={
             diceAreRolling && !dice[diceStateIndex].isSelected
               ? `shake${diceStateIndex + 1}`
