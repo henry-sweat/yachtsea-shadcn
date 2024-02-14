@@ -29,7 +29,7 @@ export default function DiceContainer() {
 
   return (
     <ToggleGroup
-      className='space-x-2'
+      className='gap-2 justify-between'
       type='multiple'
       value={returnIndexesOfSelectedDice(dice)}
       variant='outline'
