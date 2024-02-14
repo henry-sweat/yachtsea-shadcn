@@ -11,7 +11,12 @@ export default function RollButton() {
   };
 
   return (
-    <Button className='w-auto' onClick={rollDice} variant='default'>
+    <Button
+      className='w-auto text-md'
+      onClick={rollDice}
+      size={'lg'}
+      variant='default'
+    >
       Roll
     </Button>
   );
