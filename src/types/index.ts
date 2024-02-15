@@ -1,4 +1,7 @@
+import type { Session, User } from 'next-auth';
+
 export interface IGameState {
+  user: undefined | null | User;
   rollCounter: number;
   roundCounter: number;
   diceAreRolling: boolean;
@@ -14,6 +17,7 @@ export interface IGameState {
     updateTotals: (scorecard: IScorecard) => void;
     updateRollCounter: () => void;
     updateRoundCounter: () => void;
+    updateUser: (session: Session | null) => void;
   };
   setters: {
     setRollCounter: (nextRoll: number) => void;
@@ -24,13 +28,8 @@ export interface IGameState {
     setScorecard: (newScorecard: IScorecard) => void;
     setTotals: (newTotals: ITotals) => void;
     setUserHasSelectedPoints: (bool: boolean) => void;
+    setUser: (newUser: User | null) => void;
   };
-}
-
-export interface IUser {
-  name?: string;
-  email?: string;
-  image?: string;
 }
 
 export interface IScorecard {
