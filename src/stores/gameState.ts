@@ -14,7 +14,6 @@ import {
   ITotals,
   IYachtseaBonusOptions,
 } from '@/types';
-import type { User } from 'next-auth';
 
 const useGameStateStore = create<IGameState>((set) => ({
   user: undefined,
