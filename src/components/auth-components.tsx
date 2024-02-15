@@ -12,7 +12,7 @@ export function SignIn({
         await signIn(provider);
       }}
     >
-      <Button variant={'default'} size={'sm'} {...props}>
+      <Button variant={'default'} size={'signIn'} {...props}>
         Sign In
       </Button>
     </form>
