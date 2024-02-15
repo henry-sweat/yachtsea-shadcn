@@ -29,7 +29,7 @@ export function SignOut(props: React.ComponentPropsWithRef<typeof Button>) {
       className='w-full'
     >
       <Button
-        variant='ghost'
+        variant='secondary'
         size={'default'}
         className='w-full p-0'
         {...props}

@@ -6,6 +6,7 @@ import {
   generateInitialYachtseaBonusOptionState,
 } from '@/stores/initialStateFunctions';
 import { checkForYachtseaFn } from '@/lib/potentialPointsFunctions';
+import { startGame, endGame } from '@/db/actions';
 import {
   IGameState,
   IScorecard,
@@ -29,6 +30,7 @@ const useGameStateStore = create<IGameState>((set) => ({
     updateGameStateForRollButtonClicked: () =>
       set(
         ({
+          user,
           rollCounter,
           roundCounter,
           scorecardAccordionIsOpen,
@@ -50,6 +52,14 @@ const useGameStateStore = create<IGameState>((set) => ({
 
           if (rollCounter === 3 && !userHasSelectedPoints) {
             return {};
+          }
+
+          if (
+            user?.email &&
+            (rollCounter === 0 ||
+              (roundCounter === 13 && userHasSelectedPoints))
+          ) {
+            startGame(user.email);
           }
 
           updateRollCounter();
@@ -115,7 +125,7 @@ const useGameStateStore = create<IGameState>((set) => ({
         return {};
       }),
     updateGameStateForPointsClicked: (indexOfClickedRow) =>
-      set(({ dice, scorecard, actions, setters }) => {
+      set(({ user, roundCounter, dice, scorecard, actions, setters }) => {
         const { updateTotals } = actions;
         const { setDice, setScorecard, setUserHasSelectedPoints } = setters;
 
@@ -134,6 +144,11 @@ const useGameStateStore = create<IGameState>((set) => ({
         setScorecard(newScorecard);
         updateTotals(newScorecard);
         setUserHasSelectedPoints(true);
+
+        if (user?.email && roundCounter === 13) {
+          const { grandTotal } = calculateTotalsWithScorecard(newScorecard);
+          endGame(user.email, grandTotal);
+        }
 
         return {};
       }),
