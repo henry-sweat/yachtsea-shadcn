@@ -12,11 +12,12 @@ import {
   IScorecardRow,
   IDie,
   ITotals,
-  IUser,
   IYachtseaBonusOptions,
 } from '@/types';
+import type { User } from 'next-auth';
 
 const useGameStateStore = create<IGameState>((set) => ({
+  user: undefined,
   rollCounter: 0,
   roundCounter: 1,
   diceAreRolling: false,
@@ -137,7 +138,7 @@ const useGameStateStore = create<IGameState>((set) => ({
 
         return {};
       }),
-    updateTotals: (scorecard: IScorecard) =>
+    updateTotals: (scorecard) =>
       set(({ setters }) => {
         const { setTotals } = setters;
         let newTotals: ITotals = calculateTotalsWithScorecard(scorecard);
@@ -164,20 +165,29 @@ const useGameStateStore = create<IGameState>((set) => ({
         }
         return {};
       }),
+    updateUser: (session) =>
+      set(({ user, setters }) => {
+        const { setUser } = setters;
+        if (session?.user) {
+          setUser(session.user);
+        } else {
+          setUser(null);
+        }
+        return {};
+      }),
   },
 
   setters: {
-    setRollCounter: (nextRoll: number) => set({ rollCounter: nextRoll }),
-    setRoundCounter: (nextRound: number) => set({ roundCounter: nextRound }),
-    setDiceAreRolling: (bool: boolean) => set({ diceAreRolling: bool }),
-    setScorecardAccordionIsOpen: (bool: boolean) =>
+    setRollCounter: (nextRoll) => set({ rollCounter: nextRoll }),
+    setRoundCounter: (nextRound) => set({ roundCounter: nextRound }),
+    setDiceAreRolling: (bool) => set({ diceAreRolling: bool }),
+    setScorecardAccordionIsOpen: (bool) =>
       set({ scorecardAccordionIsOpen: bool }),
-    setDice: (newDice: IDie[]) => set({ dice: newDice }),
-    setScorecard: (newScorecard: IScorecard) =>
-      set({ scorecard: newScorecard }),
-    setTotals: (newTotals: ITotals) => set({ totals: newTotals }),
-    setUserHasSelectedPoints: (bool: boolean) =>
-      set({ userHasSelectedPoints: bool }),
+    setDice: (newDice) => set({ dice: newDice }),
+    setScorecard: (newScorecard) => set({ scorecard: newScorecard }),
+    setTotals: (newTotals) => set({ totals: newTotals }),
+    setUserHasSelectedPoints: (bool) => set({ userHasSelectedPoints: bool }),
+    setUser: (newUser) => set({ user: newUser }),
   },
 }));
 
