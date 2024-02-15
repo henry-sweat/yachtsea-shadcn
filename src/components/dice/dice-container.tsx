@@ -29,13 +29,14 @@ export default function DiceContainer() {
 
   return (
     <ToggleGroup
-      className='gap-2 justify-between'
+      className='w-full space-x-2 justify-between'
       type='multiple'
       value={returnIndexesOfSelectedDice(dice)}
       variant='outline'
     >
       {diceStateIndices.map((diceStateIndex) => (
         <motion.div
+          className=''
           key={`key-${diceStateIndex}`}
           initial={rollCounter > 0 ? false : { opacity: 0, y: 50 }}
           animate={
@@ -67,7 +68,7 @@ export default function DiceContainer() {
         >
           <ToggleGroupItem
             id={dice[diceStateIndex].id}
-            className='die-container w-16 h-16 px-0 bg-primary-foreground'
+            className='w-16 h-16 px-0 bg-primary-foreground'
             value={diceStateIndex.toString()}
             aria-label={`Toggle ${diceStateIndex}`}
             onClick={handleDieClicked}
