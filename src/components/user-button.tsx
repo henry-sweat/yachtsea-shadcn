@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { SignIn, SignOut } from './auth-components';
+import Link from 'next/link';
 
 export default async function UserButton() {
   const session = await auth();
@@ -28,8 +29,8 @@ export default async function UserButton() {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-52' align='end' forceMount>
-        <DropdownMenuLabel className='font-normal'>
+      <DropdownMenuContent className='w-36' align='end' forceMount>
+        {/* <DropdownMenuLabel className='font-normal'>
           <div className='flex flex-col space-y-1'>
             <p className='text-sm font-medium leading-none'>
               {session.user.name}
@@ -38,7 +39,13 @@ export default async function UserButton() {
               {session.user.email}
             </p>
           </div>
-        </DropdownMenuLabel>
+        </DropdownMenuLabel> */}
+        <DropdownMenuItem>
+          <Link href={'/'}>Home</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={'/stats'}>Stats</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <SignOut />
         </DropdownMenuItem>
