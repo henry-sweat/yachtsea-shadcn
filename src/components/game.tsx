@@ -11,8 +11,9 @@ import {
 
 export default function Game() {
   return (
-    <div className='flex flex-col flex-col-reverse py-4 space-y-4 space-y-reverse'>
+    <div className='flex flex-col flex-col-reverse space-y-4 space-y-reverse'>
       <RollButton />
+
       <DiceContainer />
 
       <Scorecard />
