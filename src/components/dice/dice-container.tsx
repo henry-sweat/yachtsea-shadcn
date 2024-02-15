@@ -68,7 +68,7 @@ export default function DiceContainer() {
         >
           <ToggleGroupItem
             id={dice[diceStateIndex].id}
-            className='w-16 h-16 px-0 bg-primary-foreground'
+            className='die-container w-16 h-16 px-0 bg-primary-foreground'
             value={diceStateIndex.toString()}
             aria-label={`Toggle ${diceStateIndex}`}
             onClick={handleDieClicked}
