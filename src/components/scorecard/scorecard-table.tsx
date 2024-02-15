@@ -28,10 +28,6 @@ export default function ScorecardTable() {
             category={'Bonus'}
             totalsStateProperty={'upperSectionBonus'}
           />
-          <TotalRow
-            category={'Upper Total'}
-            totalsStateProperty={'upperSectionTotal'}
-          />
         </TableBody>
       </Table>
       <Table>
@@ -53,10 +49,6 @@ export default function ScorecardTable() {
             isYachtsea={true}
           />
           <ScoreRow category={'Chance'} scorecardStateIndex={12} />
-          <TotalRow
-            category={'Lower Total'}
-            totalsStateProperty={'lowerSectionTotal'}
-          />
         </TableBody>
       </Table>
     </div>
