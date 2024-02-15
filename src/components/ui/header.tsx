@@ -13,7 +13,7 @@ export default function Header() {
             home
           </Link>
         </nav> */}
-        <h2 className='font-mono'>Yachtsea</h2>
+        <h1 className='text-lg font-mono'>Yachtsea</h1>
         <UserButton />
       </div>
     </header>
