@@ -9,10 +9,6 @@ import ScorecardTable from './scorecard-table';
 import useGameStateStore from '@/stores/gameState';
 import { motion } from 'framer-motion';
 
-interface IProps {
-  children: React.ReactNode;
-}
-
 export default function Scorecard() {
   const scorecardAccordionIsOpen = useGameStateStore(
     (state) => state.scorecardAccordionIsOpen
