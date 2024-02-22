@@ -3,13 +3,5 @@
   "short_name": "Yachtsea",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "description": "Ye Olde Dice Game.",
-  "icons": [
-    {
-      "src": "/icons/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
-  ]
+  "description": "Ye Olde Dice Game."
 }
