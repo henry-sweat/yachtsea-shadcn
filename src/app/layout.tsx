@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: 'Ye Olde Dice Game',
   icons: {
     icon: '/icons/icon.svg',
-    apple: '/icons/apple-touch-icons/apple-touch-icon.png',
+    apple: '/icons/apple-icon-1024.png',
   },
   manifest: '/manifest.json',
 };
