@@ -89,3 +89,8 @@
 .bg-pulse {
   animation: background-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+.die-selected {
+  background-color: hsl(var(--accent));
+  border-color: hsla(224, 71.4%, 4.1%, 0.2);
+}

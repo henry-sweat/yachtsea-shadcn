@@ -1,6 +1,5 @@
 'use client';
 
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { motion } from 'framer-motion';
 import { shakeAnimation } from '@/lib/motion';
 import useGameStateStore, { useGameActions } from '@/stores/gameState';
@@ -28,12 +27,7 @@ export default function DiceContainer() {
   }
 
   return (
-    <ToggleGroup
-      className='w-full space-x-2 justify-between'
-      type='multiple'
-      value={returnIndexesOfSelectedDice(dice)}
-      variant='outline'
-    >
+    <div className='grid grid-cols-5 gap-2 w-full max-w-[600px]'>
       {diceStateIndices.map((diceStateIndex) => (
         <motion.div
           className=''
@@ -66,18 +60,20 @@ export default function DiceContainer() {
             },
           }}
         >
-          <ToggleGroupItem
+          <button
             id={dice[diceStateIndex].id}
-            className='die-container w-16 h-16 px-0 bg-primary-foreground'
+            className={`die-container ${
+              dice[diceStateIndex].isSelected ? `die-selected` : ''
+            } aspect-square w-full rounded-md bg-primary-foreground border border-input transition-colors shadow-sm`}
             value={diceStateIndex.toString()}
             aria-label={`Toggle ${diceStateIndex}`}
             onClick={handleDieClicked}
           >
             <Die diceStateIndex={diceStateIndex} />
-          </ToggleGroupItem>
+          </button>
         </motion.div>
       ))}
-    </ToggleGroup>
+    </div>
   );
 }
 

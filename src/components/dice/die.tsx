@@ -20,46 +20,46 @@ const dotCoordinates: IDotCoordinates = new Map([
   [
     2,
     [
-      { x: '10', y: '10' },
-      { x: '40', y: '40' },
+      { x: '12', y: '12' },
+      { x: '38', y: '38' },
     ],
   ],
   [
     3,
     [
-      { x: '10', y: '10' },
+      { x: '12', y: '12' },
       { x: '25', y: '25' },
-      { x: '40', y: '40' },
+      { x: '38', y: '38' },
     ],
   ],
   [
     4,
     [
-      { x: '10', y: '10' },
-      { x: '10', y: '40' },
-      { x: '40', y: '10' },
-      { x: '40', y: '40' },
+      { x: '12', y: '12' },
+      { x: '12', y: '38' },
+      { x: '38', y: '12' },
+      { x: '38', y: '38' },
     ],
   ],
   [
     5,
     [
-      { x: '10', y: '10' },
-      { x: '10', y: '40' },
+      { x: '12', y: '12' },
+      { x: '12', y: '38' },
       { x: '25', y: '25' },
-      { x: '40', y: '10' },
-      { x: '40', y: '40' },
+      { x: '38', y: '12' },
+      { x: '38', y: '38' },
     ],
   ],
   [
     6,
     [
-      { x: '10', y: '10' },
-      { x: '10', y: '25' },
-      { x: '10', y: '40' },
-      { x: '40', y: '10' },
-      { x: '40', y: '25' },
-      { x: '40', y: '40' },
+      { x: '12', y: '12' },
+      { x: '12', y: '25' },
+      { x: '12', y: '38' },
+      { x: '38', y: '12' },
+      { x: '38', y: '25' },
+      { x: '38', y: '38' },
     ],
   ],
 ]);
@@ -80,12 +80,17 @@ export default function Die({ diceStateIndex }: IDieProps) {
 
 function DotContainer({ children }: IDotContainerProps) {
   return (
-    <svg height='50' width='50' xmlns='http://www.w3.org/2000/svg'>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 50 50'
+      className='w-full h-full'
+      fill='none'
+    >
       {children}
     </svg>
   );
 }
 
 function Dot({ x, y }: IDotProps) {
-  return <circle r='6' cx={x} cy={y} className='fill-primary' />;
+  return <circle r='5' cx={x} cy={y} className='fill-primary' />;
 }
