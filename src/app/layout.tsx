@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Yachtsea',
   description: 'Ye Olde Dice Game',
   icons: {
-    apple: 'icons/icon-apple.svg',
+    apple: '/icons/icon-apple.svg',
   },
   manifest: '/manifest.json',
 };

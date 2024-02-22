@@ -1,0 +1,8 @@
+<svg height='50' width='50' xmlns='http://www.w3.org/2000/svg'>
+  <rect width="100%" height="100%" fill="white" />
+  <circle cx='10' cy='10' r='6' fill='hsl(220.9, 39.3%, 11%)' />
+  <circle cx='10' cy='25' r='6' fill='hsl(220.9, 39.3%, 11%)' />
+  <circle cx='10' cy='40' r='6' fill='hsl(220.9, 39.3%, 11%)' />
+  <circle cx='40' cy='25' r='6' fill='hsl(220.9, 39.3%, 11%)' />
+  <circle cx='40' cy='40' r='6' fill='hsl(220.9, 39.3%, 11%)' />
+</svg>

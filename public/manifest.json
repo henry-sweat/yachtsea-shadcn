@@ -3,5 +3,6 @@
   "short_name": "Yachtsea",
   "start_url": ".",
   "display": "standalone",
-  "description": "Ye Olde Dice Game."
+  "description": "Ye Olde Dice Game.",
+  "background_color": "#ffffff"
 }
