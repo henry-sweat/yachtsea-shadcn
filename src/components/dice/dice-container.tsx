@@ -29,9 +29,14 @@ export default function DiceContainer() {
   return (
     <div className='grid grid-cols-5 gap-2 w-full max-w-[600px]'>
       {diceStateIndices.map((diceStateIndex) => (
-        <motion.div
-          className=''
+        <motion.button
+          id={dice[diceStateIndex].id}
+          className={`die-container ${
+            dice[diceStateIndex].isSelected ? `die-selected` : ''
+          } aspect-square w-full rounded-md bg-primary-foreground border border-input transition-colors shadow-sm`}
+          value={diceStateIndex.toString()}
           key={`key-${diceStateIndex}`}
+          onClick={handleDieClicked}
           initial={rollCounter > 0 ? false : { opacity: 0, y: 50 }}
           animate={
             diceAreRolling && !dice[diceStateIndex].isSelected
@@ -60,18 +65,8 @@ export default function DiceContainer() {
             },
           }}
         >
-          <button
-            id={dice[diceStateIndex].id}
-            className={`die-container ${
-              dice[diceStateIndex].isSelected ? `die-selected` : ''
-            } aspect-square w-full rounded-md bg-primary-foreground border border-input transition-colors shadow-sm`}
-            value={diceStateIndex.toString()}
-            aria-label={`Toggle ${diceStateIndex}`}
-            onClick={handleDieClicked}
-          >
-            <Die diceStateIndex={diceStateIndex} />
-          </button>
-        </motion.div>
+          <Die diceStateIndex={diceStateIndex} />
+        </motion.button>
       ))}
     </div>
   );
