@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Yachtsea',
   description: 'Ye Olde Dice Game',
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
