@@ -71,9 +71,3 @@ export default function DiceContainer() {
     </div>
   );
 }
-
-function returnIndexesOfSelectedDice(diceState: IDie[]): string[] {
-  return diceState
-    .map((die, idx) => (die.isSelected ? idx.toString() : ''))
-    .filter((die) => die.length > 0);
-}
