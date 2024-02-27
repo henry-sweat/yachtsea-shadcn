@@ -27,7 +27,7 @@ export default function DiceContainer() {
   }
 
   return (
-    <div className='grid grid-cols-5 gap-2 w-full max-w-[600px]'>
+    <div className='grid grid-cols-5 gap-2 py-2 w-full'>
       {diceStateIndices.map((diceStateIndex) => (
         <motion.button
           id={dice[diceStateIndex].id}

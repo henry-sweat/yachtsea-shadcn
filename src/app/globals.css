@@ -94,3 +94,14 @@
   background-color: hsl(var(--accent));
   border-color: hsla(224, 71.4%, 4.1%, 0.2);
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scorecard-content::-webkit-scrollbar {
+  display: none;
+}
+
+.scorecard-content {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  overflow-y: scroll; /* or overflow: auto; */
+}

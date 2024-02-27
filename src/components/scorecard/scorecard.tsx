@@ -21,17 +21,20 @@ export default function Scorecard() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
-      className='h-full overflow-auto'
+      className='h-full flex flex-col-reverse overflow-auto'
     >
       <Accordion
-        className='h-full'
+        className='h-full flex flex-col-reverse'
         type='single'
         value={accordionValue}
         collapsible
       >
-        <AccordionItem className='h-full' value='scorecard'>
+        <AccordionItem
+          className='h-full flex flex-col-reverse'
+          value='scorecard'
+        >
           <AccordionContent>
-            <div className='h-full overflow-auto flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
+            <div className='scorecard-content overflow-auto flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
               <div className='flex justify-around space-x-12 font-bold pt-1'>
                 <RollCounter />
                 <RoundCounter />
