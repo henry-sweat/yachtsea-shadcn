@@ -24,8 +24,6 @@ export default function Scorecard() {
     >
       <Accordion className='' type='single' value={accordionValue} collapsible>
         <AccordionItem value='scorecard'>
-          <div className='flex items-center py-2'></div>
-
           <AccordionContent>
             <div className='flex flex-col items-center justify-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
               <div className='flex justify-around space-x-12 font-bold pt-1'>

@@ -3,7 +3,7 @@ import UserButton from '../user-button';
 
 export default function Header() {
   return (
-    <header className='container relative mx-auto overflow-hidden p-6 sm:pt-12'>
+    <header className='container relative mx-auto p-6 sm:pt-12'>
       <div className='flex items-center justify-between mx-auto w-full max-w-lg bg-white'>
         <nav className='flex space-x-4'>
           <Link href={'/'} className={`hover:underline`}>
