@@ -17,12 +17,12 @@ export default function Game() {
   }, [session, updateUser]);
 
   return (
-    <div className='flex flex-col-reverse space-y-4 space-y-reverse'>
+    <>
       <RollButton />
 
       <DiceContainer />
 
       <Scorecard />
-    </div>
+    </>
   );
 }
