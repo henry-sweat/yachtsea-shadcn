@@ -9,39 +9,33 @@ import { ScoreRow, TotalRow } from './scorecard-rows';
 import { useEffect, useRef } from 'react';
 
 export default function ScorecardTable() {
-  const upperScorecardRef = useRef(null);
-  const lowerScorecardRef = useRef(null);
+  const upperScorecardRef = useRef<HTMLTableElement>(null);
+  const lowerScorecardRef = useRef<HTMLTableElement>(null);
 
   useEffect(() => {
     const table1Container = upperScorecardRef.current;
     const table2Container = lowerScorecardRef.current;
 
-    const syncScroll = (source, target) => () => {
-      target.scrollTop = source.scrollTop;
+    const syncScroll = (event: Event) => {
+      const source = event.target as HTMLElement;
+      if (source === table1Container && table2Container) {
+        table2Container.scrollTop = source.scrollTop;
+      } else if (source === table2Container && table1Container) {
+        table1Container.scrollTop = source.scrollTop;
+      }
     };
 
+    // Add event listeners if both containers are present
     if (table1Container && table2Container) {
-      table1Container.addEventListener(
-        'scroll',
-        syncScroll(table1Container, table2Container)
-      );
-      table2Container.addEventListener(
-        'scroll',
-        syncScroll(table2Container, table1Container)
-      );
+      table1Container.addEventListener('scroll', syncScroll);
+      table2Container.addEventListener('scroll', syncScroll);
     }
 
     // Cleanup function to remove the event listeners
     return () => {
       if (table1Container && table2Container) {
-        table1Container.removeEventListener(
-          'scroll',
-          syncScroll(table1Container, table2Container)
-        );
-        table2Container.removeEventListener(
-          'scroll',
-          syncScroll(table2Container, table1Container)
-        );
+        table1Container.removeEventListener('scroll', syncScroll);
+        table2Container.removeEventListener('scroll', syncScroll);
       }
     };
   }, []);
