@@ -29,20 +29,19 @@ export default function Scorecard() {
         value={accordionValue}
         collapsible
       >
-        <AccordionItem
-          className='h-full flex flex-col-reverse'
-          value='scorecard'
-        >
+        <AccordionItem className='h-full flex flex-col' value='scorecard'>
           <AccordionContent>
-            <div className='h-full flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
+            <div className='flex flex-col space-y-1 items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
               <div className='flex justify-around space-x-12 font-bold pt-1'>
                 <RollCounter />
                 <RoundCounter />
               </div>
-              <div className='scorecard-content overflow-auto'>
-                <ScorecardTable />
-                <GrandTotal />
-              </div>
+              <GrandTotal />
+            </div>
+          </AccordionContent>
+          <AccordionContent className='h-full overflow-hidden'>
+            <div className='h-full flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
+              <ScorecardTable />
             </div>
           </AccordionContent>
         </AccordionItem>
