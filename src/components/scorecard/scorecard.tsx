@@ -21,19 +21,27 @@ export default function Scorecard() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
+      className='h-full flex flex-col-reverse overflow-auto'
     >
-      <Accordion className='' type='single' value={accordionValue} collapsible>
-        <AccordionItem value='scorecard'>
-          <div className='flex items-center py-2'></div>
-
+      <Accordion
+        className='h-full flex flex-col-reverse'
+        type='single'
+        value={accordionValue}
+        collapsible
+      >
+        <AccordionItem className='h-full flex flex-col' value='scorecard'>
           <AccordionContent>
-            <div className='flex flex-col items-center justify-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
+            <div className='flex flex-col space-y-1 items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
               <div className='flex justify-around space-x-12 font-bold pt-1'>
                 <RollCounter />
                 <RoundCounter />
               </div>
-              <ScorecardTable />
               <GrandTotal />
+            </div>
+          </AccordionContent>
+          <AccordionContent className='h-full overflow-hidden'>
+            <div className='h-full flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
+              <ScorecardTable />
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -55,7 +63,7 @@ function RoundCounter() {
 function GrandTotal() {
   const totals = useGameStateStore((state) => state.totals);
   return (
-    <p className='text-muted-foreground'>
+    <p className='text-center text-muted-foreground'>
       Your total score is <strong>{totals.grandTotal}</strong> points.
     </p>
   );

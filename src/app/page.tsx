@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <SessionProvider session={session}>
       <main
-        className={`fixed bottom-0 w-full flex flex-col flex-col-reverse items-center mx-auto scroll-my-12 x-hidden pb-8 px-4`}
+        className={`overflow-auto flex-1 flex flex-col-reverse items-center w-full mx-auto scroll-my-12 pb-8 px-1`}
       >
         <Game />
       </main>

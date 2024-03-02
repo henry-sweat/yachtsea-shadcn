@@ -1,7 +1,6 @@
 import { ITotals } from '@/types';
 import { TableRow, TableCell } from '../ui/table';
 import useGameStateStore, { useGameActions } from '@/stores/gameState';
-import { MouseEventHandler } from 'react';
 
 interface IScoreRowProps {
   category: string;
@@ -42,8 +41,8 @@ export function ScoreRow({
         className={`score-row`}
         key={`scorecard-row-key-${11}`}
       >
-        <TableCell className='font-medium'>{'Yachtsea'}</TableCell>
-        <TableCell className='text-right font-bold'>
+        <TableCell className='py-2 pl-2 font-medium'>{'Yachtsea'}</TableCell>
+        <TableCell className='p-2 text-right font-bold'>
           {earnedPoints + scorecard.yachtseaBonus.numberOfBonuses * 100}
         </TableCell>
       </TableRow>
@@ -53,8 +52,8 @@ export function ScoreRow({
         className={`score-row`}
         key={`scorecard-row-key-${scorecardStateIndex}`}
       >
-        <TableCell className='font-medium'>{category}</TableCell>
-        <TableCell className='text-right font-bold'>
+        <TableCell className='py-2 pl-2 font-medium'>{category}</TableCell>
+        <TableCell className='p-2 text-right font-bold'>
           {scorecard.rows[scorecardStateIndex].earnedPoints}
         </TableCell>
       </TableRow>
@@ -70,8 +69,8 @@ export function ScoreRow({
       onClick={handlePointsClicked}
       key={`scorecard-row-key-${scorecardStateIndex}`}
     >
-      <TableCell className='font-medium'>{category}</TableCell>
-      <TableCell className='text-right text-muted-foreground'>
+      <TableCell className='py-2 pl-2 font-medium'>{category}</TableCell>
+      <TableCell className='p-2 text-right text-muted-foreground'>
         {scorecard.rows[scorecardStateIndex].potentialPoints}
       </TableCell>
     </TableRow>
@@ -90,7 +89,9 @@ export function TotalRow({ category, totalsStateProperty }: ITotalRowProps) {
       className='total-row'
       key={`total-row-key-${totalsStateProperty}`}
     >
-      <TableCell className='font-medium font-bold'>{category}</TableCell>
+      <TableCell className='py-2 pl-2 font-medium font-bold'>
+        {category}
+      </TableCell>
       <TotalCell totalsStateProperty={totalsStateProperty} />
     </TableRow>
   );
@@ -104,11 +105,11 @@ function TotalCell({ totalsStateProperty }: ITotalCellProps) {
   const totals = useGameStateStore((state) => state.totals);
 
   return totalsStateProperty === 'upperSectionSubTotal' ? (
-    <TableCell className='text-right font-bold'>
+    <TableCell className='p-2 text-right font-bold'>
       {`${totals[totalsStateProperty]} / 63`}
     </TableCell>
   ) : (
-    <TableCell className='text-right font-bold'>
+    <TableCell className='p-2 text-right font-bold'>
       {totals[totalsStateProperty]}
     </TableCell>
   );
