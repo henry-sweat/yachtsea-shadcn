@@ -34,13 +34,15 @@ export default function Scorecard() {
           value='scorecard'
         >
           <AccordionContent>
-            <div className='scorecard-content overflow-auto flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
+            <div className='h-full flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
               <div className='flex justify-around space-x-12 font-bold pt-1'>
                 <RollCounter />
                 <RoundCounter />
               </div>
-              <ScorecardTable />
-              <GrandTotal />
+              <div className='scorecard-content overflow-auto'>
+                <ScorecardTable />
+                <GrandTotal />
+              </div>
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -62,7 +64,7 @@ function RoundCounter() {
 function GrandTotal() {
   const totals = useGameStateStore((state) => state.totals);
   return (
-    <p className='text-muted-foreground'>
+    <p className='text-center text-muted-foreground'>
       Your total score is <strong>{totals.grandTotal}</strong> points.
     </p>
   );
