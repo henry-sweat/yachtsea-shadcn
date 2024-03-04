@@ -110,11 +110,7 @@ interface ITotalCellProps {
 function TotalCell({ totalsStateProperty }: ITotalCellProps) {
   const totals = useGameStateStore((state) => state.totals);
 
-  return totalsStateProperty === 'upperSectionSubTotal' ? (
-    <TableCell className='p-2 text-right font-bold'>
-      {`${totals[totalsStateProperty]} / 63`}
-    </TableCell>
-  ) : (
+  return (
     <TableCell className='p-2 text-right font-bold'>
       {totals[totalsStateProperty]}
     </TableCell>

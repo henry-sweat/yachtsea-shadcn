@@ -12,7 +12,6 @@ export default function Game() {
   const { data: session } = useSession();
 
   useEffect(() => {
-    console.log('session:', session);
     updateUser(session);
   }, [session, updateUser]);
 
