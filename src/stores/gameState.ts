@@ -35,6 +35,7 @@ const useGameStateStore = create<IGameState>((set) => ({
           roundCounter,
           scorecardAccordionIsOpen,
           dice,
+          diceAreRolling,
           scorecard,
           userHasSelectedPoints,
           actions,
@@ -50,7 +51,7 @@ const useGameStateStore = create<IGameState>((set) => ({
             setTotals,
           } = setters;
 
-          if (rollCounter === 3 && !userHasSelectedPoints) {
+          if ((rollCounter === 3 && !userHasSelectedPoints) || diceAreRolling) {
             return {};
           }
 
