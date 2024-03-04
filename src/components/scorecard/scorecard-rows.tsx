@@ -38,10 +38,12 @@ export function ScoreRow({
     isYachtsea ? (
       <TableRow
         id={`score-row-${11}`}
-        className={`score-row`}
+        className={`score-row bg-muted`}
         key={`scorecard-row-key-${11}`}
       >
-        <TableCell className='py-2 pl-2 font-medium'>{'Yachtsea'}</TableCell>
+        <TableCell className='py-2 pl-2 font-medium font-bold'>
+          {'Yachtsea'}
+        </TableCell>
         <TableCell className='p-2 text-right font-bold'>
           {earnedPoints + scorecard.yachtseaBonus.numberOfBonuses * 100}
         </TableCell>
@@ -49,10 +51,12 @@ export function ScoreRow({
     ) : (
       <TableRow
         id={`score-row-${scorecardStateIndex}`}
-        className={`score-row`}
+        className={`score-row bg-muted`}
         key={`scorecard-row-key-${scorecardStateIndex}`}
       >
-        <TableCell className='py-2 pl-2 font-medium'>{category}</TableCell>
+        <TableCell className='py-2 pl-2 font-medium font-bold'>
+          {category}
+        </TableCell>
         <TableCell className='p-2 text-right font-bold'>
           {scorecard.rows[scorecardStateIndex].earnedPoints}
         </TableCell>
@@ -69,7 +73,9 @@ export function ScoreRow({
       onClick={handlePointsClicked}
       key={`scorecard-row-key-${scorecardStateIndex}`}
     >
-      <TableCell className='py-2 pl-2 font-medium'>{category}</TableCell>
+      <TableCell className='py-2 pl-2 font-medium text-muted-foreground'>
+        {category}
+      </TableCell>
       <TableCell className='p-2 text-right text-muted-foreground'>
         {scorecard.rows[scorecardStateIndex].potentialPoints}
       </TableCell>

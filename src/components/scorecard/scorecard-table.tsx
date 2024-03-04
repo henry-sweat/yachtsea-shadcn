@@ -45,10 +45,10 @@ export default function ScorecardTable() {
       <Table ref={upperScorecardRef}>
         <TableHeader>
           <TableRow>
-            <TableHead className='bg-white sticky top-0 w-[100px]'>
+            <TableHead className='text-primary bg-white sticky top-0 w-[100px]'>
               Upper
             </TableHead>
-            <TableHead className='bg-white sticky top-0 text-right'>
+            <TableHead className='text-primary bg-white sticky top-0 text-right'>
               Pts.
             </TableHead>
           </TableRow>
@@ -73,10 +73,10 @@ export default function ScorecardTable() {
       <Table ref={lowerScorecardRef}>
         <TableHeader>
           <TableRow>
-            <TableHead className='bg-white sticky top-0 w-[100px]'>
+            <TableHead className='text-primary bg-white sticky top-0 w-[100px]'>
               Lower
             </TableHead>
-            <TableHead className='bg-white sticky top-0 text-right'>
+            <TableHead className='text-primary bg-white sticky top-0 text-right'>
               Pts.
             </TableHead>
           </TableRow>
