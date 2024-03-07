@@ -61,7 +61,7 @@ const useGameStateStore = create<IGameState>((set) => ({
             rollCounter === 0 ||
             (roundCounter === 13 && userHasSelectedPoints)
           ) {
-            setRollButtonText('Roll Dice');
+            setRollButtonText('Roll');
             if (user?.email) {
               startGame(user.email);
             }

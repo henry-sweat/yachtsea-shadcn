@@ -38,7 +38,7 @@ export function ScoreRow({
     isYachtsea ? (
       <TableRow
         id={`score-row-${11}`}
-        className={`score-row bg-muted/30`}
+        className={`score-row bg-muted/70`}
         key={`scorecard-row-key-${11}`}
       >
         <TableCell className='py-2 pl-2 font-medium font-bold'>
@@ -51,7 +51,7 @@ export function ScoreRow({
     ) : (
       <TableRow
         id={`score-row-${scorecardStateIndex}`}
-        className={`score-row bg-muted/30`}
+        className={`score-row bg-muted/70`}
         key={`scorecard-row-key-${scorecardStateIndex}`}
       >
         <TableCell className='py-2 pl-2 font-medium font-bold'>
