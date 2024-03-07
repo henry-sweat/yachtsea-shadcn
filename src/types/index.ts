@@ -6,6 +6,7 @@ export interface IGameState {
   roundCounter: number;
   diceAreRolling: boolean;
   scorecardAccordionIsOpen: boolean;
+  rollButtonText: string;
   dice: IDie[];
   scorecard: IScorecard;
   totals: ITotals;
@@ -24,6 +25,7 @@ export interface IGameState {
     setRoundCounter: (nextRound: number) => void;
     setDiceAreRolling: (bool: boolean) => void;
     setScorecardAccordionIsOpen: (bool: boolean) => void;
+    setRollButtonText: (newText: string) => void;
     setDice: (newDice: IDie[]) => void;
     setScorecard: (newScorecard: IScorecard) => void;
     setTotals: (newTotals: ITotals) => void;

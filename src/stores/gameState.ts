@@ -22,6 +22,7 @@ const useGameStateStore = create<IGameState>((set) => ({
   roundCounter: 1,
   diceAreRolling: false,
   scorecardAccordionIsOpen: false,
+  rollButtonText: 'New Game',
   dice: generateInitialDiceValuesState(),
   scorecard: generateInitialScorecardState(),
   totals: generateInitialTotalsState(),
@@ -46,6 +47,7 @@ const useGameStateStore = create<IGameState>((set) => ({
             setDice,
             setDiceAreRolling,
             setScorecardAccordionIsOpen,
+            setRollButtonText,
             setScorecard,
             setUserHasSelectedPoints,
             setTotals,
@@ -56,11 +58,13 @@ const useGameStateStore = create<IGameState>((set) => ({
           }
 
           if (
-            user?.email &&
-            (rollCounter === 0 ||
-              (roundCounter === 13 && userHasSelectedPoints))
+            rollCounter === 0 ||
+            (roundCounter === 13 && userHasSelectedPoints)
           ) {
-            startGame(user.email);
+            setRollButtonText('Roll Dice');
+            if (user?.email) {
+              startGame(user.email);
+            }
           }
 
           updateRollCounter();
@@ -128,7 +132,12 @@ const useGameStateStore = create<IGameState>((set) => ({
     updateGameStateForPointsClicked: (indexOfClickedRow) =>
       set(({ user, roundCounter, dice, scorecard, actions, setters }) => {
         const { updateTotals } = actions;
-        const { setDice, setScorecard, setUserHasSelectedPoints } = setters;
+        const {
+          setDice,
+          setScorecard,
+          setUserHasSelectedPoints,
+          setRollButtonText,
+        } = setters;
 
         let newScorecard: IScorecard = { ...scorecard };
 
@@ -146,9 +155,12 @@ const useGameStateStore = create<IGameState>((set) => ({
         updateTotals(newScorecard);
         setUserHasSelectedPoints(true);
 
-        if (user?.email && roundCounter === 13) {
-          const { grandTotal } = calculateTotalsWithScorecard(newScorecard);
-          endGame(user.email, grandTotal);
+        if (roundCounter === 13) {
+          setRollButtonText('New Game');
+          if (user?.email) {
+            const { grandTotal } = calculateTotalsWithScorecard(newScorecard);
+            endGame(user.email, grandTotal);
+          }
         }
 
         return {};
@@ -198,6 +210,7 @@ const useGameStateStore = create<IGameState>((set) => ({
     setDiceAreRolling: (bool) => set({ diceAreRolling: bool }),
     setScorecardAccordionIsOpen: (bool) =>
       set({ scorecardAccordionIsOpen: bool }),
+    setRollButtonText: (newText) => set({ rollButtonText: newText }),
     setDice: (newDice) => set({ dice: newDice }),
     setScorecard: (newScorecard) => set({ scorecard: newScorecard }),
     setTotals: (newTotals) => set({ totals: newTotals }),
