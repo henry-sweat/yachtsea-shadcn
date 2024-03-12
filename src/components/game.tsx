@@ -36,11 +36,9 @@ export default function Game() {
       {!isLandscape ? (
         <div
           id={'game'}
-          className='flex flex-col-reverse space-y-2 space-y-reverse max-w-screen-sm overflow-auto px-3'
+          className='flex flex-col-reverse space-y-2 space-y-reverse w-full max-w-screen-sm overflow-auto'
         >
           <RollButton />
-
-          <DiceContainer />
 
           <Scorecard />
         </div>

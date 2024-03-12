@@ -52,7 +52,9 @@ const AccordionContent = React.forwardRef<
     )}
     {...props}
   >
-    <div className={cn('h-full flex flex-col-reverse pb-4 pt-0', className)}>
+    <div
+      className={cn('h-full flex flex-col-reverse pb-4 pt-0 px-3', className)}
+    >
       {children}
     </div>
   </AccordionPrimitive.Content>

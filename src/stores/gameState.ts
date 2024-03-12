@@ -57,10 +57,10 @@ const useGameStateStore = create<IGameState>((set) => ({
             return {};
           }
 
-          if (
-            rollCounter === 0 ||
-            (roundCounter === 13 && userHasSelectedPoints)
-          ) {
+          const endOfGame =
+            userHasSelectedPoints && roundCounter === 13 ? true : false;
+
+          if (rollCounter === 0 || endOfGame) {
             setRollButtonText('Roll');
             if (user?.email) {
               startGame(user.email);
@@ -77,45 +77,51 @@ const useGameStateStore = create<IGameState>((set) => ({
             updateRoundCounter();
           }
 
-          setDiceAreRolling(true);
-
-          if (userHasSelectedPoints && roundCounter === 13) {
+          if (endOfGame) {
             setScorecardAccordionIsOpen(false);
+            setTimeout(() => {
+              setScorecardAccordionIsOpen(true);
+            }, 500);
           }
 
           const rolls = 10;
           let shakeCount = 0;
 
-          const intervalId = setInterval(() => {
-            let newDice: IDie[] = userHasSelectedPoints
-              ? rollAndResetAllDice(dice)
-              : rollUnselectedDice(dice, rollCounter, shakeCount);
+          const timeoutId = setTimeout(
+            () => {
+              setDiceAreRolling(true);
 
-            setDice(newDice);
+              const intervalId = setInterval(() => {
+                let newDice: IDie[] = userHasSelectedPoints
+                  ? rollAndResetAllDice(dice)
+                  : rollUnselectedDice(dice, rollCounter, shakeCount);
 
-            shakeCount += 1;
+                setDice(newDice);
 
-            if (shakeCount >= rolls) {
-              clearInterval(intervalId);
-              setDiceAreRolling(false);
-              let newScorecard: IScorecard =
-                userHasSelectedPoints && roundCounter === 13
-                  ? resetScorecardWithNewDice(newDice, scorecard)
-                  : updateScorecardForLatestRoll(newDice, scorecard);
+                shakeCount += 1;
 
-              if (userHasSelectedPoints) {
-                setUserHasSelectedPoints(false);
-              } // prevent clicking points during roll animation
+                if (shakeCount >= rolls) {
+                  clearInterval(intervalId);
+                  setDiceAreRolling(false);
+                  let newScorecard: IScorecard = endOfGame
+                    ? resetScorecardWithNewDice(newDice, scorecard)
+                    : updateScorecardForLatestRoll(newDice, scorecard);
 
-              if (userHasSelectedPoints && roundCounter === 13) {
-                setTotals(generateInitialTotalsState());
-                setScorecard(newScorecard);
-                setScorecardAccordionIsOpen(true);
-              } else {
-                setScorecard(newScorecard);
-              }
-            }
-          }, 100);
+                  if (userHasSelectedPoints) {
+                    setUserHasSelectedPoints(false);
+                  } // prevent clicking points during roll animation
+
+                  if (endOfGame) {
+                    setTotals(generateInitialTotalsState());
+                    setScorecard(newScorecard);
+                  } else {
+                    setScorecard(newScorecard);
+                  }
+                }
+              }, 100);
+            },
+            scorecardAccordionIsOpen ? (endOfGame ? 700 : 0) : 300
+          );
 
           return {};
         }

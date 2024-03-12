@@ -17,7 +17,7 @@ export default function RollButton() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
-      className=''
+      className='w-full px-3'
     >
       <Button
         className='w-full text-md'

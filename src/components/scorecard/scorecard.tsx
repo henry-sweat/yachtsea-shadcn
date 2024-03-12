@@ -6,6 +6,7 @@ import {
   AccordionItem,
 } from '@/components/ui/accordion';
 import ScorecardTable from './scorecard-table';
+import DiceContainer from '../dice/dice-container';
 import useGameStateStore from '@/stores/gameState';
 import { motion } from 'framer-motion';
 
@@ -21,7 +22,7 @@ export default function Scorecard() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
-      className='h-full flex flex-col-reverse overflow-auto'
+      className='h-full flex flex-col-reverse overflow-auto pb-2'
     >
       <Accordion
         className='h-full flex flex-col-reverse'
@@ -39,10 +40,13 @@ export default function Scorecard() {
               <GrandTotal />
             </div>
           </AccordionContent>
-          <AccordionContent className='h-full overflow-hidden'>
+          <AccordionContent className='h-full overflow-hidden pb-0'>
             <div className='h-full flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
               <ScorecardTable />
             </div>
+          </AccordionContent>
+          <AccordionContent className='pb-0 px-0'>
+            <DiceContainer />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
