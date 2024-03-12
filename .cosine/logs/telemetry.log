@@ -1,0 +1,66 @@
+
+INFO [2024-03-12T20:16:07.699Z]: Preparing to initialize extension
+INFO [2024-03-12T20:16:08.701Z]: Registering flag observer
+INFO [2024-03-12T20:16:08.701Z]: Navigating to loading page
+INFO [2024-03-12T20:16:08.701Z]: Navigation
+INFO [2024-03-12T20:16:08.701Z]: {"page":"/loading"}
+INFO [2024-03-12T20:16:08.701Z]: Initializing workspace controller
+INFO [2024-03-12T20:16:08.711Z]: Creating URI handler
+INFO [2024-03-12T20:16:08.711Z]: Getting auth service props
+INFO [2024-03-12T20:16:08.714Z]: Creating auth service
+INFO [2024-03-12T20:16:08.714Z]: Setting network auth service
+INFO [2024-03-12T20:16:08.714Z]: Creating context store
+INFO [2024-03-12T20:16:08.714Z]: Creating engine
+INFO [2024-03-12T20:16:08.714Z]: Creating sql db
+INFO [2024-03-12T20:16:08.875Z]: Creating vector db
+INFO [2024-03-12T20:16:08.875Z]: Creating config manager
+INFO [2024-03-12T20:16:08.892Z]: Get languages
+INFO [2024-03-12T20:16:08.892Z]: Reading ALL files
+INFO [2024-03-12T20:16:09.104Z]: Files: 48
+INFO [2024-03-12T20:16:09.104Z]: Counting languages
+INFO [2024-03-12T20:16:09.104Z]: Sorting languages
+INFO [2024-03-12T20:16:09.106Z]: Get Overview
+INFO [2024-03-12T20:16:09.107Z]: Creating code parser
+INFO [2024-03-12T20:16:09.107Z]: Creating code index
+INFO [2024-03-12T20:16:09.111Z]: Creating graphs
+INFO [2024-03-12T20:16:09.112Z]: Creating tagger
+INFO [2024-03-12T20:16:09.113Z]: Creating semantic
+INFO [2024-03-12T20:16:09.114Z]: Creating keyword
+INFO [2024-03-12T20:16:09.114Z]: Creating file search
+INFO [2024-03-12T20:16:09.115Z]: Initializing engine
+INFO [2024-03-12T20:16:09.195Z]: [CodeTagger.init] Initializing
+INFO [2024-03-12T20:16:09.197Z]: Initializing history service
+INFO [2024-03-12T20:16:09.197Z]: Creating project bot props
+INFO [2024-03-12T20:16:09.197Z]: Creating plan service
+INFO [2024-03-12T20:16:09.197Z]: Creating terms service
+INFO [2024-03-12T20:16:09.197Z]: Creating auth controller
+INFO [2024-03-12T20:16:09.197Z]: Initializing auth controller
+INFO [2024-03-12T20:16:09.199Z]: Checking auth
+INFO [2024-03-12T20:16:10.595Z]: Set User: gGditzsBcpe6kjXp1eeoVcPnsYY2
+INFO [2024-03-12T20:16:10.603Z]: Creating plan controller
+INFO [2024-03-12T20:16:10.603Z]: Initializing plan controller
+INFO [2024-03-12T20:16:21.106Z]: Creating status controller
+INFO [2024-03-12T20:16:21.107Z]: Creating chat bot
+INFO [2024-03-12T20:16:21.110Z]: Creating git service
+INFO [2024-03-12T20:16:21.110Z]: Creating user context
+INFO [2024-03-12T20:16:21.110Z]: Creating search controller
+INFO [2024-03-12T20:16:21.111Z]: Initializing search controller
+INFO [2024-03-12T20:16:21.113Z]: Creating index controller
+INFO [2024-03-12T20:16:21.113Z]: Initializing index controller
+INFO [2024-03-12T20:16:21.113Z]: Creating migrate controller
+INFO [2024-03-12T20:16:21.113Z]: Initializing migrate controller
+INFO [2024-03-12T20:16:21.113Z]: Creating settings controller
+INFO [2024-03-12T20:16:21.113Z]: Initializing settings controller
+INFO [2024-03-12T20:16:21.114Z]: Creating navigation controller
+INFO [2024-03-12T20:16:21.114Z]: Initializing navigation controller
+INFO [2024-03-12T20:16:21.114Z]: Registering auth service with auth controller
+INFO [2024-03-12T20:16:21.114Z]: Calculating navigation
+INFO [2024-03-12T20:16:21.121Z]: Navigation
+INFO [2024-03-12T20:16:21.121Z]: {"page":"/initialize/project"}
+INFO [2024-03-12T20:16:21.138Z]: Fully initialized!
+INFO [2024-03-12T20:16:21.139Z]: extension_initialized
+INFO [2024-03-12T20:16:21.139Z]: {"timeToInit":13441}
+INFO [2024-03-12T20:16:21.207Z]: Reading ALL files
+INFO [2024-03-12T20:16:21.322Z]: Files: 48
+INFO [2024-03-12T20:16:21.322Z]: Counting languages
+INFO [2024-03-12T20:16:21.322Z]: Sorting languages

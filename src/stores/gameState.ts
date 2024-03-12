@@ -22,6 +22,7 @@ const useGameStateStore = create<IGameState>((set) => ({
   roundCounter: 1,
   diceAreRolling: false,
   scorecardAccordionIsOpen: false,
+  rulesDrawerIsOpen: false,
   rollButtonText: 'New Game',
   dice: generateInitialDiceValuesState(),
   scorecard: generateInitialScorecardState(),
@@ -208,6 +209,14 @@ const useGameStateStore = create<IGameState>((set) => ({
         }
         return {};
       }),
+    updateRulesDrawerIsOpen: () =>
+      set(({ rulesDrawerIsOpen, setters }) => {
+        const { setRulesDrawerIsOpen } = setters;
+        rulesDrawerIsOpen
+          ? setRulesDrawerIsOpen(false)
+          : setRulesDrawerIsOpen(true);
+        return {};
+      }),
   },
 
   setters: {
@@ -216,6 +225,7 @@ const useGameStateStore = create<IGameState>((set) => ({
     setDiceAreRolling: (bool) => set({ diceAreRolling: bool }),
     setScorecardAccordionIsOpen: (bool) =>
       set({ scorecardAccordionIsOpen: bool }),
+    setRulesDrawerIsOpen: (bool) => set({ rulesDrawerIsOpen: bool }),
     setRollButtonText: (newText) => set({ rollButtonText: newText }),
     setDice: (newDice) => set({ dice: newDice }),
     setScorecard: (newScorecard) => set({ scorecard: newScorecard }),
