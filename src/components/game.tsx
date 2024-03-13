@@ -11,17 +11,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useToast } from '@/components/ui/use-toast';
-import { ToastAction } from './ui/toast';
+import { toast } from 'sonner';
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from '@/components/ui/drawer';
 
 export default function Game() {
@@ -32,8 +28,6 @@ export default function Game() {
   const { data: session } = useSession();
   const [isLandscape, setIsLandscape] = useState(false);
 
-  const { toast } = useToast();
-
   const checkOrientation = () => {
     setIsLandscape(window.matchMedia('(orientation: landscape)').matches);
   };
@@ -43,14 +37,21 @@ export default function Game() {
 
     if (!session) {
       setTimeout(() => {
-        toast({
-          title: 'Are you new here?',
+        toast('Are you new here?', {
           description: 'Check out the rules before playing!',
-          action: (
-            <ToastAction altText='Show Rules' onClick={updateRulesDrawerIsOpen}>
-              Show Rules
-            </ToastAction>
-          ),
+          duration: 800000,
+          position: 'bottom-center',
+          action: {
+            label: 'Show Rules',
+            onClick: updateRulesDrawerIsOpen,
+          },
+          actionButtonStyle: {
+            backgroundColor: 'Background',
+            color: 'hsl(220.9 39.3% 11%)',
+            border: '1px solid hsl(220 13% 91%)',
+            height: '2rem',
+            boxShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+          },
         });
       }, 1000);
     }
@@ -59,7 +60,7 @@ export default function Game() {
     window.addEventListener('resize', checkOrientation);
 
     return () => window.removeEventListener('resize', checkOrientation);
-  }, [session, updateUser, toast, updateRulesDrawerIsOpen]);
+  }, [session, updateUser, updateRulesDrawerIsOpen]);
 
   return (
     <>
