@@ -5,6 +5,7 @@ import {
   AccordionContent,
   AccordionItem,
 } from '@/components/ui/accordion';
+import { Separator } from '@/components/ui/separator';
 import ScorecardTable from './scorecard-table';
 import DiceContainer from '../dice/dice-container';
 import useGameStateStore from '@/stores/gameState';
@@ -37,12 +38,14 @@ export default function Scorecard() {
                 <RollCounter />
                 <RoundCounter />
               </div>
-              <GrandTotal />
             </div>
           </AccordionContent>
           <AccordionContent className='h-full overflow-hidden pb-0'>
             <div className='h-full flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
               <ScorecardTable />
+
+              <Separator className='mb-2' />
+              <GrandTotal />
             </div>
           </AccordionContent>
           <AccordionContent className='pb-0 px-0'>

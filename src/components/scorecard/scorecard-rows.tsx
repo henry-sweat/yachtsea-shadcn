@@ -92,7 +92,9 @@ export function TotalRow({ category, totalsStateProperty }: ITotalRowProps) {
   return (
     <TableRow
       id={`total-row-${totalsStateProperty}`}
-      className='total-row'
+      className={`total-row ${
+        category !== 'Bonus' ? 'sticky bottom-0 bg-white' : ''
+      }`}
       key={`total-row-key-${totalsStateProperty}`}
     >
       <TableCell
