@@ -29,9 +29,10 @@ export default function Game() {
     if (!session) {
       setTimeout(() => {
         toast('Are you new here?', {
-          description: 'Check out the rules before playing!',
+          style: { bottom: '85px' },
+          description: 'Check the rules before playing!',
           duration: 8000,
-          position: 'bottom-right',
+          position: 'bottom-center',
           action: {
             label: 'Show Rules',
             onClick: updateRulesDrawerIsOpen,
