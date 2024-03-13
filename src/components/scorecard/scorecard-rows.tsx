@@ -95,7 +95,11 @@ export function TotalRow({ category, totalsStateProperty }: ITotalRowProps) {
       className='total-row'
       key={`total-row-key-${totalsStateProperty}`}
     >
-      <TableCell className='py-2 pl-2 font-medium font-bold'>
+      <TableCell
+        className={`py-2 pl-2 font-medium font-bold ${
+          category === 'Bonus' ? 'italic' : ''
+        }`}
+      >
         {category}
       </TableCell>
       <TotalCell totalsStateProperty={totalsStateProperty} />
