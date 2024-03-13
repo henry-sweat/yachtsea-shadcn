@@ -72,11 +72,11 @@ function GrandTotal() {
   const { updateRulesDrawerIsOpen } = useGameActions();
   const totals = useGameStateStore((state) => state.totals);
   return (
-    <div className='flex justify-center items-center w-full'>
+    <div className='flex justify-center items-center w-full py-1'>
       <p className='text-center text-muted-foreground'>
         Your total score is <strong>{totals.grandTotal}</strong> points.{' '}
       </p>
-      <div className='pl-2'>
+      <div className='pl-1'>
         <InfoCircledIcon
           color='hsl(220 8.9% 46.1%)'
           onClick={updateRulesDrawerIsOpen}
