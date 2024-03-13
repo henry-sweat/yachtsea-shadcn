@@ -34,7 +34,7 @@ export default function Scorecard() {
         <AccordionItem className='h-full flex flex-col' value='scorecard'>
           <AccordionContent>
             <div className='flex flex-col space-y-1 items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
-              <div className='flex justify-around space-x-12 font-bold pt-1'>
+              <div className='flex justify-around space-x-12 font-bold'>
                 <RollCounter />
                 <RoundCounter />
               </div>
