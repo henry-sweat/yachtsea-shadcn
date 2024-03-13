@@ -37,19 +37,19 @@ export default function RulesDrawer() {
               Overview
             </h3>
             <p className='text-sm text-muted-foreground'>
-              Players have 13 rounds to knock off as many of the 13 scoring
-              combinations as they can.
+              13 rounds. 3 rolls per round.
             </p>
             <p className='text-sm text-muted-foreground'>
-              Each round, roll the dice up to three times to achieve the
-              highest-scoring combination for one of the 13 categories. Once
-              rolling concludes, you must assign a score or a zero to one of the
-              category boxes on your scorecard.
+              Select dice to keep in between rolls by tapping the respective
+              die.
             </p>
             <p className='text-sm text-muted-foreground'>
-              The game concludes when players have completed their scorecards
-              with 13 entries. Final scores are then calculated, incorporating
-              any bonus points.
+              Roll the dice up to 3 times, then make a selection on the
+              scorecard by tapping the appropriate row to lock in points.
+            </p>
+            <p className='text-sm text-muted-foreground'>
+              Repeat until 13 rounds are up. Then, share your score with
+              friends!
             </p>
 
             <h3 className='text-lg font-semibold leading-none tracking-tight'>
