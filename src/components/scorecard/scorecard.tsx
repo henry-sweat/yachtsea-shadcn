@@ -8,7 +8,8 @@ import {
 import { Separator } from '@/components/ui/separator';
 import ScorecardTable from './scorecard-table';
 import DiceContainer from '../dice/dice-container';
-import useGameStateStore from '@/stores/gameState';
+import useGameStateStore, { useGameActions } from '@/stores/gameState';
+import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { motion } from 'framer-motion';
 
 export default function Scorecard() {
@@ -68,10 +69,17 @@ function RoundCounter() {
 }
 
 function GrandTotal() {
+  const { updateRulesDrawerIsOpen } = useGameActions();
   const totals = useGameStateStore((state) => state.totals);
   return (
-    <p className='text-center text-muted-foreground'>
-      Your total score is <strong>{totals.grandTotal}</strong> points.
-    </p>
+    <div className='flex justify-around items-center w-full'>
+      <p className='text-center text-muted-foreground'>
+        Your total score is <strong>{totals.grandTotal}</strong> points.{' '}
+      </p>
+      <InfoCircledIcon
+        color='hsl(220 8.9% 46.1%)'
+        onClick={updateRulesDrawerIsOpen}
+      />
+    </div>
   );
 }
