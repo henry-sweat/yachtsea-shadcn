@@ -37,7 +37,7 @@ export default function Game() {
             onClick: updateRulesDrawerIsOpen,
           },
           actionButtonStyle: {
-            backgroundColor: 'Background',
+            backgroundColor: 'white',
             color: 'hsl(220.9 39.3% 11%)',
             border: '1px solid hsl(220 13% 91%)',
             height: '2rem',
