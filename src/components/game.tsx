@@ -36,26 +36,26 @@ export default function Game() {
   useEffect(() => {
     updateUser(session);
 
-    // if (!session) {
-    //   setTimeout(() => {
-    //     toast('Are you new here?', {
-    //       description: 'Check out the rules before playing!',
-    //       duration: 800000,
-    //       position: 'bottom-right',
-    //       action: {
-    //         label: 'Show Rules',
-    //         onClick: updateRulesDrawerIsOpen,
-    //       },
-    //       actionButtonStyle: {
-    //         backgroundColor: 'Background',
-    //         color: 'hsl(220.9 39.3% 11%)',
-    //         border: '1px solid hsl(220 13% 91%)',
-    //         height: '2rem',
-    //         boxShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-    //       },
-    //     });
-    //   }, 1000);
-    // }
+    if (!session) {
+      setTimeout(() => {
+        toast('Are you new here?', {
+          description: 'Check out the rules before playing!',
+          duration: 800000,
+          position: 'bottom-right',
+          action: {
+            label: 'Show Rules',
+            onClick: updateRulesDrawerIsOpen,
+          },
+          actionButtonStyle: {
+            backgroundColor: 'Background',
+            color: 'hsl(220.9 39.3% 11%)',
+            border: '1px solid hsl(220 13% 91%)',
+            height: '2rem',
+            boxShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+          },
+        });
+      }, 1000);
+    }
 
     checkOrientation();
     window.addEventListener('resize', checkOrientation);
