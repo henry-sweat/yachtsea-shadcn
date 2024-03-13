@@ -6,6 +6,7 @@ export interface IGameState {
   roundCounter: number;
   diceAreRolling: boolean;
   scorecardAccordionIsOpen: boolean;
+  rulesDrawerIsOpen: boolean;
   rollButtonText: string;
   dice: IDie[];
   scorecard: IScorecard;
@@ -19,12 +20,14 @@ export interface IGameState {
     updateRollCounter: () => void;
     updateRoundCounter: () => void;
     updateUser: (session: Session | null) => void;
+    updateRulesDrawerIsOpen: () => void;
   };
   setters: {
     setRollCounter: (nextRoll: number) => void;
     setRoundCounter: (nextRound: number) => void;
     setDiceAreRolling: (bool: boolean) => void;
     setScorecardAccordionIsOpen: (bool: boolean) => void;
+    setRulesDrawerIsOpen: (bool: boolean) => void;
     setRollButtonText: (newText: string) => void;
     setDice: (newDice: IDie[]) => void;
     setScorecard: (newScorecard: IScorecard) => void;
