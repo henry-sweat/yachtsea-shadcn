@@ -31,7 +31,7 @@ export default function RulesDrawer() {
           <DrawerDescription>Ye Olde Dice Game</DrawerDescription>
         </DrawerHeader>
 
-        <article className='hide-scrollbar overflow-auto prose py-2 px-8'>
+        <article className='hide-scrollbar overflow-auto prose pt-2 pb-8 px-8'>
           <h3 className='text-lg font-semibold leading-none tracking-tight'>
             Overview
           </h3>
@@ -277,12 +277,6 @@ export default function RulesDrawer() {
             If the appropriate Upper Section box and all Lower Section boxes are
             filled in, the player must enter a zero in any open Upper Section
             box.
-          </p>
-          <p className='text-sm text-muted-foreground'>
-            If a player has 0 marked in the Yachtsea box and rolls a yachtsea,
-            then there will be no bonus awarded. However, a player must fill in
-            one of the 13 boxes on the scorecard according to the JOKER RULES
-            below.
           </p>
         </article>
       </DrawerContent>
