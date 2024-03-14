@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { shakeAnimation } from '@/lib/motion';
 import useGameStateStore, { useGameActions } from '@/stores/gameState';
 import Die from './die';
-import { IDie } from '@/types';
 
 const diceStateIndices = [0, 1, 2, 3, 4];
 
