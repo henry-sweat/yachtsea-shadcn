@@ -35,7 +35,6 @@ const useGameStateStore = create<IGameState>((set) => ({
           user,
           rollCounter,
           roundCounter,
-          scorecardAccordionIsOpen,
           dice,
           diceAreRolling,
           scorecard,
@@ -70,7 +69,7 @@ const useGameStateStore = create<IGameState>((set) => ({
 
           updateRollCounter();
 
-          if (!scorecardAccordionIsOpen) {
+          if (rollCounter === 0) {
             setScorecardAccordionIsOpen(true);
           }
 
@@ -121,7 +120,7 @@ const useGameStateStore = create<IGameState>((set) => ({
                 }
               }, 100);
             },
-            scorecardAccordionIsOpen ? (endOfGame ? 700 : 0) : 300
+            rollCounter === 0 ? 300 : endOfGame ? 700 : 0
           );
 
           return {};
@@ -192,11 +191,8 @@ const useGameStateStore = create<IGameState>((set) => ({
     updateRoundCounter: () =>
       set(({ roundCounter, setters }) => {
         const { setRoundCounter } = setters;
-        if (roundCounter < 13) {
-          setRoundCounter(roundCounter + 1);
-        } else {
-          setRoundCounter(1);
-        }
+        const nextRound = (roundCounter + 1) % 13;
+        setRoundCounter(nextRound);
         return {};
       }),
     updateUser: (session) =>
