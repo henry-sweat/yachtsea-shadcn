@@ -2,16 +2,16 @@
 
 import { motion } from 'framer-motion';
 import { shakeAnimation } from '@/lib/motion';
-import useGameStateStore, { useGameActions } from '@/stores/gameState';
+import { useGameStore } from '@/state/command';
 import Die from './die';
 
 const diceStateIndices = [0, 1, 2, 3, 4];
 
 export default function DiceContainer() {
-  const dice = useGameStateStore((state) => state.dice);
-  const rollCounter = useGameStateStore((state) => state.rollCounter);
-  const diceAreRolling = useGameStateStore((state) => state.diceAreRolling);
-  const { updateDiceStateForDieClicked } = useGameActions();
+  const dice = useGameStore((state) => state.dice);
+  const rollCounter = useGameStore((state) => state.rollCounter);
+  const diceAreRolling = useGameStore((state) => state.diceAreRolling);
+  // const { updateDiceStateForDieClicked } = useGameActions();
 
   function handleDieClicked(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -22,7 +22,7 @@ export default function DiceContainer() {
     const clickedElement = e.target as Element;
     const die = clickedElement?.closest('.die-container');
     const indexOfClickedDie = Number(die?.id.slice(4)) - 1;
-    updateDiceStateForDieClicked(indexOfClickedDie);
+    // updateDiceStateForDieClicked(indexOfClickedDie);
   }
 
   return (
@@ -36,7 +36,6 @@ export default function DiceContainer() {
           value={diceStateIndex.toString()}
           key={`key-${diceStateIndex}`}
           onClick={handleDieClicked}
-          initial={rollCounter > 0 ? false : { opacity: 0, y: 50 }}
           animate={
             diceAreRolling && !dice[diceStateIndex].isSelected
               ? `shake${diceStateIndex + 1}`

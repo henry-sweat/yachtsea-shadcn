@@ -11,9 +11,10 @@ import DiceContainer from '../dice/dice-container';
 import useGameStateStore, { useGameActions } from '@/stores/gameState';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { motion } from 'framer-motion';
+import { useGameStore } from '@/state/command';
 
 export default function Scorecard() {
-  const scorecardAccordionIsOpen = useGameStateStore(
+  const scorecardAccordionIsOpen = useGameStore(
     (state) => state.scorecardAccordionIsOpen
   );
 
@@ -59,12 +60,12 @@ export default function Scorecard() {
 }
 
 function RollCounter() {
-  const rollCounter = useGameStateStore((state) => state.rollCounter);
+  const rollCounter = useGameStore((state) => state.rollCounter);
   return <h3>Roll {rollCounter} /3</h3>;
 }
 
 function RoundCounter() {
-  const roundCounter = useGameStateStore((state) => state.roundCounter);
+  const roundCounter = useGameStore((state) => state.roundCounter);
   return <h3>Round {roundCounter} /13</h3>;
 }
 

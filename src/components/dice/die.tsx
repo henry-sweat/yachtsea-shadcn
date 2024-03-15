@@ -1,4 +1,4 @@
-import useGameStateStore from '@/stores/gameState';
+import { useGameStore } from '@/state/command';
 
 interface IDieProps {
   diceStateIndex: number;
@@ -65,7 +65,7 @@ const dotCoordinates: IDotCoordinates = new Map([
 ]);
 
 export default function Die({ diceStateIndex }: IDieProps) {
-  const dice = useGameStateStore((state) => state.dice);
+  const dice = useGameStore((state) => state.dice);
 
   const value = dice[diceStateIndex].value;
 

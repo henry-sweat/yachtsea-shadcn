@@ -1,6 +1,7 @@
 import { ITotals } from '@/types';
 import { TableRow, TableCell } from '../ui/table';
 import useGameStateStore, { useGameActions } from '@/stores/gameState';
+import { useGameStore } from '@/state/command';
 
 interface IScoreRowProps {
   category: string;
@@ -13,8 +14,8 @@ export function ScoreRow({
   scorecardStateIndex,
   isYachtsea = false,
 }: IScoreRowProps) {
-  const rollCounter = useGameStateStore((state) => state.rollCounter);
-  const scorecard = useGameStateStore((state) => state.scorecard);
+  const rollCounter = useGameStore((state) => state.rollCounter);
+  const scorecard = useGameStore((state) => state.scorecard);
   const userHasSelectedPoints = useGameStateStore(
     (state) => state.userHasSelectedPoints
   );

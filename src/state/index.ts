@@ -8,37 +8,37 @@ import {
 import { checkForYachtseaFn } from '@/lib/potentialPointsFunctions';
 import { startGame, endGame } from '@/db/actions';
 import {
-  IGameState,
+  IGameStore,
   IScorecard,
   IScorecardRow,
   IDie,
   ITotals,
   IYachtseaBonusOptions,
-} from '@/types';
+  GameState,
+} from './types';
 
-const useGameStateStore = create<IGameState>((set) => ({
+const useGameStore = create<IGameStore>((set) => ({
+  gameState: GameState.NewGamePending,
   user: undefined,
   rollCounter: 0,
-  roundCounter: 1,
+  roundCounter: 0,
   diceAreRolling: false,
   scorecardAccordionIsOpen: false,
   rulesDrawerIsOpen: false,
   rollButtonText: 'New Game',
-  dice: generateInitialDiceValuesState(),
-  scorecard: generateInitialScorecardState(),
+  dice: undefined,
+  scorecard: undefined,
   totals: generateInitialTotalsState(),
   userHasSelectedPoints: false,
   actions: {
-    updateGameStateForRollButtonClicked: () =>
+    handleRollButtonClicked: () =>
       set(
         ({
+          gameState,
           user,
-          rollCounter,
-          roundCounter,
           dice,
-          diceAreRolling,
+          scorecardAccordionIsOpen,
           scorecard,
-          userHasSelectedPoints,
           actions,
           setters,
         }) => {
@@ -53,35 +53,36 @@ const useGameStateStore = create<IGameState>((set) => ({
             setTotals,
           } = setters;
 
-          if ((rollCounter === 3 && !userHasSelectedPoints) || diceAreRolling) {
+          if (
+            gameState === GameState.AwaitingScoreSelection ||
+            gameState === GameState.AwaitingFinalScoreSelection ||
+            gameState === GameState.DiceAreRolling
+          ) {
             return {};
-          }
-
-          const endOfGame =
-            userHasSelectedPoints && roundCounter === 13 ? true : false;
-
-          if (rollCounter === 0 || endOfGame) {
-            setRollButtonText('Roll');
-            if (user?.email) {
-              startGame(user.email);
-            }
           }
 
           updateRollCounter();
 
-          if (rollCounter === 0) {
-            setScorecardAccordionIsOpen(true);
-          }
+          switch (gameState) {
+            case GameState.NewGamePending:
+              setRollButtonText('Roll');
+              updateRoundCounter();
 
-          if (userHasSelectedPoints) {
-            updateRoundCounter();
-          }
-
-          if (endOfGame) {
-            setScorecardAccordionIsOpen(false);
-            setTimeout(() => {
-              setScorecardAccordionIsOpen(true);
-            }, 500);
+              if (user?.email) {
+                startGame(user.email);
+              }
+              if (scorecardAccordionIsOpen) {
+                setScorecardAccordionIsOpen(true);
+              } else {
+                setScorecardAccordionIsOpen(false);
+                setTimeout(() => {
+                  setScorecardAccordionIsOpen(true);
+                }, 500);
+              }
+              break;
+            case GameState.RoundIsOver:
+              updateRoundCounter();
+              break;
           }
 
           const rolls = 10;
@@ -92,9 +93,10 @@ const useGameStateStore = create<IGameState>((set) => ({
               setDiceAreRolling(true);
 
               const intervalId = setInterval(() => {
-                let newDice: IDie[] = userHasSelectedPoints
-                  ? rollAndResetAllDice(dice)
-                  : rollUnselectedDice(dice, rollCounter, shakeCount);
+                let newDice: IDie[] =
+                  gameState === GameState.RoundIsOver
+                    ? rollAndResetAllDice()
+                    : rollUnselectedDice(dice);
 
                 setDice(newDice);
 
@@ -103,24 +105,35 @@ const useGameStateStore = create<IGameState>((set) => ({
                 if (shakeCount >= rolls) {
                   clearInterval(intervalId);
                   setDiceAreRolling(false);
-                  let newScorecard: IScorecard = endOfGame
-                    ? resetScorecardWithNewDice(newDice, scorecard)
-                    : updateScorecardForLatestRoll(newDice, scorecard);
 
-                  if (userHasSelectedPoints) {
+                  if (
+                    gameState === GameState.AwaitingThirdRollOrScoreSelection
+                  ) {
+                    setDice(selectAllDice(newDice));
+                  }
+
+                  let newScorecard: IScorecard =
+                    gameState === GameState.NewGamePending
+                      ? resetScorecardWithNewDice(newDice)
+                      : updateScorecardForLatestRoll(newDice, scorecard!);
+
+                  if (gameState === GameState.RoundIsOver) {
                     setUserHasSelectedPoints(false);
                   } // prevent clicking points during roll animation
 
-                  if (endOfGame) {
+                  if (gameState === GameState.NewGamePending) {
                     setTotals(generateInitialTotalsState());
-                    setScorecard(newScorecard);
-                  } else {
-                    setScorecard(newScorecard);
                   }
+
+                  setScorecard(newScorecard!);
                 }
               }, 100);
             },
-            rollCounter === 0 ? 300 : endOfGame ? 700 : 0
+            gameState !== GameState.NewGamePending
+              ? 0
+              : scorecardAccordionIsOpen
+              ? 700
+              : 300
           );
 
           return {};
@@ -129,7 +142,7 @@ const useGameStateStore = create<IGameState>((set) => ({
     updateDiceStateForDieClicked: (indexOfClickedDie) =>
       set(({ dice, setters }) => {
         const { setDice } = setters;
-        let newDice: IDie[] = [...dice];
+        let newDice: IDie[] = [...dice!];
         newDice[indexOfClickedDie].isSelected =
           !newDice[indexOfClickedDie].isSelected;
         setDice(newDice);
@@ -145,7 +158,7 @@ const useGameStateStore = create<IGameState>((set) => ({
           setRollButtonText,
         } = setters;
 
-        let newScorecard: IScorecard = { ...scorecard };
+        let newScorecard: IScorecard = { ...scorecard! };
 
         newScorecard.rows[indexOfClickedRow].earnedPoints =
           newScorecard.rows[indexOfClickedRow].potentialPoints;
@@ -154,7 +167,7 @@ const useGameStateStore = create<IGameState>((set) => ({
         newScorecard.yachtseaBonus.yachtseaBonusOptions =
           generateInitialYachtseaBonusOptionState();
 
-        let newDice: IDie[] = selectAllDice(dice);
+        let newDice: IDie[] = selectAllDice(dice!);
 
         setDice(newDice);
         setScorecard(newScorecard);
@@ -191,7 +204,7 @@ const useGameStateStore = create<IGameState>((set) => ({
     updateRoundCounter: () =>
       set(({ roundCounter, setters }) => {
         const { setRoundCounter } = setters;
-        const nextRound = (roundCounter % 13) + 1;
+        const nextRound = (roundCounter + 1) % 13;
         setRoundCounter(nextRound);
         return {};
       }),
@@ -231,29 +244,25 @@ const useGameStateStore = create<IGameState>((set) => ({
   },
 }));
 
-export default useGameStateStore;
+export default useGameStore;
 
-export const useGameActions = () => useGameStateStore((state) => state.actions);
+export const useGameActions = () => useGameStore((state) => state.actions);
 
 // HELPER FUNCTIONS
-function rollAndResetAllDice(dice: IDie[]): IDie[] {
-  return dice.map((die) => ({
-    id: die.id,
+function rollAndResetAllDice(): IDie[] {
+  const dice = [1, 2, 3, 4, 5];
+  return dice.map((dieNumber) => ({
+    id: `die-${dieNumber}`,
     value: rollSixSidedDie(),
     isSelected: false,
   }));
 }
 
-function rollUnselectedDice(
-  dice: IDie[],
-  rollCounter: number,
-  shakeCount: number
-): IDie[] {
-  return dice.map((die) => ({
+function rollUnselectedDice(dice: IGameStore['dice']): IDie[] {
+  return dice!.map((die) => ({
     id: die.id,
     value: die.isSelected ? die.value : rollSixSidedDie(),
-    isSelected:
-      rollCounter + 1 === 3 && shakeCount >= 9 ? true : die.isSelected,
+    isSelected: die.isSelected,
   }));
 }
 
@@ -267,12 +276,10 @@ function selectAllDice(dice: IDie[]): IDie[] {
   );
 }
 
-function resetScorecardWithNewDice(
-  newDice: IDie[],
-  oldScorecard: IScorecard
-): IScorecard {
+function resetScorecardWithNewDice(newDice: IDie[]): IScorecard {
+  const scorecard = generateInitialScorecardState();
   return {
-    rows: oldScorecard.rows.map(
+    rows: scorecard.rows.map(
       (row: IScorecardRow): IScorecardRow => ({
         id: row.id,
         earnedPoints: undefined,
@@ -296,7 +303,7 @@ function updateScorecardForLatestRoll(
       ? updateYachtseaBonusOptionsForYachtsea(newDice, oldScorecard)
       : oldScorecard.yachtseaBonus.yachtseaBonusOptions;
 
-  return {
+  const newScorecard = {
     rows: oldScorecard.rows.map((row, idx): IScorecardRow => {
       const earnedPoints = row?.earnedPoints ?? -1;
       if (earnedPoints >= 0) {
@@ -324,6 +331,8 @@ function updateScorecardForLatestRoll(
       yachtseaBonusOptions: newYachtseaBonusOptions,
     },
   };
+
+  return newScorecard;
 }
 
 function calculateTotalsWithScorecard(scorecard: IScorecard): ITotals {
