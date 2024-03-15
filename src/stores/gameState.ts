@@ -191,8 +191,11 @@ const useGameStateStore = create<IGameState>((set) => ({
     updateRoundCounter: () =>
       set(({ roundCounter, setters }) => {
         const { setRoundCounter } = setters;
-        const nextRound = (roundCounter + 1) % 13;
-        setRoundCounter(nextRound);
+        if (roundCounter < 13) {
+          setRoundCounter(roundCounter + 1);
+        } else {
+          setRoundCounter(1);
+        }
         return {};
       }),
     updateUser: (session) =>
