@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import UserButton from '../user-button';
+import UserButton from './user-button';
 
 export default function Header() {
   return (
