@@ -6,12 +6,13 @@ import {
   OpenRulesDrawerCommand,
   InitialGameState,
 } from './commands';
+import { startGame, endGame } from '@/db/actions';
 import {
   generateInitialDiceValuesState,
   generateInitialScorecardState,
   generateInitialTotalsState,
   generateInitialYachtseaBonusOptionState,
-} from '@/state/initialStateFunctions';
+} from '@/lib/initialStateFunctions';
 import { checkForYachtseaFn } from '@/lib/potentialPointsFunctions';
 import {
   IDie,
@@ -156,6 +157,22 @@ const useGameStore = create<IGameStore>((set, get) => ({
       setUser(null);
     }
     return {};
+  },
+  startGameInDatabase: () => {
+    const { user } = get();
+    if (user?.email) {
+      startGame(user.email);
+    } else {
+      return;
+    }
+  },
+  endGameInDatabase: () => {
+    const { user, totals } = get();
+    if (user?.email) {
+      endGame(user.email, totals.grandTotal);
+    } else {
+      return;
+    }
   },
 
   // Setters

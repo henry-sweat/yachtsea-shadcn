@@ -32,6 +32,8 @@ export interface IGameStore {
   unselectAllDice: () => void;
   selectDie: (indexOfClickedDie: number) => void;
   updateUser: (session: Session | null) => void;
+  startGameInDatabase: () => void;
+  endGameInDatabase: () => void;
 
   setCurrentGameState: (newGameState: IGameState) => void;
   setRollCounter: (nextRoll: number) => void;

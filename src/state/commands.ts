@@ -3,6 +3,7 @@ import { ICommand, IGameState, IGameStore } from '@/types';
 // GameStates
 export class InitialGameState implements IGameState {
   async rollDice(store: IGameStore) {
+    store.startGameInDatabase();
     store.setRollButtonText('Roll');
     store.setRollCounter(1);
     store.setRoundCounter(1);
