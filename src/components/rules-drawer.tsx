@@ -1,7 +1,6 @@
 'use client';
 
-import useGameStateStore from '@/stores/gameState';
-
+import useGameStore from '@/state';
 import {
   Drawer,
   DrawerContent,
@@ -19,12 +18,13 @@ import {
 } from '@/components/ui/table';
 
 export default function RulesDrawer() {
-  const rulesDrawerIsOpen = useGameStateStore(
-    (state) => state.rulesDrawerIsOpen
+  const rulesDrawerIsOpen = useGameStore((state) => state.rulesDrawerIsOpen);
+  const closeRulesDrawerInState = useGameStore(
+    (state) => state.closeRulesDrawer
   );
 
   return (
-    <Drawer open={rulesDrawerIsOpen}>
+    <Drawer open={rulesDrawerIsOpen} onClose={closeRulesDrawerInState}>
       <DrawerContent>
         <div className='hide-scrollbar overflow-auto'>
           <DrawerHeader>

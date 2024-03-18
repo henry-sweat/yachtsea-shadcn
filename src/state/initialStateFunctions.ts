@@ -42,7 +42,7 @@ function generateScorecardRowsState(
   return scorecardDetails.map((row: any) => ({
     id: row.id,
     earnedPoints: undefined,
-    potentialPoints: undefined,
+    potentialPoints: 0,
     potentialPointsFunction: row.potentialPointsFunction,
   }));
 }

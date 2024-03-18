@@ -2,7 +2,7 @@
 
 import { Button } from '../ui/button';
 import { motion } from 'framer-motion';
-import { useGameStore } from '@/state/command';
+import useGameStore from '@/state';
 
 export default function RollButton() {
   const handleRollButtonClicked = useGameStore(

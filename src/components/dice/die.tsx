@@ -1,4 +1,4 @@
-import { useGameStore } from '@/state/command';
+import useGameStore from '@/state';
 
 interface IDieProps {
   diceStateIndex: number;
