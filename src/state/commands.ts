@@ -40,6 +40,7 @@ class AwaitingSecondRollOrScoreSelectionState implements IGameState {
     store.updateTotals();
     store.selectAllDice();
     if (store.roundCounter === 13) {
+      store.endGameInDatabase();
       store.setRollButtonText('New Game');
       store.setCurrentGameState(new GameIsOverState());
     } else {
@@ -69,6 +70,7 @@ class AwaitingThirdRollOrScoreSelectionState implements IGameState {
     store.updateTotals();
     store.selectAllDice();
     if (store.roundCounter === 13) {
+      store.endGameInDatabase();
       store.setRollButtonText('New Game');
       store.setCurrentGameState(new GameIsOverState());
     } else {
@@ -91,6 +93,7 @@ class AwaitingScoreSelectionState implements IGameState {
     store.updateScorecardForScorecardRowSelection(indexOfClickedRow);
     store.updateTotals();
     if (store.roundCounter === 13) {
+      store.endGameInDatabase();
       store.setRollButtonText('New Game');
       store.setCurrentGameState(new GameIsOverState());
     } else {
