@@ -19,7 +19,7 @@ export default async function Home() {
         className={`overflow-auto flex-1 flex flex-col-reverse items-center w-full mx-auto scroll-my-12 pb-8 px-1`}
       >
         <Game />
-        {!session ? <LoginDrawer /> : <></>}
+        {/* {!session ? <LoginDrawer /> : <></>} */}
       </main>
     </SessionProvider>
   );
