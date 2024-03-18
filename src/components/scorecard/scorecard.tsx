@@ -7,13 +7,13 @@ import {
 } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
 import ScorecardTable from './scorecard-table';
-import DiceContainer from '../dice/dice-container';
-import useGameStateStore, { useGameActions } from '@/stores/gameState';
+import DiceContainer from '@/components/dice/dice-container';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { motion } from 'framer-motion';
+import useGameStore from '@/state';
 
 export default function Scorecard() {
-  const scorecardAccordionIsOpen = useGameStateStore(
+  const scorecardAccordionIsOpen = useGameStore(
     (state) => state.scorecardAccordionIsOpen
   );
 
@@ -59,28 +59,32 @@ export default function Scorecard() {
 }
 
 function RollCounter() {
-  const rollCounter = useGameStateStore((state) => state.rollCounter);
+  const rollCounter = useGameStore((state) => state.rollCounter);
   return <h3>Roll {rollCounter} /3</h3>;
 }
 
 function RoundCounter() {
-  const roundCounter = useGameStateStore((state) => state.roundCounter);
+  const roundCounter = useGameStore((state) => state.roundCounter);
   return <h3>Round {roundCounter} /13</h3>;
 }
 
 function GrandTotal() {
-  const { updateRulesDrawerIsOpen } = useGameActions();
-  const totals = useGameStateStore((state) => state.totals);
+  const totals = useGameStore((state) => state.totals);
+  const handleInfoIconClicked = useGameStore(
+    (state) => state.handleInfoIconClicked
+  );
+
+  const clickHandler = () => {
+    handleInfoIconClicked();
+  };
+
   return (
     <div className='flex justify-center items-center w-full py-1'>
       <p className='text-center text-muted-foreground'>
         Your total score is <strong>{totals.grandTotal}</strong> points.{' '}
       </p>
       <div className='pl-1'>
-        <InfoCircledIcon
-          color='hsl(220 8.9% 46.1%)'
-          onClick={updateRulesDrawerIsOpen}
-        />
+        <InfoCircledIcon color='hsl(220 8.9% 46.1%)' onClick={clickHandler} />
       </div>
     </div>
   );

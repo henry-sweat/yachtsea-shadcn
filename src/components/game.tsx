@@ -4,7 +4,6 @@ import Scorecard from './scorecard/scorecard';
 import RollButton from './roll-button/roll-button';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useGameActions } from '@/stores/gameState';
 import {
   Card,
   CardDescription,
@@ -13,38 +12,26 @@ import {
 } from '@/components/ui/card';
 import { toast } from 'sonner';
 import RulesDrawer from './rules-drawer';
+import useGameStore from '@/state';
 
 export default function Game() {
-  const { updateUser, updateRulesDrawerIsOpen } = useGameActions();
-  const { data: session } = useSession();
+  const updateUser = useGameStore((state) => state.updateUser);
+  const handleShowRulesButtonClicked = useGameStore(
+    (state) => state.handleShowRulesButtonClicked
+  );
   const [isLandscape, setIsLandscape] = useState(false);
-
   const checkOrientation = () => {
     setIsLandscape(window.matchMedia('(orientation: landscape)').matches);
   };
+
+  const { data: session } = useSession();
 
   useEffect(() => {
     updateUser(session);
 
     if (!session) {
       setTimeout(() => {
-        toast('Are you new here?', {
-          style: { bottom: '85px' },
-          description: 'Check the rules before playing!',
-          duration: 8000,
-          position: 'bottom-center',
-          action: {
-            label: 'Show Rules',
-            onClick: updateRulesDrawerIsOpen,
-          },
-          actionButtonStyle: {
-            backgroundColor: 'white',
-            color: 'hsl(220.9 39.3% 11%)',
-            border: '1px solid hsl(220 13% 91%)',
-            height: '2rem',
-            boxShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-          },
-        });
+        invokeShowRulesToast(handleShowRulesButtonClicked);
       }, 1000);
     }
 
@@ -52,7 +39,7 @@ export default function Game() {
     window.addEventListener('resize', checkOrientation);
 
     return () => window.removeEventListener('resize', checkOrientation);
-  }, [session, updateUser, updateRulesDrawerIsOpen]);
+  }, [session, updateUser, handleShowRulesButtonClicked]);
 
   return (
     <>
@@ -72,6 +59,26 @@ export default function Game() {
       )}
     </>
   );
+}
+
+function invokeShowRulesToast(clickHandler: () => void) {
+  toast('Are you new here?', {
+    style: { bottom: '85px' },
+    description: 'Check the rules before playing!',
+    duration: 8000,
+    position: 'bottom-center',
+    action: {
+      label: 'Show Rules',
+      onClick: clickHandler,
+    },
+    actionButtonStyle: {
+      backgroundColor: 'white',
+      color: 'hsl(220.9 39.3% 11%)',
+      border: '1px solid hsl(220 13% 91%)',
+      height: '2rem',
+      boxShadow: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+    },
+  });
 }
 
 function OrientationWarning() {

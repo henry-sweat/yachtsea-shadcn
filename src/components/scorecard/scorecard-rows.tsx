@@ -1,6 +1,6 @@
 import { ITotals } from '@/types';
-import { TableRow, TableCell } from '../ui/table';
-import useGameStateStore, { useGameActions } from '@/stores/gameState';
+import { TableRow, TableCell } from '@/components/ui/table';
+import useGameStore from '@/state';
 
 interface IScoreRowProps {
   category: string;
@@ -13,23 +13,16 @@ export function ScoreRow({
   scorecardStateIndex,
   isYachtsea = false,
 }: IScoreRowProps) {
-  const rollCounter = useGameStateStore((state) => state.rollCounter);
-  const scorecard = useGameStateStore((state) => state.scorecard);
-  const userHasSelectedPoints = useGameStateStore(
-    (state) => state.userHasSelectedPoints
+  const scorecard = useGameStore((state) => state.scorecard);
+  const handleScorecardRowClicked = useGameStore(
+    (state) => state.handleScorecardRowClicked
   );
-  const { updateGameStateForPointsClicked } = useGameActions();
 
-  function handlePointsClicked(
-    e: React.MouseEvent<HTMLTableRowElement, MouseEvent>
-  ) {
-    if (rollCounter === 0 || userHasSelectedPoints) {
-      return;
-    }
+  function clickHandler(e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) {
     const clickedElement = e.target as Element;
     const scoreRow = clickedElement?.closest('.score-row');
     const indexOfClickedRow = Number(scoreRow?.id.slice(10));
-    updateGameStateForPointsClicked(indexOfClickedRow);
+    handleScorecardRowClicked(indexOfClickedRow);
   }
 
   const earnedPoints = scorecard.rows[scorecardStateIndex]?.earnedPoints ?? -1;
@@ -70,7 +63,7 @@ export function ScoreRow({
           ? 'bg-pulse'
           : ''
       }`}
-      onClick={handlePointsClicked}
+      onClick={clickHandler}
       key={`scorecard-row-key-${scorecardStateIndex}`}
     >
       <TableCell className='py-2 pl-2 font-medium text-muted-foreground'>
@@ -114,7 +107,7 @@ interface ITotalCellProps {
 }
 
 function TotalCell({ totalsStateProperty }: ITotalCellProps) {
-  const totals = useGameStateStore((state) => state.totals);
+  const totals = useGameStore((state) => state.totals);
 
   return (
     <TableCell className='p-2 text-right font-bold'>

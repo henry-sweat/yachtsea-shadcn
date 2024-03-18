@@ -2,28 +2,25 @@
 
 import { motion } from 'framer-motion';
 import { shakeAnimation } from '@/lib/motion';
-import useGameStateStore, { useGameActions } from '@/stores/gameState';
+import useGameStore from '@/state';
 import Die from './die';
 
 const diceStateIndices = [0, 1, 2, 3, 4];
 
 export default function DiceContainer() {
-  const dice = useGameStateStore((state) => state.dice);
-  const rollCounter = useGameStateStore((state) => state.rollCounter);
-  const diceAreRolling = useGameStateStore((state) => state.diceAreRolling);
-  const { updateDiceStateForDieClicked } = useGameActions();
+  const dice = useGameStore((state) => state.dice);
+  const diceAreRolling = useGameStore((state) => state.diceAreRolling);
+  const handleDieClicked = useGameStore((state) => state.handleDieClicked);
 
-  function handleDieClicked(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
-    if (rollCounter === 3 || rollCounter === 0) {
+  const clickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (diceAreRolling) {
       return;
     }
     const clickedElement = e.target as Element;
     const die = clickedElement?.closest('.die-container');
     const indexOfClickedDie = Number(die?.id.slice(4)) - 1;
-    updateDiceStateForDieClicked(indexOfClickedDie);
-  }
+    handleDieClicked(indexOfClickedDie);
+  };
 
   return (
     <div className='grid grid-cols-5 gap-2 w-full overflow-hidden py-4 px-3'>
@@ -35,8 +32,7 @@ export default function DiceContainer() {
           } aspect-square w-full rounded-md bg-primary-foreground border border-input transition-colors shadow-sm`}
           value={diceStateIndex.toString()}
           key={`key-${diceStateIndex}`}
-          onClick={handleDieClicked}
-          initial={rollCounter > 0 ? false : { opacity: 0, y: 50 }}
+          onClick={clickHandler}
           animate={
             diceAreRolling && !dice[diceStateIndex].isSelected
               ? `shake${diceStateIndex + 1}`

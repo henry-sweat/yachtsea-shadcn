@@ -1,15 +1,17 @@
 'use client';
 
-import useGameStateStore, { useGameActions } from '@/stores/gameState';
 import { Button } from '../ui/button';
 import { motion } from 'framer-motion';
+import useGameStore from '@/state';
 
 export default function RollButton() {
-  const rollButtonText = useGameStateStore((state) => state.rollButtonText);
-  const { updateGameStateForRollButtonClicked } = useGameActions();
+  const handleRollButtonClicked = useGameStore(
+    (state) => state.handleRollButtonClicked
+  );
+  const rollButtonText = useGameStore((state) => state.rollButtonText);
 
-  const rollDice = () => {
-    updateGameStateForRollButtonClicked();
+  const clickHandler = () => {
+    handleRollButtonClicked();
   };
 
   return (
@@ -21,7 +23,7 @@ export default function RollButton() {
     >
       <Button
         className='w-full text-md'
-        onClick={rollDice}
+        onClick={clickHandler}
         size={'lg'}
         variant='default'
       >
