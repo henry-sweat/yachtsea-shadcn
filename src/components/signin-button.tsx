@@ -6,15 +6,10 @@ export function SignIn() {
     <form
       action={async () => {
         'use server';
-        await signIn('google');
+        await signIn('google', { redirectTo: '/auth' });
       }}
     >
-      <Button
-        variant={'outline'}
-        className='bg-secondary'
-        size={'signIn'}
-        // onClick={() => signIn('google')}
-      >
+      <Button variant={'outline'} className='bg-secondary' size={'signIn'}>
         <svg
           version='1.1'
           xmlns='http://www.w3.org/2000/svg'
