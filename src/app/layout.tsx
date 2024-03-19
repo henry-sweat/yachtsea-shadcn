@@ -18,15 +18,6 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
 };
 
-export function generateViewport() {
-  return {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  };
-}
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -34,7 +25,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${inter.className}`}>
+      <body className={`${inter.className} h-screen`}>
         <div className='flex flex-col h-screen'>
           <Header />
           {children}
