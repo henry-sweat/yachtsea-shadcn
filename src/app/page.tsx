@@ -4,6 +4,10 @@ import { auth } from 'auth';
 import { SessionProvider } from 'next-auth/react';
 
 export default async function Home() {
+  async function delay() {
+    return new Promise((resolve) => setTimeout(resolve, 10000));
+  }
+  await delay();
   const session = await auth();
   if (session?.user) {
     session.user = {
@@ -12,7 +16,7 @@ export default async function Home() {
       image: session.user.image,
     };
   }
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+
   return (
     <SessionProvider session={session}>
       <main
