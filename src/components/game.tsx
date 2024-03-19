@@ -29,11 +29,11 @@ export default function Game() {
   useEffect(() => {
     updateUser(session);
 
-    if (!session) {
-      setTimeout(() => {
-        invokeShowRulesToast(handleShowRulesButtonClicked);
-      }, 1000);
-    }
+    // if (!session) {
+    //   setTimeout(() => {
+    //     invokeShowRulesToast(handleShowRulesButtonClicked);
+    //   }, 1000);
+    // }
 
     checkOrientation();
     window.addEventListener('resize', checkOrientation);
