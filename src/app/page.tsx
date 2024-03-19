@@ -5,7 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 
 export default async function Home() {
   async function delay() {
-    return new Promise((resolve) => setTimeout(resolve, 10000));
+    return new Promise((resolve) => setTimeout(resolve, 3000));
   }
   await delay();
   const session = await auth();
