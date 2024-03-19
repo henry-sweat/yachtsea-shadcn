@@ -6,7 +6,7 @@ export function SignIn() {
     <form
       action={async () => {
         'use server';
-        await signIn('google', { redirectTo: '/auth' });
+        await signIn('google');
       }}
     >
       <Button variant={'outline'} className='bg-secondary' size={'signIn'}>

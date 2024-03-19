@@ -18,6 +18,15 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
 };
 
+export function generateViewport() {
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  };
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
