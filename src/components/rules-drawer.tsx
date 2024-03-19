@@ -19,12 +19,12 @@ import {
 
 export default function RulesDrawer() {
   const rulesDrawerIsOpen = useGameStore((state) => state.rulesDrawerIsOpen);
-  const closeRulesDrawerInState = useGameStore(
-    (state) => state.closeRulesDrawer
+  const handleRulesDrawerClosed = useGameStore(
+    (state) => state.handleRulesDrawerClosed
   );
 
   return (
-    <Drawer open={rulesDrawerIsOpen} onClose={closeRulesDrawerInState}>
+    <Drawer open={rulesDrawerIsOpen} onClose={handleRulesDrawerClosed}>
       <DrawerContent>
         <div className='hide-scrollbar overflow-auto'>
           <DrawerHeader>

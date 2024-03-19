@@ -8,6 +8,7 @@ export interface IGameStore {
   diceAreRolling: boolean;
   scorecardAccordionIsOpen: boolean;
   rulesDrawerIsOpen: boolean;
+  authDrawerIsOpen: boolean;
   rollButtonText: string;
   dice: IDie[];
   scorecard: IScorecard;
@@ -18,12 +19,17 @@ export interface IGameStore {
   handleScorecardRowClicked: (indexOfClickedRow: number) => void;
   handleInfoIconClicked: () => void;
   handleShowRulesButtonClicked: () => void;
+  handleRulesDrawerClosed: () => void;
+  handleSignInButtonClicked: () => void;
+  handleAuthDrawerClosed: () => void;
 
   triggerDiceAnimation: () => Promise<void>;
   openScorecardAccordion: () => Promise<void>;
   closeScorecardAccordion: () => Promise<void>;
   openRulesDrawer: () => void;
   closeRulesDrawer: () => void;
+  openAuthDrawer: () => void;
+  closeAuthDrawer: () => void;
   updateScorecardForDiceRoll: () => void;
   updateScorecardForScorecardRowSelection: (indexOfClickedRow: number) => void;
   resetScorecard: () => void;
@@ -41,6 +47,7 @@ export interface IGameStore {
   setDiceAreRolling: (bool: boolean) => void;
   setScorecardAccordionIsOpen: (bool: boolean) => void;
   setRulesDrawerIsOpen: (bool: boolean) => void;
+  setAuthDrawerIsOpen: (bool: boolean) => void;
   setRollButtonText: (newText: string) => void;
   setDice: (newDice: IDie[]) => void;
   setScorecard: (newScorecard: IScorecard) => void;
@@ -53,6 +60,9 @@ export interface IGameState {
   selectDie(store: IGameStore, indexOfClickedDie: number): void;
   selectScorecardRow(store: IGameStore, indexOfClickedRow: number): void;
   openRulesDrawer(store: IGameStore): void;
+  closeRulesDrawer(store: IGameStore): void;
+  openAuthDrawer(store: IGameStore): void;
+  closeAuthDrawer(store: IGameStore): void;
 }
 
 export interface ICommand {
