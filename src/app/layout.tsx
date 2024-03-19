@@ -25,8 +25,8 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${inter.className} h-screen`}>
-        <div className='flex flex-col h-screen'>
+      <body className={`${inter.className}`}>
+        <div className='flex flex-col h-full'>
           <Header />
           {children}
           <Toaster />
