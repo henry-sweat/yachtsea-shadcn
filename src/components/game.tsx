@@ -37,7 +37,9 @@ export default function Game() {
 
     const handleResize = () => {
       checkOrientation();
-      window.location.reload();
+      if (session) {
+        window.location.reload();
+      }
     };
     checkOrientation();
     window.addEventListener('resize', handleResize);
