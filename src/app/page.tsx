@@ -12,7 +12,7 @@ export default async function Home() {
       image: session.user.image,
     };
   }
-
+  await new Promise((resolve) => setTimeout(resolve, 5000));
   return (
     <SessionProvider session={session}>
       <main
