@@ -38,13 +38,9 @@ export default function Game() {
     const handleResize = () => {
       checkOrientation();
     };
-    const handleFocus = () => {
-      window.location.reload();
-    };
 
     checkOrientation();
     window.addEventListener('resize', handleResize);
-    window.addEventListener('focus', handleFocus);
 
     return () => window.removeEventListener('resize', checkOrientation);
   }, [session, updateUser, handleShowRulesButtonClicked]);

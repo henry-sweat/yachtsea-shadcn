@@ -8,8 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { SignOut } from './auth-components';
-import { SignIn } from './signin-button';
+import { SignIn, SignOut } from './auth-components';
 import Link from 'next/link';
 
 export default async function UserButton() {

@@ -24,12 +24,6 @@ export class InitialGameState implements IGameState {
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
   }
-  openAuthDrawer(store: IGameStore) {
-    store.openAuthDrawer();
-  }
-  closeAuthDrawer(store: IGameStore) {
-    store.closeAuthDrawer();
-  }
 }
 
 class AwaitingSecondRollOrScoreSelectionState implements IGameState {
@@ -61,12 +55,6 @@ class AwaitingSecondRollOrScoreSelectionState implements IGameState {
   }
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
-  }
-  openAuthDrawer(store: IGameStore) {
-    store.openAuthDrawer();
-  }
-  closeAuthDrawer(store: IGameStore) {
-    store.closeAuthDrawer();
   }
 }
 
@@ -101,12 +89,6 @@ class AwaitingThirdRollOrScoreSelectionState implements IGameState {
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
   }
-  openAuthDrawer(store: IGameStore) {
-    store.openAuthDrawer();
-  }
-  closeAuthDrawer(store: IGameStore) {
-    store.closeAuthDrawer();
-  }
 }
 
 class AwaitingScoreSelectionState implements IGameState {
@@ -133,12 +115,6 @@ class AwaitingScoreSelectionState implements IGameState {
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
   }
-  openAuthDrawer(store: IGameStore) {
-    store.openAuthDrawer();
-  }
-  closeAuthDrawer(store: IGameStore) {
-    store.closeAuthDrawer();
-  }
 }
 
 class RoundIsOverState implements IGameState {
@@ -161,12 +137,6 @@ class RoundIsOverState implements IGameState {
   }
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
-  }
-  openAuthDrawer(store: IGameStore) {
-    store.openAuthDrawer();
-  }
-  closeAuthDrawer(store: IGameStore) {
-    store.closeAuthDrawer();
   }
 }
 
@@ -195,12 +165,6 @@ class GameIsOverState implements IGameState {
   }
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
-  }
-  openAuthDrawer(store: IGameStore) {
-    store.openAuthDrawer();
-  }
-  closeAuthDrawer(store: IGameStore) {
-    store.closeAuthDrawer();
   }
 }
 
@@ -245,21 +209,5 @@ export class CloseRulesDrawerCommand implements ICommand {
 
   execute() {
     this.store.currentGameState.closeRulesDrawer(this.store);
-  }
-}
-
-export class OpenAuthDrawerCommand implements ICommand {
-  constructor(private store: IGameStore) {}
-
-  execute() {
-    this.store.currentGameState.openAuthDrawer(this.store);
-  }
-}
-
-export class CloseAuthDrawerCommand implements ICommand {
-  constructor(private store: IGameStore) {}
-
-  execute() {
-    this.store.currentGameState.closeAuthDrawer(this.store);
   }
 }

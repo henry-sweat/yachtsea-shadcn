@@ -5,8 +5,6 @@ import {
   SelectScorecardRowCommand,
   OpenRulesDrawerCommand,
   CloseRulesDrawerCommand,
-  OpenAuthDrawerCommand,
-  CloseAuthDrawerCommand,
   InitialGameState,
 } from './commands';
 import { startGame, endGame } from '@/db/actions';
@@ -65,14 +63,6 @@ const useGameStore = create<IGameStore>((set, get) => ({
     const command = new CloseRulesDrawerCommand(get());
     command.execute();
   },
-  handleSignInButtonClicked: () => {
-    const command = new OpenAuthDrawerCommand(get());
-    command.execute();
-  },
-  handleAuthDrawerClosed: () => {
-    const command = new CloseAuthDrawerCommand(get());
-    command.execute();
-  },
   // Helpers
   triggerDiceAnimation: () => {
     const { dice, setDice, setDiceAreRolling } = get();
@@ -116,12 +106,6 @@ const useGameStore = create<IGameStore>((set, get) => ({
   },
   closeRulesDrawer: () => {
     get().setRulesDrawerIsOpen(false);
-  },
-  openAuthDrawer: () => {
-    get().setAuthDrawerIsOpen(true);
-  },
-  closeAuthDrawer: () => {
-    get().setAuthDrawerIsOpen(false);
   },
   updateScorecardForDiceRoll: () => {
     const { dice, scorecard, setScorecard } = get();
@@ -210,7 +194,6 @@ const useGameStore = create<IGameStore>((set, get) => ({
   setScorecardAccordionIsOpen: (bool) =>
     set({ scorecardAccordionIsOpen: bool }),
   setRulesDrawerIsOpen: (bool) => set({ rulesDrawerIsOpen: bool }),
-  setAuthDrawerIsOpen: (bool) => set({ authDrawerIsOpen: bool }),
   setDiceAreRolling: (bool) => set({ diceAreRolling: bool }),
 }));
 
