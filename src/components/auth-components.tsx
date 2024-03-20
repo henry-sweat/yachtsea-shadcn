@@ -1,4 +1,4 @@
-import { signIn, signOut } from 'auth';
+import { signInServerAction, signOutServerAction } from '@/server/actions';
 import { Button } from './ui/button';
 
 export function SignIn({
@@ -6,12 +6,7 @@ export function SignIn({
   ...props
 }: { provider?: string } & React.ComponentPropsWithRef<typeof Button>) {
   return (
-    <form
-      action={async () => {
-        'use server';
-        await signIn('google');
-      }}
-    >
+    <form action={signInServerAction}>
       <Button
         variant={'outline'}
         className='bg-secondary'
@@ -51,13 +46,7 @@ export function SignIn({
 
 export function SignOut(props: React.ComponentPropsWithRef<typeof Button>) {
   return (
-    <form
-      action={async () => {
-        'use server';
-        await signOut();
-      }}
-      className='w-full'
-    >
+    <form action={signOutServerAction} className='w-full'>
       <Button
         variant='secondary'
         size={'default'}
