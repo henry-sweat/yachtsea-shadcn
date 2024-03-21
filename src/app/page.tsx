@@ -68,12 +68,12 @@ export default async function Home() {
                     </Avatar> */}
                     <GoogleIcon />
                     <div className='flex flex-col justify-center'>
-                      <p>{session.user.name}</p>
+                      <p>{session?.user?.name}</p>
                     </div>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className='w-36' align='end' forceMount>
-                  <DropdownMenuLabel className='font-normal'>
+                  {/* <DropdownMenuLabel className='font-normal'>
                     <div className='flex flex-col space-y-1'>
                       <p className='text-sm font-medium leading-none'>
                         {session.user.name}
@@ -82,7 +82,7 @@ export default async function Home() {
                         {session.user.email}
                       </p>
                     </div>
-                  </DropdownMenuLabel>
+                  </DropdownMenuLabel> */}
                   <DropdownMenuItem>
                     <Link href={'/'}>Home</Link>
                   </DropdownMenuItem>
