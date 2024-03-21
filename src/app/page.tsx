@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { auth } from 'auth';
 import { signInServerAction } from '@/server/actions';
 import { SessionProvider } from 'next-auth/react';
-import { sign } from 'crypto';
 import StaticDie from '@/components/dice/static-die';
 import GoogleIcon from '@/components/google-icon';
 
@@ -20,7 +19,7 @@ export default async function Home() {
   return (
     <SessionProvider session={session}>
       <main className='h-dvh flex justify-center items-center'>
-        <div className='flex flex-col justify-center items-center space-y-8 mb-8'>
+        <div className='flex flex-col justify-center items-center space-y-8 mb-16'>
           <div className='flex flex-col items-center space-y-3'>
             <StaticDie />
             <div className='flex flex-col items-center'>
