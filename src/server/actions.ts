@@ -3,7 +3,7 @@
 import { signIn, signOut } from 'auth';
 
 export async function signInServerAction() {
-  await signIn('google');
+  await signIn('google', { redirectTo: '/play' });
 }
 
 export async function signOutServerAction() {

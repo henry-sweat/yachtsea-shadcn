@@ -30,22 +30,6 @@ export default async function UserButton() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-36' align='end' forceMount>
-        {/* <DropdownMenuLabel className='font-normal'>
-          <div className='flex flex-col space-y-1'>
-            <p className='text-sm font-medium leading-none'>
-              {session.user.name}
-            </p>
-            <p className='text-xs leading-none text-muted-foreground'>
-              {session.user.email}
-            </p>
-          </div>
-        </DropdownMenuLabel> */}
-        <DropdownMenuItem>
-          <Link href={'/'}>Home</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href={'/stats'}>Stats</Link>
-        </DropdownMenuItem>
         <DropdownMenuItem>
           <SignOut />
         </DropdownMenuItem>

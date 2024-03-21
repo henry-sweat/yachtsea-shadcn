@@ -7,7 +7,7 @@ export default function Header() {
       <div className='flex items-center justify-between mx-auto w-full max-w-lg bg-white'>
         <nav className='flex space-x-4'>
           <Link href={'/'} className={`hover:underline`}>
-            <h1 className='text-lg font-mono text-primary'>Yachtsea</h1>
+            <h1 className='text-xl font-mono text-primary'>Yachtsea</h1>
           </Link>
         </nav>
 

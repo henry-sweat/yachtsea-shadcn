@@ -5,15 +5,7 @@ import { signInServerAction } from '@/server/actions';
 import { SessionProvider } from 'next-auth/react';
 import StaticDie from '@/components/dice/static-die';
 import GoogleIcon from '@/components/google-icon';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { SignOut } from '@/components/auth-components';
+import UserButton from '@/components/user-button';
 
 export default async function Home() {
   const session = await auth();
@@ -28,7 +20,13 @@ export default async function Home() {
   return (
     <SessionProvider session={session}>
       <main className='h-dvh flex justify-center items-center'>
-        <div className='flex flex-col justify-center items-center space-y-8 mb-16'>
+        {session ? (
+          <div className='absolute top-6 right-6 flex items-center space-x-4'>
+            <UserButton />
+          </div>
+        ) : undefined}
+
+        <div className='flex flex-col justify-center items-center space-y-8 mb-12'>
           <div className='flex flex-col items-center space-y-3'>
             <StaticDie />
             <div className='flex flex-col items-center'>
@@ -48,52 +46,15 @@ export default async function Home() {
               </Button>
             </Link>
             {session ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    className='w-full border'
-                    size={'xl'}
-                    variant={'secondary'}
-                  >
-                    {/* <Avatar className='w-8 h-8'>
-                      {session.user.image && (
-                        <AvatarImage
-                          src={session.user.image}
-                          alt={session.user.name ?? ''}
-                        />
-                      )}
-                      <AvatarFallback style={{ backgroundColor: 'white' }}>
-                        {session.user.email[0]}
-                      </AvatarFallback>
-                    </Avatar> */}
-                    <GoogleIcon />
-                    <div className='flex flex-col justify-center'>
-                      <p>{session?.user?.name}</p>
-                    </div>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className='w-36' align='end' forceMount>
-                  {/* <DropdownMenuLabel className='font-normal'>
-                    <div className='flex flex-col space-y-1'>
-                      <p className='text-sm font-medium leading-none'>
-                        {session.user.name}
-                      </p>
-                      <p className='text-xs leading-none text-muted-foreground'>
-                        {session.user.email}
-                      </p>
-                    </div>
-                  </DropdownMenuLabel> */}
-                  <DropdownMenuItem>
-                    <Link href={'/'}>Home</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href={'/stats'}>Stats</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <SignOut />
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Link href={'/stats'} className='w-full'>
+                <Button
+                  className='w-full border'
+                  size={'xl'}
+                  variant={'secondary'}
+                >
+                  Stats
+                </Button>
+              </Link>
             ) : (
               <form action={signInServerAction}>
                 <Button
