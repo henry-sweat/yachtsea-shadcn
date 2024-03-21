@@ -5,7 +5,7 @@ export default function GoogleIcon() {
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 48 48'
       xmlnsXlink='http://www.w3.org/1999/xlink'
-      className='block h-4 w-4 min-w-4 mr-2'
+      className='block h-4 w-4 min-w-4'
     >
       <path
         fill='#EA4335'
