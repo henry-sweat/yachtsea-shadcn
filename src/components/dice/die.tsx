@@ -78,7 +78,7 @@ export default function Die({ diceStateIndex }: IDieProps) {
   );
 }
 
-function DotContainer({ children }: IDotContainerProps) {
+export function DotContainer({ children }: IDotContainerProps) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -91,6 +91,6 @@ function DotContainer({ children }: IDotContainerProps) {
   );
 }
 
-function Dot({ x, y }: IDotProps) {
+export function Dot({ x, y }: IDotProps) {
   return <circle r='5' cx={x} cy={y} className='fill-primary' />;
 }
