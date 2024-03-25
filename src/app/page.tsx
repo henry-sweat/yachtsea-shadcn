@@ -5,7 +5,8 @@ import { signInServerAction } from '@/server/actions';
 import { SessionProvider } from 'next-auth/react';
 import StaticDie from '@/components/dice/static-die';
 import GoogleIcon from '@/components/google-icon';
-import UserButton from '@/components/user-button';
+import LoggedInAsToaster from '@/components/logged-in-as-toaster';
+import SettingsButton from '@/components/settings-button';
 
 export default async function Home() {
   const session = await auth();
@@ -21,8 +22,8 @@ export default async function Home() {
     <SessionProvider session={session}>
       <main className='h-dvh flex justify-center items-center'>
         {session ? (
-          <div className='absolute top-6 right-6 flex items-center space-x-4'>
-            <UserButton />
+          <div className='absolute top-5 left-5'>
+            <SettingsButton />
           </div>
         ) : undefined}
 
@@ -69,6 +70,7 @@ export default async function Home() {
             )}
           </div>
         </div>
+        <LoggedInAsToaster />
       </main>
     </SessionProvider>
   );
