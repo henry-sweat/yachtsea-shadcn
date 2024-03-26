@@ -10,7 +10,7 @@ export function SignIn({
       <Button
         variant={'outline'}
         className='bg-secondary'
-        size={'signIn'}
+        size={'sm'}
         {...props}
       >
         <svg
