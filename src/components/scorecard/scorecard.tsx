@@ -11,6 +11,7 @@ import DiceContainer from '@/components/dice/dice-container';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { motion } from 'framer-motion';
 import useGameStore from '@/state';
+import UserButtonClientSide from '../user-button-client-side';
 
 export default function Scorecard() {
   const scorecardAccordionIsOpen = useGameStore(
@@ -34,10 +35,11 @@ export default function Scorecard() {
       >
         <AccordionItem className='h-full flex flex-col' value='scorecard'>
           <AccordionContent>
-            <div className='flex flex-col space-y-1 items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
-              <div className='flex justify-around space-x-12 font-bold'>
+            <div className='rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
+              <div className='flex flex-row justify-between items-center font-bold'>
                 <RollCounter />
                 <RoundCounter />
+                <UserButtonClientSide />
               </div>
             </div>
           </AccordionContent>
