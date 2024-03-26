@@ -12,7 +12,7 @@ export default async function SettingsButton() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <GearIcon />
+        <GearIcon className='w-6 h-6' />
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-36' align='end' forceMount>
         <DropdownMenuItem>
