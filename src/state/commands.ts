@@ -4,6 +4,7 @@ import { ICommand, IGameState, IGameStore } from '@/types';
 export class InitialGameState implements IGameState {
   async rollDice(store: IGameStore) {
     store.startGameInDatabase();
+    store.toggleRollButtonPulse();
     store.setRollCounter(1);
     store.setRoundCounter(1);
     await store.triggerDiceAnimation();
@@ -42,6 +43,7 @@ class AwaitingSecondRollOrScoreSelectionState implements IGameState {
     store.selectAllDice();
     if (store.roundCounter === 13) {
       store.endGameInDatabase();
+      store.toggleRollButtonPulse();
       store.setRollButtonText('New Game');
       store.setCurrentGameState(new GameIsOverState());
     } else {
@@ -75,6 +77,7 @@ class AwaitingThirdRollOrScoreSelectionState implements IGameState {
     store.selectAllDice();
     if (store.roundCounter === 13) {
       store.endGameInDatabase();
+      store.toggleRollButtonPulse();
       store.setRollButtonText('New Game');
       store.setCurrentGameState(new GameIsOverState());
     } else {
@@ -101,6 +104,7 @@ class AwaitingScoreSelectionState implements IGameState {
     store.updateTotals();
     if (store.roundCounter === 13) {
       store.endGameInDatabase();
+      store.toggleRollButtonPulse();
       store.setRollButtonText('New Game');
       store.setCurrentGameState(new GameIsOverState());
     } else {

@@ -45,7 +45,7 @@ export default function UserButton() {
 
         <DropdownMenuSeparator />
 
-        <Link href={'/'}>
+        <Link href={'/home'}>
           <DropdownMenuItem>Home</DropdownMenuItem>
         </Link>
         <StatsOrPlayLink />

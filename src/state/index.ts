@@ -33,6 +33,7 @@ const useGameStore = create<IGameStore>((set, get) => ({
   rollCounter: 0,
   roundCounter: 0,
   rollButtonText: 'Roll',
+  rollButtonPulse: true,
   scorecardAccordionIsOpen: false,
   rulesDrawerIsOpen: false,
   authDrawerIsOpen: false,
@@ -180,6 +181,10 @@ const useGameStore = create<IGameStore>((set, get) => ({
       return;
     }
   },
+  toggleRollButtonPulse: () => {
+    const { rollButtonPulse, setRollButtonPulse } = get();
+    setRollButtonPulse(!rollButtonPulse);
+  },
 
   // Setters
   setUser: (newUser) => set({ user: newUser }),
@@ -191,6 +196,7 @@ const useGameStore = create<IGameStore>((set, get) => ({
   setRollCounter: (nextRoll) => set({ rollCounter: nextRoll }),
   setRoundCounter: (nextRound) => set({ roundCounter: nextRound }),
   setRollButtonText: (newText) => set({ rollButtonText: newText }),
+  setRollButtonPulse: (bool) => set({ rollButtonPulse: bool }),
   setScorecardAccordionIsOpen: (bool) =>
     set({ scorecardAccordionIsOpen: bool }),
   setRulesDrawerIsOpen: (bool) => set({ rulesDrawerIsOpen: bool }),

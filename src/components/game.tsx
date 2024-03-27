@@ -35,7 +35,6 @@ export default function Game() {
     updateUser(session);
 
     if (currentGameState instanceof InitialGameState) {
-      console.log('current game state is initial');
       setTimeout(openScorecardAccordion, 600);
     }
 

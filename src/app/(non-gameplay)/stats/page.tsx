@@ -42,7 +42,7 @@ function renderStatsPage({
   averageScore,
 }: IStatsProps) {
   return (
-    <main className='flex flex-col scroll-my-12 overflow-auto px-6 py-16 md:mb-12 md:px-16 md:py-4'>
+    <main className='flex flex-col scroll-my-12 overflow-auto px-6 py-16'>
       <div>{`High Score: ${highScore}`}</div>
       <div>{`Average Score: ${averageScore}`}</div>
       <div>{`Total Games Started: ${totalGamesStarted}`}</div>
