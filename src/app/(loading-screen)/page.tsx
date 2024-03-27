@@ -16,7 +16,7 @@ export default function LoadingScreen() {
 
     const rerouteToHomeTimer = setTimeout(() => {
       router.push('/home');
-    }, 1000);
+    }, 1500);
 
     return () => {
       clearTimeout(fadeoutLoadingScreenTimer);
