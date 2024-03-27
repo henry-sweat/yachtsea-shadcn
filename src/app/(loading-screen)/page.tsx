@@ -12,11 +12,11 @@ export default function LoadingScreen() {
 
     const fadeoutLoadingScreenTimer = setTimeout(() => {
       loadingScreen?.classList.add('fade-out');
-    }, 500);
+    }, 250);
 
     const rerouteToHomeTimer = setTimeout(() => {
       router.push('/home');
-    }, 1500);
+    }, 1250);
 
     return () => {
       clearTimeout(fadeoutLoadingScreenTimer);

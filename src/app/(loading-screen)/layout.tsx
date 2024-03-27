@@ -11,7 +11,7 @@ export default async function LoadingScreenLayout({
         id='loading-screen'
         className='h-full flex flex-col justify-center items-center space-y-8 mb-12'
       >
-        <div className='fade-in flex flex-col items-center space-y-3'>
+        <div className='flex flex-col items-center space-y-3'>
           <StaticDie />
           <div className='flex flex-col items-center'>
             <h1 className='text-4xl font-mono font-bold text-primary tracking-tight'>
