@@ -4,10 +4,8 @@ import { ICommand, IGameState, IGameStore } from '@/types';
 export class InitialGameState implements IGameState {
   async rollDice(store: IGameStore) {
     store.startGameInDatabase();
-    store.setRollButtonText('Roll');
     store.setRollCounter(1);
     store.setRoundCounter(1);
-    await store.openScorecardAccordion();
     await store.triggerDiceAnimation();
     store.updateScorecardForDiceRoll();
     store.setCurrentGameState(new AwaitingSecondRollOrScoreSelectionState());

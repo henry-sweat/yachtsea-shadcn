@@ -32,7 +32,7 @@ const useGameStore = create<IGameStore>((set, get) => ({
   totals: generateInitialTotalsState(),
   rollCounter: 0,
   roundCounter: 0,
-  rollButtonText: 'New Game',
+  rollButtonText: 'Roll',
   scorecardAccordionIsOpen: false,
   rulesDrawerIsOpen: false,
   authDrawerIsOpen: false,

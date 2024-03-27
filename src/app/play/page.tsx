@@ -2,7 +2,7 @@ import Game from '@/components/game';
 import { auth } from 'auth';
 import { SessionProvider } from 'next-auth/react';
 
-export default async function Home() {
+export default async function Play() {
   const session = await auth();
   if (session?.user) {
     session.user = {
@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <SessionProvider session={session}>
       <main
-        className={`h-dvh overflow-auto flex-1 flex flex-col-reverse items-center w-full mx-auto scroll-my-12 pt-4 pb-8`}
+        className={`h-dvh overflow-auto flex flex-col-reverse items-center w-full mx-auto scroll-my-12 pt-4 pb-8`}
       >
         <Game />
       </main>

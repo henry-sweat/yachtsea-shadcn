@@ -13,6 +13,7 @@ import GoogleIcon from './google-icon';
 import StatsOrPlayLink from './stats-or-play-link';
 import { signInServerAction, signOutServerAction } from '@/server/actions';
 import { auth } from 'auth';
+import HomeLink from './home-link';
 
 export default async function UserButtonServerSide() {
   const session = await auth();
@@ -21,7 +22,7 @@ export default async function UserButtonServerSide() {
     <DropdownMenu>
       <DropdownMenuTrigger>
         {session ? (
-          <Avatar className='w-6 h-6'>
+          <Avatar className='w-8 h-8'>
             {session.user?.image && (
               <AvatarImage
                 src={session.user.image}
@@ -29,23 +30,21 @@ export default async function UserButtonServerSide() {
               />
             )}
             <AvatarFallback>
-              <AvatarIcon className='w-6 h-6' />
+              <AvatarIcon className='w-8 h-8' />
             </AvatarFallback>
           </Avatar>
         ) : (
-          <AvatarIcon className='w-6 h-6' />
+          <AvatarIcon className='w-8 h-8' />
         )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent sideOffset={24} align='end' alignOffset={-8}>
+      <DropdownMenuContent sideOffset={10} align='end' alignOffset={-8}>
         <DropdownMenuLabel>
           {session ? session.user?.email : 'My Account'}
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
 
-        <Link href={'/'}>
-          <DropdownMenuItem>Home</DropdownMenuItem>
-        </Link>
+        <HomeLink />
         <StatsOrPlayLink />
         <Link href={'/settings'}>
           <DropdownMenuItem>Settings</DropdownMenuItem>

@@ -25,7 +25,7 @@ export default function Scorecard() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15 }}
-      className='h-full flex flex-col-reverse overflow-auto pb-2'
+      className='h-full flex flex-col-reverse overflow-auto'
     >
       <Accordion
         className='h-full flex flex-col-reverse'

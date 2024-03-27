@@ -3,21 +3,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { DropdownMenuItem } from './ui/dropdown-menu';
 
-export default function StatsOrPlayLink() {
+export default function HomeLink() {
   const pathname = usePathname();
 
   if (pathname === '/home') {
     return undefined;
-  } else if (pathname === '/play') {
-    return (
-      <Link href={'/stats'}>
-        <DropdownMenuItem>Stats</DropdownMenuItem>
-      </Link>
-    );
   } else {
     return (
-      <Link href={'/play'}>
-        <DropdownMenuItem>Play</DropdownMenuItem>
+      <Link href={'/home'}>
+        <DropdownMenuItem>Home</DropdownMenuItem>
       </Link>
     );
   }

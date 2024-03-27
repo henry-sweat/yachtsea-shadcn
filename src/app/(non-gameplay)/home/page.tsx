@@ -3,9 +3,7 @@ import { Button } from '@/components/ui/button';
 import { auth } from 'auth';
 import { signInServerAction } from '@/server/actions';
 import { SessionProvider } from 'next-auth/react';
-import StaticDie from '@/components/dice/static-die';
 import GoogleIcon from '@/components/google-icon';
-import LoggedInAsToaster from '@/components/logged-in-as-toaster';
 import SettingsButton from '@/components/settings-button';
 
 export default async function Home() {
@@ -21,32 +19,14 @@ export default async function Home() {
   return (
     <SessionProvider session={session}>
       <main className='h-dvh flex justify-center items-center'>
-        {session ? (
-          <div className='absolute top-5 left-5'>
-            <SettingsButton />
-          </div>
-        ) : undefined}
-
         <div className='flex flex-col justify-center items-center space-y-8 mb-12'>
-          <div className='flex flex-col items-center space-y-3'>
-            <StaticDie />
-            <div className='flex flex-col items-center'>
-              <h1 className='text-4xl font-mono font-bold text-primary tracking-tight'>
-                Yachtsea
-              </h1>
-              <p className='text-2xl text-muted-foreground tracking-tight'>
-                Roll, Score, Repeat!
-              </p>
-            </div>
-          </div>
-
-          <div className='flex flex-col space-y-3 w-full'>
+          <div className='w-[1/2] flex flex-col space-y-3 w-full'>
             <Link href={'/play'} className='w-full'>
               <Button className='w-full' size={'xl'} variant={'default'}>
                 Play
               </Button>
             </Link>
-            {session ? (
+            {/* {session ? (
               <Link href={'/stats'} className='w-full'>
                 <Button
                   className='w-full border'
@@ -68,6 +48,9 @@ export default async function Home() {
                 </Button>
               </form>
             )}
+            <Button className='w-full border' size={'xl'} variant={'secondary'}>
+              <p>Rules</p>
+            </Button> */}
           </div>
         </div>
         {/* <LoggedInAsToaster /> */}
