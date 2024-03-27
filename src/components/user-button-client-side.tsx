@@ -38,7 +38,7 @@ export default function UserButton() {
           <AvatarIcon className='w-6 h-6' />
         )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent sideOffset={24} align='end' alignOffset={-8}>
+      <DropdownMenuContent sideOffset={17} align='end' alignOffset={-30}>
         <DropdownMenuLabel>
           {session ? session.user?.email : 'My Account'}
         </DropdownMenuLabel>
