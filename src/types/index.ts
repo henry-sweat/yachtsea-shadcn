@@ -9,6 +9,7 @@ export interface IGameStore {
   scorecardAccordionIsOpen: boolean;
   rulesDrawerIsOpen: boolean;
   rollButtonText: string;
+  rollButtonPulse: boolean;
   dice: IDie[];
   scorecard: IScorecard;
   totals: ITotals;
@@ -35,6 +36,7 @@ export interface IGameStore {
   updateUser: (session: Session | null) => void;
   startGameInDatabase: () => void;
   endGameInDatabase: () => void;
+  toggleRollButtonPulse: () => void;
 
   setCurrentGameState: (newGameState: IGameState) => void;
   setRollCounter: (nextRoll: number) => void;
@@ -43,6 +45,7 @@ export interface IGameStore {
   setScorecardAccordionIsOpen: (bool: boolean) => void;
   setRulesDrawerIsOpen: (bool: boolean) => void;
   setRollButtonText: (newText: string) => void;
+  setRollButtonPulse: (bool: boolean) => void;
   setDice: (newDice: IDie[]) => void;
   setScorecard: (newScorecard: IScorecard) => void;
   setTotals: (newTotals: ITotals) => void;

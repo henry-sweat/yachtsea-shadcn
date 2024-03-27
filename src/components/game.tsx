@@ -13,8 +13,13 @@ import {
 import { toast } from 'sonner';
 import RulesDrawer from './rules-drawer';
 import useGameStore from '@/state';
+import { InitialGameState } from '@/state/commands';
 
 export default function Game() {
+  const openScorecardAccordion = useGameStore(
+    (state) => state.openScorecardAccordion
+  );
+  const currentGameState = useGameStore((state) => state.currentGameState);
   const updateUser = useGameStore((state) => state.updateUser);
   const handleShowRulesButtonClicked = useGameStore(
     (state) => state.handleShowRulesButtonClicked
@@ -28,6 +33,10 @@ export default function Game() {
 
   useEffect(() => {
     updateUser(session);
+
+    if (currentGameState instanceof InitialGameState) {
+      setTimeout(openScorecardAccordion, 600);
+    }
 
     if (!session) {
       setTimeout(() => {
@@ -43,14 +52,20 @@ export default function Game() {
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', checkOrientation);
-  }, [session, updateUser, handleShowRulesButtonClicked]);
+  }, [
+    session,
+    updateUser,
+    handleShowRulesButtonClicked,
+    currentGameState,
+    openScorecardAccordion,
+  ]);
 
   return (
     <>
       {!isLandscape ? (
         <div
           id={'game'}
-          className='flex flex-col-reverse space-y-2 space-y-reverse w-full max-w-screen-sm overflow-auto'
+          className='flex flex-col-reverse space-y-4 space-y-reverse w-full max-w-screen-sm overflow-auto'
         >
           <RollButton />
 

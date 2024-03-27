@@ -9,6 +9,7 @@ export default function RollButton() {
     (state) => state.handleRollButtonClicked
   );
   const rollButtonText = useGameStore((state) => state.rollButtonText);
+  const rollButtonPulse = useGameStore((state) => state.rollButtonPulse);
 
   const clickHandler = () => {
     handleRollButtonClicked();
@@ -22,7 +23,7 @@ export default function RollButton() {
       className='w-full px-3'
     >
       <Button
-        className='w-full text-md'
+        className={`w-full text-md ${rollButtonPulse ? 'new-game-pulse' : ''}`}
         onClick={clickHandler}
         size={'lg'}
         variant='default'

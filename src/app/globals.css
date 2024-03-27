@@ -76,7 +76,7 @@
 }
 
 /* css for yachtsea bonus pulse animation */
-@keyframes background-pulse {
+@keyframes yachtsea-bonus-background-pulse {
   0%,
   100% {
     background-color: #f8fafc;
@@ -87,7 +87,23 @@
 }
 
 .bg-pulse {
-  animation: background-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: yachtsea-bonus-background-pulse 2s cubic-bezier(0.4, 0, 0.6, 1)
+    infinite;
+}
+
+/* css for roll button pulse animation */
+@keyframes new-game-background-pulse {
+  0%,
+  100% {
+    background-color: hsl(220.9, 39.3%, 11%);
+  }
+  50% {
+    background-color: hsl(222, 6%, 32%);
+  }
+}
+
+.new-game-pulse {
+  animation: new-game-background-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .die-selected {
@@ -104,4 +120,17 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   overflow-y: scroll; /* or overflow: auto; */
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 1s ease-in-out;
 }
