@@ -33,7 +33,10 @@ export default function Scorecard() {
         value={accordionValue}
         collapsible
       >
-        <AccordionItem className='h-full flex flex-col' value='scorecard'>
+        <AccordionItem
+          className='h-full flex flex-col justify-between'
+          value='scorecard'
+        >
           <AccordionContent>
             <div className='rounded-md border px-6 py-2 font-mono text-sm shadow-sm'>
               <div className='flex flex-row justify-between items-center font-bold'>
@@ -43,10 +46,9 @@ export default function Scorecard() {
               </div>
             </div>
           </AccordionContent>
-          <AccordionContent className='h-full overflow-hidden pb-0'>
-            <div className='h-full flex flex-col items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
+          <AccordionContent className='overflow-hidden pb-0'>
+            <div className='h-full flex flex-col justify-center items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
               <ScorecardTable />
-
               <Separator className='mb-2' />
               <GrandTotal />
             </div>
