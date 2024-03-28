@@ -41,11 +41,11 @@ export default function ScorecardTable() {
   }, []);
 
   return (
-    <div className='overflow-auto flex justify-between'>
+    <div className='overflow-auto flex justify-between w-full'>
       <Table ref={upperScorecardRef}>
         <TableHeader>
-          <TableRow>
-            <TableHead className='text-primary bg-white sticky top-0 w-[100px]'>
+          <TableRow className='text-[2vh] h-[4vh]'>
+            <TableHead className='text-primary bg-white sticky top-0 w-[3/4]'>
               Upper
             </TableHead>
             <TableHead className='text-primary bg-white sticky top-0 text-right'>
@@ -72,8 +72,8 @@ export default function ScorecardTable() {
       </Table>
       <Table ref={lowerScorecardRef}>
         <TableHeader>
-          <TableRow>
-            <TableHead className='text-primary bg-white sticky top-0 w-[100px]'>
+          <TableRow className='text-[2vh] h-[4vh]'>
+            <TableHead className='text-primary bg-white sticky top-0 w-[3/4]'>
               Lower
             </TableHead>
             <TableHead className='text-primary bg-white sticky top-0 text-right'>

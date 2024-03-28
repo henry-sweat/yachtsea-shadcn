@@ -47,7 +47,7 @@ export default function Scorecard() {
             </div>
           </AccordionContent>
           <AccordionContent className='overflow-hidden pb-0'>
-            <div className='h-full flex flex-col justify-center items-center rounded-md border px-4 py-2 font-mono text-sm shadow-sm'>
+            <div className='h-full flex flex-col justify-center items-center rounded-md border p-[1vh] font-mono text-sm shadow-sm'>
               <ScorecardTable />
               <Separator className='mb-2' />
               <GrandTotal />
@@ -64,12 +64,12 @@ export default function Scorecard() {
 
 function RollCounter() {
   const rollCounter = useGameStore((state) => state.rollCounter);
-  return <h3>Roll {rollCounter} /3</h3>;
+  return <h3 className='text-[2vh]'>Roll {rollCounter} /3</h3>;
 }
 
 function RoundCounter() {
   const roundCounter = useGameStore((state) => state.roundCounter);
-  return <h3>Round {roundCounter} /13</h3>;
+  return <h3 className='text-[2vh]'>Round {roundCounter} /13</h3>;
 }
 
 function GrandTotal() {
@@ -83,12 +83,16 @@ function GrandTotal() {
   };
 
   return (
-    <div className='flex justify-center items-center w-full py-1'>
+    <div className='text-[2vh] flex justify-center items-center w-full py-1'>
       <p className='text-center text-muted-foreground'>
-        Your total score is <strong>{totals.grandTotal}</strong> points.{' '}
+        Total score: <strong>{totals.grandTotal}</strong> points{' '}
       </p>
-      <div className='pl-1'>
-        <InfoCircledIcon color='hsl(220 8.9% 46.1%)' onClick={clickHandler} />
+      <div className='pl-3'>
+        <InfoCircledIcon
+          className='w-[2vh] h-[2vh]'
+          color='hsl(220 8.9% 46.1%)'
+          onClick={clickHandler}
+        />
       </div>
     </div>
   );

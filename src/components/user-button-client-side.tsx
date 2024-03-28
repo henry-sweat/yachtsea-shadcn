@@ -23,7 +23,7 @@ export default function UserButton() {
     <DropdownMenu>
       <DropdownMenuTrigger>
         {session ? (
-          <Avatar className='w-6 h-6'>
+          <Avatar className='w-[3vh] h-[3vh]'>
             {session.user?.image && (
               <AvatarImage
                 src={session.user.image}
@@ -31,11 +31,11 @@ export default function UserButton() {
               />
             )}
             <AvatarFallback>
-              <AvatarIcon className='w-6 h-6' />
+              <AvatarIcon className='w-[3vh] h-[3vh]' />
             </AvatarFallback>
           </Avatar>
         ) : (
-          <AvatarIcon className='w-6 h-6' />
+          <AvatarIcon className='w-[3vh] h-[3vh]' />
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent sideOffset={17} align='end' alignOffset={-30}>

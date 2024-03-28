@@ -31,7 +31,7 @@ export function ScoreRow({
     isYachtsea ? (
       <TableRow
         id={`score-row-${11}`}
-        className={`score-row bg-muted/70`}
+        className={`score-row bg-muted/70 text-[2vh] h-[5vh]`}
         key={`scorecard-row-key-${11}`}
       >
         <TableCell className='py-2 pl-2 font-medium font-bold'>
@@ -44,7 +44,7 @@ export function ScoreRow({
     ) : (
       <TableRow
         id={`score-row-${scorecardStateIndex}`}
-        className={`score-row bg-muted/70`}
+        className={`score-row bg-muted/70 text-[2vh] h-[5vh]`}
         key={`scorecard-row-key-${scorecardStateIndex}`}
       >
         <TableCell className='py-2 pl-2 font-medium font-bold'>
@@ -58,7 +58,7 @@ export function ScoreRow({
   ) : (
     <TableRow
       id={`score-row-${scorecardStateIndex}`}
-      className={`score-row ${
+      className={`score-row text-[2vh] h-[5vh] ${
         scorecard.yachtseaBonus.yachtseaBonusOptions[scorecardStateIndex]
           ? 'bg-pulse'
           : ''
@@ -85,7 +85,7 @@ export function TotalRow({ category, totalsStateProperty }: ITotalRowProps) {
   return (
     <TableRow
       id={`total-row-${totalsStateProperty}`}
-      className={`total-row ${
+      className={`total-row text-[2vh] h-[5vh] ${
         category !== 'Bonus' ? 'sticky bottom-0 bg-white' : ''
       }`}
       key={`total-row-key-${totalsStateProperty}`}
