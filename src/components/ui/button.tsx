@@ -24,7 +24,7 @@ const buttonVariants = cva(
         default: 'h-9 px-4 py-2',
         sm: 'h-8 rounded-md px-3 text-xs',
         signIn: 'h-9 rounded-md px-3',
-        roll: 'h-[7vh] rounded-md px-8 text-[3vh]',
+        roll: 'h-[8vh] rounded-md px-8 text-[3vh]',
         lg: 'h-10 rounded-md px-8',
         xl: 'h-12 rounded-full px-8 text-lg',
         icon: 'h-9 w-9',
