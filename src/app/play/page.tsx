@@ -15,7 +15,7 @@ export default async function Play() {
   return (
     <SessionProvider session={session}>
       <main
-        className={`h-dvh overflow-auto flex flex-col-reverse items-center w-full mx-auto scroll-my-12 pt-4 pb-8`}
+        className={`h-dvh overflow-auto flex flex-col-reverse items-center w-full mx-auto scroll-my-12 pt-4 pb-12`}
       >
         <Game />
       </main>

@@ -65,7 +65,7 @@ export default function Game() {
       {!isLandscape ? (
         <div
           id={'game'}
-          className='flex flex-col-reverse space-y-4 space-y-reverse w-full max-w-screen-sm overflow-auto'
+          className='h-full flex flex-col-reverse space-y-4 space-y-reverse w-full max-w-screen-sm overflow-auto'
         >
           <RollButton />
 
