@@ -145,6 +145,7 @@ class RoundIsOverState implements IGameState {
 class GameIsOverState implements IGameState {
   async rollDice(store: IGameStore) {
     store.setRollButtonText('Roll');
+    store.toggleRollButtonPulse();
     store.setRollCounter(1);
     store.setRoundCounter(1);
     await store.closeScorecardAccordion();
