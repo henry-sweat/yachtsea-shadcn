@@ -54,7 +54,7 @@ export const shakeAnimation: Variants = {
     transition: { duration: 0.4, delay: 0.15 },
   },
   isSelected: {
-    y: -15,
+    y: '-4vh',
     transition: { duration: 0.3, ease: 'easeInOut' },
   },
 };
