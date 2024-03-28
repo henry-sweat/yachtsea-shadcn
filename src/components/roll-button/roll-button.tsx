@@ -23,7 +23,7 @@ export default function RollButton() {
       className='w-full px-3'
     >
       <Button
-        className={`w-full ${rollButtonPulse ? 'new-game-pulse' : ''}`}
+        className={`w-full ${rollButtonPulse ? 'animate-pulse' : ''}`}
         onClick={clickHandler}
         size={'roll'}
         variant='default'

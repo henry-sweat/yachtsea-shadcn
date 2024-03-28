@@ -29,7 +29,7 @@ export default function DiceContainer() {
           id={dice[diceStateIndex].id}
           className={`die-container ${
             dice[diceStateIndex].isSelected ? `die-selected` : ''
-          } aspect-square w-full rounded-md bg-primary-foreground border border-input transition-colors shadow-sm`}
+          } aspect-square w-full rounded-md bg-gray-200 border border-gray-300 transition-colors shadow-sm`}
           value={diceStateIndex.toString()}
           key={`key-${diceStateIndex}`}
           onClick={clickHandler}
