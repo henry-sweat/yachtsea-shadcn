@@ -23,7 +23,7 @@ export default function DiceContainer() {
   };
 
   return (
-    <div className='grid grid-cols-5 gap-2 w-full overflow-hidden py-4 px-3'>
+    <div className='grid grid-cols-5 gap-2 w-full overflow-hidden pt-8 pb-4 px-3'>
       {diceStateIndices.map((diceStateIndex) => (
         <motion.button
           id={dice[diceStateIndex].id}
@@ -34,7 +34,9 @@ export default function DiceContainer() {
           key={`key-${diceStateIndex}`}
           onClick={clickHandler}
           animate={
-            diceAreRolling && !dice[diceStateIndex].isSelected
+            dice[diceStateIndex].isSelected
+              ? 'isSelected'
+              : diceAreRolling
               ? `shake${diceStateIndex + 1}`
               : 'default'
           }
