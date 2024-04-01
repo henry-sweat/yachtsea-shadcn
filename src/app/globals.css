@@ -119,3 +119,18 @@
 .fade-out {
   animation: fadeOut 1s ease-in-out forwards;
 }
+
+/* fixes mobile viewport bug with Drawer component */
+html {
+  height: -webkit-fill-available;
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+body,
+main {
+  min-height: -webkit-fill-available;
+}

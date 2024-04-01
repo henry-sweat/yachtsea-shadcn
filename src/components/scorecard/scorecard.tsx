@@ -11,7 +11,7 @@ import DiceContainer from '@/components/dice/dice-container';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { motion } from 'framer-motion';
 import useGameStore from '@/state';
-import UserButtonClientSide from '../user-button-client-side';
+import UserButtonClientSide from '../user-buttons/user-button-client-side';
 
 export default function Scorecard() {
   const scorecardAccordionIsOpen = useGameStore(

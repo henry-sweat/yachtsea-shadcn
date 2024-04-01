@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,11 +8,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from '../ui/dropdown-menu';
 import Link from 'next/link';
 import { AvatarIcon } from '@radix-ui/react-icons';
-import GoogleIcon from './google-icon';
-import StatsOrPlayLink from './stats-or-play-link';
+import GoogleIcon from '../google-icon';
 import { signInServerAction, signOutServerAction } from '@/server/actions';
 import { useSession } from 'next-auth/react';
 
@@ -45,37 +44,42 @@ export default function UserButton() {
 
         <DropdownMenuSeparator />
 
-        <Link href={'/home'}>
+        <Link href={'/'}>
           <DropdownMenuItem>Home</DropdownMenuItem>
         </Link>
-        <StatsOrPlayLink />
         <Link href={'/settings'}>
           <DropdownMenuItem>Settings</DropdownMenuItem>
         </Link>
 
         <DropdownMenuSeparator />
 
-        {session ? (
-          <DropdownMenuItem>
-            <form action={signOutServerAction} className='w-full'>
-              <button className='flex justify-between items-center w-full'>
-                <p>Sign out</p>
-              </button>
-            </form>
-          </DropdownMenuItem>
-        ) : (
-          <DropdownMenuItem className='bg-secondary'>
-            <form action={signInServerAction} className='w-full'>
-              <button className='flex justify-between items-center w-full'>
-                <GoogleIcon />
-                <div className='flex justify-center w-full'>
-                  <p className='font-semibold'>Sign in</p>
-                </div>
-              </button>
-            </form>
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem className={`${session ? '' : 'bg-secondary'}`}>
+          {session ? <SignOutButton /> : <SignInButton />}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+}
+
+function SignInButton() {
+  return (
+    <form action={signInServerAction} className='w-full'>
+      <button className='flex justify-between items-center w-full'>
+        <GoogleIcon />
+        <div className='flex justify-center w-full'>
+          <p className='font-semibold'>Sign in</p>
+        </div>
+      </button>
+    </form>
+  );
+}
+
+function SignOutButton() {
+  return (
+    <form action={signOutServerAction} className='w-full'>
+      <button className='flex justify-between items-center w-full'>
+        <p>Sign out</p>
+      </button>
+    </form>
   );
 }
