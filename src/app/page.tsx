@@ -1,5 +1,4 @@
-// import { auth } from 'auth';
-// import { SessionProvider } from 'next-auth/react';
+import { auth } from 'auth';
 import Link from 'next/link';
 import { signInServerAction } from '@/server/actions';
 import { Button } from '@/components/ui/button';
@@ -7,17 +6,16 @@ import GoogleIcon from '@/components/google-icon';
 import RulesButton from '@/components/rules-button';
 
 export default async function LoadingScreen() {
-  // const session = await auth();
-  // if (session?.user) {
-  //   session.user = {
-  //     name: session.user.name,
-  //     email: session.user.email,
-  //     image: session.user.image,
-  //   };
-  // }
+  const session = await auth();
+  if (session?.user) {
+    session.user = {
+      name: session.user.name,
+      email: session.user.email,
+      image: session.user.image,
+    };
+  }
 
   return (
-    // <SessionProvider session={session}>
     <main className='flex-1 flex flex-col justify-center items-center space-y-12 pb-32'>
       <div className='flex flex-col items-center'>
         <h1 className='text-5xl font-mono font-bold text-primary tracking-tight'>
@@ -39,10 +37,9 @@ export default async function LoadingScreen() {
           </Button>
         </Link>
         <RulesButton />
-        {/* {session ? undefined : <SignInWithGoogleButton />} */}
+        {session ? undefined : <SignInWithGoogleButton />}
       </div>
     </main>
-    // </SessionProvider>
   );
 }
 
