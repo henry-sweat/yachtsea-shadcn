@@ -124,9 +124,11 @@ class RoundIsOverState implements IGameState {
     store.setRollCounter(1);
     store.setRoundCounter(store.roundCounter + 1);
     store.unselectAllDice();
-    await store.triggerDiceAnimation();
-    store.updateScorecardForDiceRoll();
-    store.setCurrentGameState(new AwaitingSecondRollOrScoreSelectionState());
+    setTimeout(async () => {
+      await store.triggerDiceAnimation();
+      store.updateScorecardForDiceRoll();
+      store.setCurrentGameState(new AwaitingSecondRollOrScoreSelectionState());
+    }, 350);
   }
   selectDie() {
     console.log('cant select dice in current state');
