@@ -34,10 +34,10 @@ export default function Scorecard() {
         collapsible
       >
         <AccordionItem
-          className='h-full flex flex-col justify-between'
+          className='h-full flex flex-col justify-between space-y-1'
           value='scorecard'
         >
-          <AccordionContent>
+          <AccordionContent className='pb-1'>
             <div className='rounded-md border px-6 py-2 font-mono text-sm shadow-sm'>
               <div className='flex flex-row justify-between items-center font-bold'>
                 <RollCounter />
@@ -53,7 +53,7 @@ export default function Scorecard() {
               <GrandTotal />
             </div>
           </AccordionContent>
-          <AccordionContent className='pb-0 px-0'>
+          <AccordionContent className='pb-2 px-0'>
             <DiceContainer />
           </AccordionContent>
         </AccordionItem>

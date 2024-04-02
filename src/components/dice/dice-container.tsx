@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { shakeAnimation } from '@/lib/motion';
 import useGameStore from '@/state';
 import Die from './die';
+import { Switch } from '../ui/switch';
+import { LockClosedIcon, LockOpen1Icon } from '@radix-ui/react-icons';
 
 const diceStateIndices = [0, 1, 2, 3, 4];
 
@@ -23,47 +25,56 @@ export default function DiceContainer() {
   };
 
   return (
-    <div className='grid grid-cols-5 gap-2 w-full overflow-hidden pt-9 pb-4 px-3'>
+    <div className='grid grid-cols-5 gap-2 w-full overflow-hidden px-3 pt-2'>
       {diceStateIndices.map((diceStateIndex) => (
-        <motion.button
-          id={dice[diceStateIndex].id}
-          className={`die-container ${
-            dice[diceStateIndex].isSelected ? `die-selected` : ''
-          } aspect-square w-full rounded-md bg-gray-200 border border-gray-300 transition-colors shadow-sm`}
-          value={diceStateIndex.toString()}
+        <Switch
+          checked={dice[diceStateIndex].isSelected}
+          className={`z-0`}
           key={`key-${diceStateIndex}`}
-          onClick={clickHandler}
-          animate={
-            dice[diceStateIndex].isSelected
-              ? 'isSelected'
-              : diceAreRolling
-              ? `shake${diceStateIndex + 1}`
-              : 'default'
-          }
-          variants={shakeAnimation}
-          whileHover={{
-            scale: 1.08,
-            rotate: 5 * (0.5 - Math.random()),
-            zIndex: 60,
-            transition: {
-              type: 'spring',
-              stiffness: 1000,
-              damping: 26,
-              mass: 3,
-            },
-          }}
-          whileTap={{
-            scale: 0.95,
-            transition: {
-              type: 'spring',
-              stiffness: 900,
-              damping: 40,
-              mass: 3,
-            },
-          }}
         >
-          <Die diceStateIndex={diceStateIndex} />
-        </motion.button>
+          <motion.button
+            id={dice[diceStateIndex].id}
+            className={`die-container ${
+              dice[diceStateIndex].isSelected ? `bg-input border-secondary` : ''
+            } aspect-square z-20 w-full rounded-md bg-secondary border border-gray-300 transition-colors shadow-sm`}
+            value={'1'}
+            onClick={clickHandler}
+            initial={{ y: 0 }}
+            animate={
+              dice[diceStateIndex].isSelected
+                ? 'isSelected'
+                : diceAreRolling
+                ? `shake${diceStateIndex + 1}`
+                : 'default'
+            }
+            variants={shakeAnimation}
+            whileHover={{
+              scale: 1.08,
+              rotate: 5 * (0.5 - Math.random()),
+              zIndex: 60,
+              transition: {
+                type: 'spring',
+                stiffness: 1000,
+                damping: 26,
+                mass: 3,
+              },
+            }}
+            whileTap={{
+              scale: 0.95,
+              transition: {
+                type: 'spring',
+                stiffness: 900,
+                damping: 40,
+                mass: 3,
+              },
+            }}
+          >
+            <Die diceStateIndex={diceStateIndex} />
+          </motion.button>
+
+          <LockClosedIcon className='absolute h-5 w-5 text-white pointer-events-none top-1' />
+          <LockOpen1Icon className='absolute h-5 w-5 text-primary pointer-events-none bottom-1' />
+        </Switch>
       ))}
     </div>
   );

@@ -58,6 +58,9 @@ const config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      aspectRatio: {
+        '7/10': '7 / 10',
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },

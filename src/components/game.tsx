@@ -38,11 +38,11 @@ export default function Game() {
       setTimeout(openScorecardAccordion, 600);
     }
 
-    if (!session) {
-      setTimeout(() => {
-        invokeShowRulesToast(handleShowRulesButtonClicked);
-      }, 1000);
-    }
+    // if (!session) {
+    //   setTimeout(() => {
+    //     invokeShowRulesToast(handleShowRulesButtonClicked);
+    //   }, 1000);
+    // }
 
     const handleResize = () => {
       checkOrientation();

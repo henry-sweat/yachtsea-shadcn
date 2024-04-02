@@ -91,11 +91,6 @@
     infinite;
 }
 
-.die-selected {
-  background-color: rgb(209 213 219);
-  border-color: rgb(156 163 175);
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;

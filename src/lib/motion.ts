@@ -51,10 +51,10 @@ export const shakeAnimation: Variants = {
   default: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, delay: 0.15 },
+    transition: { duration: 0.4 },
   },
   isSelected: {
-    y: '-4vh',
+    y: '45%',
     transition: { duration: 0.3, ease: 'easeInOut' },
   },
 };
