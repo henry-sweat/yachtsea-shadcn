@@ -53,8 +53,4 @@ export const shakeAnimation: Variants = {
     y: 0,
     transition: { duration: 0.4 },
   },
-  isSelected: {
-    y: '43%',
-    transition: { duration: 0.3, ease: 'easeInOut' },
-  },
 };

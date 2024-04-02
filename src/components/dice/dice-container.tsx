@@ -6,6 +6,8 @@ import useGameStore from '@/state';
 import Die from './die';
 import { Switch } from '../ui/switch';
 import { LockClosedIcon, LockOpen1Icon } from '@radix-ui/react-icons';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const diceStateIndices = [0, 1, 2, 3, 4];
 
@@ -23,6 +25,19 @@ export default function DiceContainer() {
     const indexOfClickedDie = Number(die?.id.slice(4)) - 1;
     handleDieClicked(indexOfClickedDie);
   };
+
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div className='grid grid-cols-5 gap-2 w-full overflow-hidden px-3 pt-2'>
@@ -42,7 +57,10 @@ export default function DiceContainer() {
             initial={{ y: 0 }}
             animate={
               dice[diceStateIndex].isSelected
-                ? 'isSelected'
+                ? {
+                    y: `calc(${((screenWidth - 56) / 5) * (3 / 7)}px)`,
+                    transition: { duration: 0.3, ease: 'easeInOut' },
+                  }
                 : diceAreRolling
                 ? `shake${diceStateIndex + 1}`
                 : 'default'
