@@ -149,6 +149,14 @@ const useGameStore = create<IGameStore>((set, get) => ({
     }));
     setDice(newDice);
   },
+  unselectAllDiceAsync: (): Promise<void> => {
+    get().unselectAllDice();
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 350);
+    });
+  },
   selectDie: (indexOfClickedDie) => {
     const { dice, setDice } = get();
     let newDice = [...dice];

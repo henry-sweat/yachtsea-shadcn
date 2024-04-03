@@ -32,6 +32,7 @@ export interface IGameStore {
   updateTotals: () => void;
   selectAllDice: () => void;
   unselectAllDice: () => void;
+  unselectAllDiceAsync: () => Promise<void>;
   selectDie: (indexOfClickedDie: number) => void;
   updateUser: (session: Session | null) => void;
   startGameInDatabase: () => void;
