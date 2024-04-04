@@ -187,6 +187,7 @@ class RoundIsOverState implements IGameState {
     store.startGameInDatabase();
     store.setRollCounter(1);
     store.setRoundCounter(1);
+    store.removeCommandFromHistory();
     await store.closeScorecardAccordion();
     store.unselectAllDice();
     store.resetScorecard();
