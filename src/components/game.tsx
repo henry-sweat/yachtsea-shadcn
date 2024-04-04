@@ -1,7 +1,6 @@
 'use client';
 
 import Scorecard from './scorecard/scorecard';
-import RollButton from './roll-button/roll-button';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import {
@@ -65,10 +64,8 @@ export default function Game() {
       {!isLandscape ? (
         <div
           id={'game'}
-          className='h-full flex flex-col-reverse space-y-4 space-y-reverse w-full max-w-screen-sm overflow-auto'
+          className='h-full flex flex-col-reverse w-full max-w-screen-sm overflow-auto'
         >
-          <RollButton />
-
           <Scorecard />
 
           <RulesDrawer />

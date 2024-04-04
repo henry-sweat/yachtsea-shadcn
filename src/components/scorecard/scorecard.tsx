@@ -10,9 +10,9 @@ import { Separator } from '@/components/ui/separator';
 import ScorecardTable from './scorecard-table';
 import DiceContainer from '@/components/dice/dice-container';
 import { InfoCircledIcon, PlusIcon, ResetIcon } from '@radix-ui/react-icons';
-import { motion } from 'framer-motion';
 import useGameStore from '@/state';
 import UserButtonClientSide from '../user-buttons/user-button-client-side';
+import RollButton from '../roll-button/roll-button';
 
 export default function Scorecard() {
   const scorecardAccordionIsOpen = useGameStore(
@@ -22,44 +22,40 @@ export default function Scorecard() {
   const accordionValue = scorecardAccordionIsOpen ? 'scorecard' : '';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.15 }}
-      className='h-full flex flex-col-reverse overflow-auto'
+    <Accordion
+      className='h-full flex flex-col-reverse'
+      type='single'
+      value={accordionValue}
+      collapsible
     >
-      <Accordion
-        className='h-full flex flex-col-reverse'
-        type='single'
-        value={accordionValue}
-        collapsible
+      <AccordionItem
+        className='h-full flex flex-col justify-between space-y-1'
+        value='scorecard'
       >
-        <AccordionItem
-          className='h-full flex flex-col justify-between space-y-1'
-          value='scorecard'
-        >
-          <AccordionContent className='pb-1'>
-            <div className='rounded-md border px-6 py-2 font-mono text-sm shadow-sm'>
-              <div className='flex flex-row justify-between items-center font-bold'>
-                <RollCounter />
-                <RoundCounter />
-                <UserButtonClientSide />
-              </div>
+        <AccordionContent className='pb-1'>
+          <div className='rounded-md border px-6 py-2 font-mono text-sm shadow-sm'>
+            <div className='flex flex-row justify-between items-center font-bold'>
+              <RollCounter />
+              <RoundCounter />
+              <UserButtonClientSide />
             </div>
-          </AccordionContent>
-          <AccordionContent className='overflow-hidden pb-0'>
-            <div className='h-full flex flex-col justify-center items-center rounded-md border p-[1vh] font-mono text-sm shadow-sm'>
-              <ScorecardTable />
-              <Separator className='mb-2' />
-              <GrandTotal />
-            </div>
-          </AccordionContent>
-          <AccordionContent className='pb-2 px-0'>
-            <DiceContainer />
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </motion.div>
+          </div>
+        </AccordionContent>
+        <AccordionContent className='overflow-hidden pb-0'>
+          <div className='h-full flex flex-col justify-center items-center rounded-md border p-[1vh] font-mono text-sm shadow-sm'>
+            <ScorecardTable />
+            <Separator className='mb-2' />
+            <GrandTotal />
+          </div>
+        </AccordionContent>
+        <AccordionContent className='pb-1 px-0'>
+          <DiceContainer />
+        </AccordionContent>
+        <AccordionContent className=''>
+          <RollButton />
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
 
