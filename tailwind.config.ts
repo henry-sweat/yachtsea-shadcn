@@ -59,7 +59,7 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       aspectRatio: {
-        '7/10': '7 / 10',
+        '2/3': '2 / 3',
       },
       keyframes: {
         'accordion-down': {

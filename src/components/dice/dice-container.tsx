@@ -58,7 +58,7 @@ export default function DiceContainer() {
             animate={
               dice[diceStateIndex].isSelected
                 ? {
-                    y: `calc(${((screenWidth - 56) / 5) * (3 / 7) - 2}px)`,
+                    y: `calc(${((screenWidth - 56) / 5) * (3 / 7) + 2}px)`,
                     transition: { duration: 0.3, ease: 'easeInOut' },
                   }
                 : diceAreRolling
