@@ -5,10 +5,11 @@ import {
   AccordionContent,
   AccordionItem,
 } from '@/components/ui/accordion';
+import { Button } from '../ui/button';
 import { Separator } from '@/components/ui/separator';
 import ScorecardTable from './scorecard-table';
 import DiceContainer from '@/components/dice/dice-container';
-import { InfoCircledIcon } from '@radix-ui/react-icons';
+import { InfoCircledIcon, PlusIcon, ResetIcon } from '@radix-ui/react-icons';
 import { motion } from 'framer-motion';
 import useGameStore from '@/state';
 import UserButtonClientSide from '../user-buttons/user-button-client-side';
@@ -74,26 +75,39 @@ function RoundCounter() {
 
 function GrandTotal() {
   const totals = useGameStore((state) => state.totals);
-  const handleInfoIconClicked = useGameStore(
-    (state) => state.handleInfoIconClicked
+  const handleInfoButtonClicked = useGameStore(
+    (state) => state.handleInfoButtonClicked
+  );
+  const handleUndoButtonClicked = useGameStore(
+    (state) => state.handleUndoButtonClicked
+  );
+  const handleRestartGameButtonClicked = useGameStore(
+    (state) => state.handleRestartGameButtonClicked
   );
 
-  const clickHandler = () => {
-    handleInfoIconClicked();
-  };
-
   return (
-    <div className='text-[2vh] flex justify-center items-center w-full py-1'>
-      <p className='text-center text-muted-foreground'>
-        Total score: <strong>{totals.grandTotal}</strong> points{' '}
-      </p>
-      <div className='pl-3'>
-        <InfoCircledIcon
-          className='w-[2vh] h-[2vh]'
-          color='hsl(220 8.9% 46.1%)'
-          onClick={clickHandler}
-        />
+    <div className='text-[2vh] flex justify-around items-center w-full py-1'>
+      <div className='flex space-x-2'>
+        <Button
+          variant='outline'
+          size='icon'
+          onClick={handleRestartGameButtonClicked}
+        >
+          <PlusIcon className='w-[2vh] h-[2vh]' color='hsl(220 8.9% 46.1%)' />
+        </Button>
+        <Button variant='outline' size='icon' onClick={handleUndoButtonClicked}>
+          <ResetIcon className='w-[2vh] h-[2vh]' color='hsl(220 8.9% 46.1%)' />
+        </Button>
+        <Button variant='outline' size='icon' onClick={handleInfoButtonClicked}>
+          <InfoCircledIcon
+            className='w-[2vh] h-[2vh]'
+            color='hsl(220 8.9% 46.1%)'
+          />
+        </Button>
       </div>
+      <p className='text-center text-muted-foreground pr-3'>
+        Total score: <strong>{totals.grandTotal}</strong>
+      </p>
     </div>
   );
 }

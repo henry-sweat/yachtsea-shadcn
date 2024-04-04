@@ -1,3 +1,4 @@
+import { Memento } from '@/state/commands';
 import type { Session, User } from 'next-auth';
 
 export interface IGameStore {
@@ -13,13 +14,16 @@ export interface IGameStore {
   dice: IDie[];
   scorecard: IScorecard;
   totals: ITotals;
+  mostRecentScorecardRowSelectionCommand: ICommand | null;
 
   handleRollButtonClicked: () => void;
   handleDieClicked: (indexOfClickedDie: number) => void;
   handleScorecardRowClicked: (indexOfClickedRow: number) => void;
-  handleInfoIconClicked: () => void;
+  handleInfoButtonClicked: () => void;
   handleShowRulesButtonClicked: () => void;
   handleRulesDrawerClosed: () => void;
+  handleUndoButtonClicked: () => void;
+  handleRestartGameButtonClicked: () => void;
 
   triggerDiceAnimation: () => Promise<void>;
   openScorecardAccordion: () => Promise<void>;
@@ -38,6 +42,10 @@ export interface IGameStore {
   startGameInDatabase: () => void;
   endGameInDatabase: () => void;
   toggleRollButtonPulse: () => void;
+  createSnapshot: () => Memento;
+  addCommandToHistory: (command: ICommand) => void;
+  removeCommandFromHistory: () => void;
+  restoreStateFromSnapshot: (snapshot: Memento) => void;
 
   setCurrentGameState: (newGameState: IGameState) => void;
   setRollCounter: (nextRoll: number) => void;
@@ -51,6 +59,7 @@ export interface IGameStore {
   setScorecard: (newScorecard: IScorecard) => void;
   setTotals: (newTotals: ITotals) => void;
   setUser: (newUser: User | null) => void;
+  setMostRecentScorecardRowSelectionCommand: (command: ICommand | null) => void;
 }
 
 export interface IGameState {
@@ -59,10 +68,12 @@ export interface IGameState {
   selectScorecardRow(store: IGameStore, indexOfClickedRow: number): void;
   openRulesDrawer(store: IGameStore): void;
   closeRulesDrawer(store: IGameStore): void;
+  restartGame(store: IGameStore): void;
 }
 
 export interface ICommand {
   execute(): void;
+  undo?(): void;
 }
 
 export interface IScorecard {
@@ -71,10 +82,9 @@ export interface IScorecard {
 }
 
 export interface IScorecardRow {
-  id: string;
+  id: RowID;
   earnedPoints: undefined | number;
   potentialPoints: undefined | number;
-  potentialPointsFunction: Function;
 }
 
 export interface IScorecardYachtseaBonus {
@@ -98,6 +108,8 @@ export interface ITotals {
 }
 
 export type IYachtseaBonusOptions = boolean[];
+
+export type RowID = `row-${number}`;
 
 export type PotentialPointsFn = (
   diceValues: IDie[],

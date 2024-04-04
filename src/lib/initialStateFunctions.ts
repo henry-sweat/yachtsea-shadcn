@@ -39,11 +39,10 @@ export function generateInitialTotalsState(): ITotals {
 function generateScorecardRowsState(
   scorecardDetails: any
 ): Array<IScorecardRow> {
-  return scorecardDetails.map((row: any) => ({
-    id: row.id,
+  return scorecardDetails.map((rowID: string) => ({
+    id: rowID,
     earnedPoints: undefined,
     potentialPoints: 0,
-    potentialPointsFunction: row.potentialPointsFunction,
   }));
 }
 

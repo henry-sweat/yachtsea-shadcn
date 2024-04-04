@@ -5,7 +5,9 @@ import {
   SelectScorecardRowCommand,
   OpenRulesDrawerCommand,
   CloseRulesDrawerCommand,
+  RestartGameCommand,
   InitialGameState,
+  Memento,
 } from './commands';
 import { startGame, endGame } from '@/db/actions';
 import {
@@ -15,6 +17,7 @@ import {
   generateInitialYachtseaBonusOptionState,
 } from '@/lib/initialStateFunctions';
 import { checkForYachtseaFn } from '@/lib/potentialPointsFunctions';
+import { potentialPointsFunctionsMapping } from '@/lib/constants';
 import {
   IDie,
   IGameStore,
@@ -36,8 +39,8 @@ const useGameStore = create<IGameStore>((set, get) => ({
   rollButtonPulse: true,
   scorecardAccordionIsOpen: false,
   rulesDrawerIsOpen: false,
-  authDrawerIsOpen: false,
   diceAreRolling: false,
+  mostRecentScorecardRowSelectionCommand: null,
 
   // Actions
   handleRollButtonClicked: () => {
@@ -52,7 +55,7 @@ const useGameStore = create<IGameStore>((set, get) => ({
     const command = new SelectScorecardRowCommand(get(), indexOfClickedRow);
     command.execute();
   },
-  handleInfoIconClicked: () => {
+  handleInfoButtonClicked: () => {
     const command = new OpenRulesDrawerCommand(get());
     command.execute();
   },
@@ -63,6 +66,18 @@ const useGameStore = create<IGameStore>((set, get) => ({
   handleRulesDrawerClosed: () => {
     const command = new CloseRulesDrawerCommand(get());
     command.execute();
+  },
+  handleRestartGameButtonClicked: () => {
+    const command = new RestartGameCommand(get());
+    command.execute();
+  },
+  handleUndoButtonClicked: () => {
+    const command = get().mostRecentScorecardRowSelectionCommand;
+    if (command?.undo) {
+      command.undo();
+    } else {
+      return;
+    }
   },
   // Helpers
   triggerDiceAnimation: () => {
@@ -193,6 +208,54 @@ const useGameStore = create<IGameStore>((set, get) => ({
     const { rollButtonPulse, setRollButtonPulse } = get();
     setRollButtonPulse(!rollButtonPulse);
   },
+  createSnapshot: () => {
+    const {
+      currentGameState,
+      dice,
+      scorecard,
+      totals,
+      mostRecentScorecardRowSelectionCommand,
+    } = get();
+    return new Memento({
+      currentGameState: currentGameState,
+      dice: dice,
+      scorecard: structuredClone(scorecard),
+      totals: totals,
+      mostRecentScorecardRowSelectionCommand:
+        mostRecentScorecardRowSelectionCommand,
+    });
+  },
+  restoreStateFromSnapshot: (snapshot) => {
+    const {
+      currentGameState,
+      dice,
+      scorecard,
+      totals,
+      mostRecentScorecardRowSelectionCommand,
+    } = snapshot.getState();
+    const {
+      setCurrentGameState,
+      setDice,
+      setScorecard,
+      setTotals,
+      setMostRecentScorecardRowSelectionCommand,
+    } = get();
+    setCurrentGameState(currentGameState);
+    setDice(dice);
+    setScorecard(scorecard);
+    setTotals(totals);
+    setMostRecentScorecardRowSelectionCommand(
+      mostRecentScorecardRowSelectionCommand
+    );
+  },
+  addCommandToHistory: (command) => {
+    const { setMostRecentScorecardRowSelectionCommand } = get();
+    setMostRecentScorecardRowSelectionCommand(command);
+  },
+  removeCommandFromHistory: () => {
+    const { setMostRecentScorecardRowSelectionCommand } = get();
+    setMostRecentScorecardRowSelectionCommand(null);
+  },
 
   // Setters
   setUser: (newUser) => set({ user: newUser }),
@@ -209,6 +272,8 @@ const useGameStore = create<IGameStore>((set, get) => ({
     set({ scorecardAccordionIsOpen: bool }),
   setRulesDrawerIsOpen: (bool) => set({ rulesDrawerIsOpen: bool }),
   setDiceAreRolling: (bool) => set({ diceAreRolling: bool }),
+  setMostRecentScorecardRowSelectionCommand: (command) =>
+    set({ mostRecentScorecardRowSelectionCommand: command }),
 }));
 
 export default useGameStore;
@@ -217,7 +282,6 @@ export default useGameStore;
 function updateScorecard(dice: IDie[], scorecard: IScorecard) {
   const newYachtseaBonusOptions: IYachtseaBonusOptions =
     updateYachtseaBonusOptions(dice, scorecard);
-
   return {
     rows: scorecard.rows.map((row, idx): IScorecardRow => {
       const earnedPoints = row?.earnedPoints ?? -1;
@@ -227,11 +291,10 @@ function updateScorecard(dice: IDie[], scorecard: IScorecard) {
         return {
           id: row.id,
           earnedPoints: row.earnedPoints,
-          potentialPoints: row.potentialPointsFunction(
+          potentialPoints: potentialPointsFunctionsMapping[row.id](
             dice,
             newYachtseaBonusOptions[idx]
           ),
-          potentialPointsFunction: row.potentialPointsFunction,
         };
       }
     }),

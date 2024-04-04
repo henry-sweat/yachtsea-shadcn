@@ -23,6 +23,9 @@ export class InitialGameState implements IGameState {
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
   }
+  restartGame() {
+    console.log('cant restart game in current state');
+  }
 }
 
 class AwaitingSecondRollOrScoreSelectionState implements IGameState {
@@ -55,6 +58,19 @@ class AwaitingSecondRollOrScoreSelectionState implements IGameState {
   }
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
+  }
+  async restartGame(store: IGameStore) {
+    store.startGameInDatabase();
+    store.setRollCounter(1);
+    store.setRoundCounter(1);
+    await store.closeScorecardAccordion();
+    store.unselectAllDice();
+    store.resetScorecard();
+    store.updateTotals();
+    await store.openScorecardAccordion();
+    await store.triggerDiceAnimation();
+    store.updateScorecardForDiceRoll();
+    store.setCurrentGameState(new AwaitingSecondRollOrScoreSelectionState());
   }
 }
 
@@ -90,6 +106,19 @@ class AwaitingThirdRollOrScoreSelectionState implements IGameState {
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
   }
+  async restartGame(store: IGameStore) {
+    store.startGameInDatabase();
+    store.setRollCounter(1);
+    store.setRoundCounter(1);
+    await store.closeScorecardAccordion();
+    store.unselectAllDice();
+    store.resetScorecard();
+    store.updateTotals();
+    await store.openScorecardAccordion();
+    await store.triggerDiceAnimation();
+    store.updateScorecardForDiceRoll();
+    store.setCurrentGameState(new AwaitingSecondRollOrScoreSelectionState());
+  }
 }
 
 class AwaitingScoreSelectionState implements IGameState {
@@ -117,12 +146,26 @@ class AwaitingScoreSelectionState implements IGameState {
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
   }
+  async restartGame(store: IGameStore) {
+    store.startGameInDatabase();
+    store.setRollCounter(1);
+    store.setRoundCounter(1);
+    await store.closeScorecardAccordion();
+    store.unselectAllDice();
+    store.resetScorecard();
+    store.updateTotals();
+    await store.openScorecardAccordion();
+    await store.triggerDiceAnimation();
+    store.updateScorecardForDiceRoll();
+    store.setCurrentGameState(new AwaitingSecondRollOrScoreSelectionState());
+  }
 }
 
 class RoundIsOverState implements IGameState {
   async rollDice(store: IGameStore) {
     store.setRollCounter(1);
     store.setRoundCounter(store.roundCounter + 1);
+    store.removeCommandFromHistory();
     await store.unselectAllDiceAsync();
     await store.triggerDiceAnimation();
     store.updateScorecardForDiceRoll();
@@ -140,10 +183,24 @@ class RoundIsOverState implements IGameState {
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
   }
+  async restartGame(store: IGameStore) {
+    store.startGameInDatabase();
+    store.setRollCounter(1);
+    store.setRoundCounter(1);
+    await store.closeScorecardAccordion();
+    store.unselectAllDice();
+    store.resetScorecard();
+    store.updateTotals();
+    await store.openScorecardAccordion();
+    await store.triggerDiceAnimation();
+    store.updateScorecardForDiceRoll();
+    store.setCurrentGameState(new AwaitingSecondRollOrScoreSelectionState());
+  }
 }
 
 class GameIsOverState implements IGameState {
   async rollDice(store: IGameStore) {
+    store.startGameInDatabase();
     store.setRollButtonText('Roll');
     store.toggleRollButtonPulse();
     store.setRollCounter(1);
@@ -169,6 +226,42 @@ class GameIsOverState implements IGameState {
   closeRulesDrawer(store: IGameStore) {
     store.closeRulesDrawer();
   }
+  async restartGame(store: IGameStore) {
+    store.startGameInDatabase();
+    store.setRollButtonText('Roll');
+    store.toggleRollButtonPulse();
+    store.setRollCounter(1);
+    store.setRoundCounter(1);
+    await store.closeScorecardAccordion();
+    store.unselectAllDice();
+    store.resetScorecard();
+    store.updateTotals();
+    await store.openScorecardAccordion();
+    await store.triggerDiceAnimation();
+    store.updateScorecardForDiceRoll();
+    store.setCurrentGameState(new AwaitingSecondRollOrScoreSelectionState());
+  }
+}
+
+// Memento
+export class Memento {
+  private undoableGameState;
+
+  constructor(undoableGameState: IUndoableGameState) {
+    this.undoableGameState = undoableGameState;
+  }
+
+  getState(): IUndoableGameState {
+    return this.undoableGameState;
+  }
+}
+
+interface IUndoableGameState {
+  currentGameState: IGameStore['currentGameState'];
+  dice: IGameStore['dice'];
+  scorecard: IGameStore['scorecard'];
+  totals: IGameStore['totals'];
+  mostRecentScorecardRowSelectionCommand: IGameStore['mostRecentScorecardRowSelectionCommand'];
 }
 
 // Commands
@@ -189,13 +282,24 @@ export class SelectDieCommand implements ICommand {
 }
 
 export class SelectScorecardRowCommand implements ICommand {
+  private snapshot?: Memento;
+
   constructor(private store: IGameStore, private indexOfClickedRow: number) {}
 
   execute() {
+    if (this.store.roundCounter < 13) {
+      this.snapshot = this.store.createSnapshot();
+      this.store.addCommandToHistory(this);
+    }
     this.store.currentGameState.selectScorecardRow(
       this.store,
       this.indexOfClickedRow
     );
+  }
+  undo() {
+    if (this.snapshot) {
+      this.store.restoreStateFromSnapshot(this.snapshot);
+    }
   }
 }
 
@@ -212,5 +316,13 @@ export class CloseRulesDrawerCommand implements ICommand {
 
   execute() {
     this.store.currentGameState.closeRulesDrawer(this.store);
+  }
+}
+
+export class RestartGameCommand implements ICommand {
+  constructor(private store: IGameStore) {}
+
+  execute() {
+    this.store.currentGameState.restartGame(this.store);
   }
 }

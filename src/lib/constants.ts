@@ -5,60 +5,43 @@ import {
   checkForStraight,
   sumOfDiceValues,
 } from '@/lib/potentialPointsFunctions';
+import { PotentialPointsFn, RowID } from '@/types';
 
-export const scorecardDetails = [
-  {
-    id: 'row-1',
-    potentialPointsFunction: addOnly(1),
-  },
-  {
-    id: 'row-2',
-    potentialPointsFunction: addOnly(2),
-  },
-  {
-    id: 'row-3',
-    potentialPointsFunction: addOnly(3),
-  },
-  {
-    id: 'row-4',
-    potentialPointsFunction: addOnly(4),
-  },
-  {
-    id: 'row-5',
-    potentialPointsFunction: addOnly(5),
-  },
-  {
-    id: 'row-6',
-    potentialPointsFunction: addOnly(6),
-  },
-  {
-    id: 'row-7',
-    potentialPointsFunction: checkForMatchingNumbers(3),
-  },
-  {
-    id: 'row-8',
-    potentialPointsFunction: checkForMatchingNumbers(4),
-  },
-  {
-    id: 'row-9',
-    potentialPointsFunction: checkForFullHouse(),
-  },
-  {
-    id: 'row-10',
-    potentialPointsFunction: checkForStraight(4),
-  },
-  {
-    id: 'row-11',
-    potentialPointsFunction: checkForStraight(5),
-  },
-  {
-    id: 'row-12',
-    potentialPointsFunction: checkForMatchingNumbers(5),
-  },
-  {
-    id: 'row-13',
-    potentialPointsFunction: sumOfDiceValues,
-  },
+export const scorecardDetails: RowID[] = [
+  'row-1',
+  'row-2',
+  'row-3',
+  'row-4',
+  'row-5',
+  'row-6',
+  'row-7',
+  'row-8',
+  'row-9',
+  'row-10',
+  'row-11',
+  'row-12',
+  'row-13',
 ];
+
+interface IPotentialPointsFunctionsMappingMapping {
+  [key: RowID]: PotentialPointsFn;
+}
+
+export const potentialPointsFunctionsMapping: IPotentialPointsFunctionsMappingMapping =
+  {
+    'row-1': addOnly(1),
+    'row-2': addOnly(2),
+    'row-3': addOnly(3),
+    'row-4': addOnly(4),
+    'row-5': addOnly(5),
+    'row-6': addOnly(6),
+    'row-7': checkForMatchingNumbers(3),
+    'row-8': checkForMatchingNumbers(4),
+    'row-9': checkForFullHouse(),
+    'row-10': checkForStraight(4),
+    'row-11': checkForStraight(5),
+    'row-12': checkForMatchingNumbers(5),
+    'row-13': sumOfDiceValues,
+  };
 
 export const yachtseaBonusSymbol = 'X';
