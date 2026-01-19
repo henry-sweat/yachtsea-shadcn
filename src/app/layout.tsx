@@ -39,14 +39,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://yachtsea.com'),
+  metadataBase: new URL('https://yachtsea.app'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://yachtsea.com',
+    url: 'https://yachtsea.app',
     title: 'Yachtsea - Free Online Yahtzee Game',
     description:
       'Play Yahtzee online free. No download needed. Works offline. Roll the dice and compete for high scores!',

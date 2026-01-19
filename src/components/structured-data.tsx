@@ -11,7 +11,7 @@ export default function StructuredData() {
     '@type': 'WebApplication',
     name: 'Yachtsea',
     alternateName: 'Yachtsea - Online Yahtzee Game',
-    url: 'https://yachtsea.com',
+    url: 'https://yachtsea.app',
     description:
       'Play Yahtzee online free. No download or installation required. Works offline as a PWA. Roll the dice, score points, and compete for high scores.',
     applicationCategory: 'GameApplication',
@@ -23,7 +23,7 @@ export default function StructuredData() {
     },
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     permissions: 'No special permissions required',
-    screenshot: 'https://yachtsea.com/icons/apple-icon-1024.png',
+    screenshot: 'https://yachtsea.app/icons/apple-icon-1024.png',
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.8',
@@ -34,18 +34,18 @@ export default function StructuredData() {
     author: {
       '@type': 'Organization',
       name: 'Yachtsea',
-      url: 'https://yachtsea.com',
+      url: 'https://yachtsea.app',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Yachtsea',
-      url: 'https://yachtsea.com',
+      url: 'https://yachtsea.app',
     },
     potentialAction: {
       '@type': 'PlayAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://yachtsea.com/play',
+        urlTemplate: 'https://yachtsea.app/play',
         actionPlatform: [
           'http://schema.org/DesktopWebPlatform',
           'http://schema.org/MobileWebPlatform',

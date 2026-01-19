@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://yachtsea.com/sitemap.xml
+Sitemap: https://yachtsea.app/sitemap.xml

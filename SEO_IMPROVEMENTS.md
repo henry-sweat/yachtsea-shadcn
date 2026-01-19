@@ -41,7 +41,7 @@ keywords: [
 - Viewport optimization for iPhone notches (`viewportFit: cover`)
 
 #### **Technical SEO**
-- `metadataBase` set to https://yachtsea.com
+- `metadataBase` set to https://yachtsea.app
 - Canonical URL defined
 - Format detection disabled (prevents iOS from auto-linking phone numbers)
 - `category: games` for app categorization
@@ -131,7 +131,7 @@ Added Schema.org structured data for rich search results:
 ```
 User-agent: *
 Allow: /
-Sitemap: https://yachtsea.com/sitemap.xml
+Sitemap: https://yachtsea.app/sitemap.xml
 ```
 **Impact**: Tells search engines to crawl everything, points to sitemap
 
@@ -291,7 +291,7 @@ When shared on Twitter/Facebook/LinkedIn:
 
 Before deploying to production:
 
-- [ ] Update `metadataBase` URL if different from yachtsea.com
+- [ ] Update `metadataBase` URL if different from yachtsea.app
 - [ ] Update Twitter handle in metadata (currently @yachtsea)
 - [ ] Verify all icon files exist in public/icons/
 - [ ] Test manifest.json validates at https://manifest-validator.appspot.com/
