@@ -19,8 +19,8 @@ export default async function LoadingScreen() {
   }
 
   return (
-    <main className='flex-1 flex flex-col justify-center items-center px-6 pb-20'>
-      <div className='w-full max-w-md flex flex-col items-center space-y-8'>
+    <main className='flex-1 flex flex-col justify-center items-center px-6 pb-32 pt-8'>
+      <div className='w-full max-w-md flex flex-col items-center space-y-6'>
         {/* Animated Hero Dice */}
         <HeroDiceAnimation />
 
