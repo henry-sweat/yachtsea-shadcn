@@ -21,7 +21,7 @@ export default function RulesButton() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className='w-full border' size={'xl'} variant={'secondary'}>
+        <Button className='w-full border' size='lg' variant='secondary'>
           Rules
         </Button>
       </DrawerTrigger>
