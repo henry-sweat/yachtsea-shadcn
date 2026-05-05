@@ -358,13 +358,13 @@ function updateYachtseaBonusOptionsForYachtsea(
     ...scorecard.yachtseaBonus.yachtseaBonusOptions,
   ];
 
-  if (!scorecard.rows[upperSectionIndex].earnedPoints) {
+  if (scorecard.rows[upperSectionIndex].earnedPoints === undefined) {
     newYachtseaBonusOptions[upperSectionIndex] = true;
   } else {
     let lowerSectionIsOpen = false;
     const lowerSectionIndexes = [6, 7, 8, 9, 10, 11, 12];
     lowerSectionIndexes.forEach((scorecardRowIndex) => {
-      if (!scorecard.rows[scorecardRowIndex].earnedPoints) {
+      if (scorecard.rows[scorecardRowIndex].earnedPoints === undefined) {
         newYachtseaBonusOptions[scorecardRowIndex] = true;
         if (!lowerSectionIsOpen) {
           lowerSectionIsOpen = true;
@@ -375,7 +375,7 @@ function updateYachtseaBonusOptionsForYachtsea(
     if (!lowerSectionIsOpen) {
       const upperSectionIndexes = [0, 1, 2, 3, 4, 5];
       upperSectionIndexes.forEach((scorecardRowIndex) => {
-        if (!scorecard.rows[scorecardRowIndex].earnedPoints) {
+        if (scorecard.rows[scorecardRowIndex].earnedPoints === undefined) {
           newYachtseaBonusOptions[scorecardRowIndex] = true;
         }
       });
@@ -386,9 +386,18 @@ function updateYachtseaBonusOptionsForYachtsea(
 }
 
 function updateYachtseaBonusOptions(dice: IDie[], scorecard: IScorecard) {
-  return checkYachtseaBonusConditions(dice, scorecard)
+  return checkJokerConditions(dice, scorecard)
     ? updateYachtseaBonusOptionsForYachtsea(dice, scorecard)
     : scorecard.yachtseaBonus.yachtseaBonusOptions;
+}
+
+// Joker rules apply whenever a Yachtsea is rolled and the Yachtsea row has
+// already been used (whether scored as 50 or zeroed out). Only the +100
+// bonus itself requires the Yachtsea row to have been scored as 50.
+function checkJokerConditions(dice: IDie[], scorecard: IScorecard) {
+  return (
+    checkForYachtseaFn(dice) && scorecard.rows[11].earnedPoints !== undefined
+  );
 }
 
 function checkYachtseaBonusConditions(dice: IDie[], scorecard: IScorecard) {
